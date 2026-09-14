@@ -98,7 +98,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 </div>
 <p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ.</p>
 </section>
-<div class="row"><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..."><select id="sort" class="half" style="max-width:160px"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option></select></div>
+<div class="row"><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..."><select id="sort" class="half" style="max-width:160px"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option></select></div>
 <nav class="filters" id="filters">
 <button data-f="all" class="on">Tất cả</button>
 <button data-f="video">🎬 Video</button>
@@ -160,8 +160,9 @@ ${p.mine&&p.regs&&p.regs.length?`<p class="hint">👥 Đã đăng ký: ${esc(p.r
 }
 function render(){
 const kw=($('q').value||'').toLowerCase().trim();
-const byDate=(a,b)=>b.id-a.id, byLike=(a,b)=>b.likes-a.likes;
-const list=posts.filter(p=>(filter==='all'||(filter==='mine'?p.mine:p.type===filter))&&(!kw||(p.title+' '+p.body+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw))).sort($('sort').value==='liked'?byLike:byDate);
+const byDate=(a,b)=>b.id-a.id, byLike=(a,b)=>b.likes-a.likes, byRegs=(a,b)=>((b.regs||[]).length)-((a.regs||[]).length);
+const mode=$('sort').value;
+const list=posts.filter(p=>(filter==='all'||(filter==='mine'?p.mine:p.type===filter))&&(!kw||(p.title+' '+p.body+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw))).sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
 $('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
 }
 $('q').oninput=render; $('sort').onchange=render;
