@@ -112,7 +112,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <div id="toast"></div>
 <script>
 const LS='learn-online-posts-v1', VOTED='learn-online-voted-v1', ME='learn-online-me-v1';
-let cur='video', filter='all';
+let cur='video', filter='all', editId=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function load(){try{return JSON.parse(localStorage.getItem(LS))}catch(e){return null}}
@@ -154,7 +154,7 @@ ${media(p)}${p.type==='poll'?pollHtml(p):''}
 <button class="btn like ${p.liked?'liked':''}" onclick="like(${p.id})">❤ ${p.likes}</button>
 <button class="btn" onclick="reg(${p.id})">📝 Đăng ký (${(p.regs||[]).length})</button>
 <button class="btn like" onclick="share(${p.id})">↗</button>
-${p.mine?`<button class="btn like" onclick="del(${p.id})">🗑</button>`:''}
+${p.mine?`<button class="btn like" onclick="edit(${p.id})">✏️</button><button class="btn like" onclick="del(${p.id})">🗑</button>`:''}
 ${p.mine&&p.regs&&p.regs.length?`<p class="hint">👥 Đã đăng ký: ${esc(p.regs.join(', '))}</p>`:''}
 </div>${cmtHtml(p)}</article>`;
 }
@@ -172,6 +172,15 @@ window.reg=id=>{const p=posts.find(x=>x.id===id);const n=($('f-name').value||'')
 window.share=id=>{const p=posts.find(x=>x.id===id);const t=`${p.title} — ${p.name} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!'))}else{toast(t)}};
 window.cmt=id=>{const inp=$('c-'+id),t=(inp.value||'').trim();if(!t)return toast('Nhập bình luận đã');const n=($('f-name').value||'').trim()||'Khách';const p=posts.find(x=>x.id===id);p.cmts=p.cmts||[];p.cmts.push({n,t});save(posts);render();toast('Đã gửi bình luận!')};
 window.del=id=>{if(!confirm('Xóa bài này?'))return;posts=posts.filter(x=>x.id!==id);save(posts);render();toast('Đã xóa bài')};
+window.edit=id=>{const p=posts.find(x=>x.id===id);if(!p)return;editId=id;$('f-name').value=p.name;$('f-skill').value=p.skill||'';$('f-price').value=p.price||'';$('f-contact').value=p.contact||'';
+cur=p.type;document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.toggle('on',x.dataset.t===cur));
+['video','image','text','poll'].forEach(t=>$('pane-'+t).hidden=t!==cur);
+if(p.type==='video'){$('f-vtitle').value=p.title;$('f-vdesc').value=p.body||'';$('f-vurl').value=p.media||''}
+if(p.type==='image'){$('f-ititle').value=p.title;$('f-idesc').value=p.body||'';$('f-iurl').value=p.media||''}
+if(p.type==='text'){$('f-ttitle').value=p.title;$('f-tbody').value=p.body||''}
+if(p.type==='poll'){$('f-q').value=p.title;$('poll-opts').innerHTML=p.options.map(o=>`<input value="${esc(o.t)}" style="margin-bottom:8px">`).join('')}
+$('publish').textContent='Lưu thay đổi';window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi')};
+function resetForm(){editId=null;$('publish').textContent='Đăng bài';['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price','f-contact'].forEach(k=>$(k).value='');try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" style="margin-bottom:8px">'};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.remove('on'));
 b.classList.add('on');cur=b.dataset.t;
@@ -192,9 +201,12 @@ if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập 
 if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
 if(cur==='text'){const t=$('f-ttitle').value.trim(),b=$('f-tbody').value.trim();if(!t||!b)return toast('Nhập tiêu đề + nội dung');p={...base,type:'text',title:t,body:b}}
 if(cur==='poll'){const q=$('f-q').value.trim();const opts=[...$('poll-opts').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);if(!q||opts.length<2)return toast('Cần câu hỏi + ít nhất 2 lựa chọn');p={...base,type:'poll',title:q,options:opts.map(t=>({t,v:0}))}}
+if(editId){const old=posts.find(x=>x.id===editId);if(p.type==='poll'&&old.type==='poll'){const vm={};old.options.forEach(o=>vm[o.t]=o.v);p.options.forEach(o=>o.v=vm[o.t]||0)}
+Object.assign(old,{name,skill,price,contact,type:p.type,title:p.title,body:p.body||'',media:p.media||'',options:p.options||old.options});save(posts);try{localStorage.setItem(ME,name)}catch(e){}resetForm();
+filter='all';document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
+render();toast('Đã lưu thay đổi!');return}
 posts.push(p);save(posts);try{localStorage.setItem(ME,name)}catch(e){}
-['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price','f-contact'].forEach(k=>$(k).value='');
-$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" style="margin-bottom:8px">';
+resetForm();
 filter='all';document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
 render();toast('Đăng bài thành công!');
 };
