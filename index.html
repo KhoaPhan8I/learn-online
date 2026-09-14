@@ -119,9 +119,9 @@ function load(){try{return JSON.parse(localStorage.getItem(LS))}catch(e){return 
 function save(p){localStorage.setItem(LS,JSON.stringify(p))}
 function voted(){try{return JSON.parse(localStorage.getItem(VOTED))||{}}catch(e){return{}}}
 function seed(){return[
-{id:1,type:'video',name:'Anh Tuấn',skill:'Guitar',price:'150k/buổi',title:'Guitar đệm hát cơ bản — buổi 1 miễn phí',body:'Đệm được 10 bài tủ sau 4 buổi. Tối 2-4-6 rảnh, học online qua call.',media:'https://www.w3schools.com/html/mov_bbb.mp4',likes:24,ts:Date.now()-36e5},
-{id:2,type:'image',name:'Chị Lan',skill:'Excel',price:'',title:'Excel cho dân văn phòng: 5 hàm xử lý 80% việc',body:'VLOOKUP, XLOOKUP, SUMIFS, IF lồng, PivotTable. Kèm file thực hành, học 1-1 hoặc nhóm 3.',media:'https://picsum.photos/seed/excel/640/360',likes:41,ts:Date.now()-72e5},
-{id:3,type:'text',name:'Minh',skill:'Tiếng Anh',price:'99k/buổi',title:'Tiếng Anh giao tiếp cho người mất gốc',body:'Mình từng mất gốc, tự học lên 7.0 IELTS speaking. Chia sẻ đúng lộ trình mình đã đi, không lý thuyết suông. Nhắn mình để học thử free 15 phút.',likes:12,ts:Date.now()-108e5},
+{id:1,type:'video',name:'Anh Tuấn',skill:'Guitar',price:'150k/buổi',title:'Guitar đệm hát cơ bản — buổi 1 miễn phí',body:'Đệm được 10 bài tủ sau 4 buổi. Tối 2-4-6 rảnh, học online qua call.',media:'https://www.w3schools.com/html/mov_bbb.mp4',regs:['Hương','Nam'],likes:24,ts:Date.now()-36e5},
+{id:2,type:'image',name:'Chị Lan',skill:'Excel',price:'',title:'Excel cho dân văn phòng: 5 hàm xử lý 80% việc',body:'VLOOKUP, XLOOKUP, SUMIFS, IF lồng, PivotTable. Kèm file thực hành, học 1-1 hoặc nhóm 3.',media:'https://picsum.photos/seed/excel/640/360',regs:['Bình','Hương','Tú','Nam','Lan'],likes:41,ts:Date.now()-72e5},
+{id:3,type:'text',name:'Minh',skill:'Tiếng Anh',price:'99k/buổi',title:'Tiếng Anh giao tiếp cho người mất gốc',body:'Mình từng mất gốc, tự học lên 7.0 IELTS speaking. Chia sẻ đúng lộ trình mình đã đi, không lý thuyết suông. Nhắn mình để học thử free 15 phút.',regs:['Tú'],likes:12,ts:Date.now()-108e5},
 {id:4,type:'poll',name:'Learn Online',skill:'Cộng đồng',price:'',title:'Bạn muốn học kỹ năng nào tiếp theo?',options:[{t:'Nấu ăn',v:18},{t:'Guitar',v:25},{t:'Excel',v:14},{t:'Tiếng Anh',v:31}],likes:8,ts:Date.now()-144e5}
 ]}
 let posts=load()||seed(); save(posts);
@@ -152,7 +152,7 @@ ${p.body?`<p class="post-body">${esc(p.body)}</p>`:''}
 ${media(p)}${p.type==='poll'?pollHtml(p):''}
 <div class="actions">
 <button class="btn like ${p.liked?'liked':''}" onclick="like(${p.id})">❤ ${p.likes}</button>
-<button class="btn" onclick="contact(${p.id})">Đăng ký học</button>
+<button class="btn" onclick="reg(${p.id})">📝 Đăng ký (${(p.regs||[]).length})</button>
 <button class="btn like" onclick="share(${p.id})">↗</button>
 ${p.mine?`<button class="btn like" onclick="del(${p.id})">🗑</button>`:''}
 </div>${cmtHtml(p)}</article>`;
@@ -166,7 +166,7 @@ $('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Khôn
 $('q').oninput=render; $('sort').onchange=render;
 window.like=id=>{const p=posts.find(x=>x.id===id);p.liked=!p.liked;p.likes+=p.liked?1:-1;save(posts);render()};
 window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=voted();v[id]=1;localStorage.setItem(VOTED,JSON.stringify(v));save(posts);render();toast('Đã ghi nhận vote!')};
-window.contact=id=>{const p=posts.find(x=>x.id===id);toast(p.contact?`Liên hệ ${p.name}: ${p.contact}`:`${p.name} chưa để lại liên hệ — hãy like + chờ phản hồi`)};
+window.reg=id=>{const p=posts.find(x=>x.id===id);const n=($('f-name').value||'').trim()||'Khách';p.regs=p.regs||[];if(p.regs.includes(n))return toast('Bạn đã đăng ký lớp này rồi');p.regs.push(n);save(posts);render();toast(p.contact?`Đã đăng ký! Liên hệ ${p.name}: ${p.contact}`:'Đã đăng ký! Chờ người dạy liên hệ lại')};
 window.share=id=>{const p=posts.find(x=>x.id===id);const t=`${p.title} — ${p.name} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!'))}else{toast(t)}};
 window.cmt=id=>{const inp=$('c-'+id),t=(inp.value||'').trim();if(!t)return toast('Nhập bình luận đã');const n=($('f-name').value||'').trim()||'Khách';const p=posts.find(x=>x.id===id);p.cmts=p.cmts||[];p.cmts.push({n,t});save(posts);render();toast('Đã gửi bình luận!')};
 window.del=id=>{if(!confirm('Xóa bài này?'))return;posts=posts.filter(x=>x.id!==id);save(posts);render();toast('Đã xóa bài')};
