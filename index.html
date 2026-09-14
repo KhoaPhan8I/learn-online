@@ -85,6 +85,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 </div>
 <button class="btn ghost" id="add-opt" type="button">+ Thêm lựa chọn</button>
 </div>
+<div class="row"><input id="f-contact" placeholder="Liên hệ (SĐT / Zalo / link FB...)"></div>
 <div class="row" style="margin-top:8px">
 <input id="f-price" class="half" placeholder="Học phí (trống = miễn phí)">
 <button class="btn half" id="publish">Đăng bài</button>
@@ -140,7 +141,7 @@ ${p.body?`<p class="post-body">${esc(p.body)}</p>`:''}
 ${media(p)}${p.type==='poll'?pollHtml(p):''}
 <div class="actions">
 <button class="btn like ${p.liked?'liked':''}" onclick="like(${p.id})">❤ ${p.likes}</button>
-<button class="btn" onclick="toast('Đã gửi lời mời học tới ${esc(p.name)} (demo)')">Đăng ký học</button>
+<button class="btn" onclick="contact(${p.id})">Đăng ký học</button>
 </div></article>`;
 }
 function render(){
@@ -152,6 +153,7 @@ $('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Khôn
 $('q').oninput=render; $('sort').onchange=render;
 window.like=id=>{const p=posts.find(x=>x.id===id);p.liked=!p.liked;p.likes+=p.liked?1:-1;save(posts);render()};
 window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=voted();v[id]=1;localStorage.setItem(VOTED,JSON.stringify(v));save(posts);render();toast('Đã ghi nhận vote!')};
+window.contact=id=>{const p=posts.find(x=>x.id===id);toast(p.contact?`Liên hệ ${p.name}: ${p.contact}`:`${p.name} chưa để lại liên hệ — hãy like + chờ phản hồi`)};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.remove('on'));
 b.classList.add('on');cur=b.dataset.t;
@@ -165,15 +167,15 @@ b.classList.add('on');filter=b.dataset.f;render();
 $('publish').onclick=()=>{
 const name=$('f-name').value.trim();
 if(!name)return toast('Nhập tên bạn đã');
-const skill=$('f-skill').value.trim(), price=$('f-price').value.trim();
-const id=Math.max(...posts.map(p=>p.id))+1, base={id,name,skill,price,likes:0,ts:Date.now()};
+const skill=$('f-skill').value.trim(), price=$('f-price').value.trim(), contact=$('f-contact').value.trim();
+const id=Math.max(...posts.map(p=>p.id))+1, base={id,name,skill,price,contact,likes:0,ts:Date.now()};
 let p=null;
 if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập tên khóa học');p={...base,type:'video',title:t,body:$('f-vdesc').value.trim(),media:$('f-vurl').value.trim()||'https://www.w3schools.com/html/mov_bbb.mp4'}}
 if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
 if(cur==='text'){const t=$('f-ttitle').value.trim(),b=$('f-tbody').value.trim();if(!t||!b)return toast('Nhập tiêu đề + nội dung');p={...base,type:'text',title:t,body:b}}
 if(cur==='poll'){const q=$('f-q').value.trim();const opts=[...$('poll-opts').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);if(!q||opts.length<2)return toast('Cần câu hỏi + ít nhất 2 lựa chọn');p={...base,type:'poll',title:q,options:opts.map(t=>({t,v:0}))}}
 posts.push(p);save(posts);
-['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price'].forEach(k=>$(k).value='');
+['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price','f-contact'].forEach(k=>$(k).value='');
 $('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" style="margin-bottom:8px">';
 filter='all';document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
 render();toast('Đăng bài thành công!');
