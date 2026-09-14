@@ -155,6 +155,7 @@ ${media(p)}${p.type==='poll'?pollHtml(p):''}
 <button class="btn" onclick="reg(${p.id})">📝 Đăng ký (${(p.regs||[]).length})</button>
 <button class="btn like" onclick="share(${p.id})">↗</button>
 ${p.mine?`<button class="btn like" onclick="del(${p.id})">🗑</button>`:''}
+${p.mine&&p.regs&&p.regs.length?`<p class="hint">👥 Đã đăng ký: ${esc(p.regs.join(', '))}</p>`:''}
 </div>${cmtHtml(p)}</article>`;
 }
 function render(){
@@ -166,7 +167,7 @@ $('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Khôn
 $('q').oninput=render; $('sort').onchange=render;
 window.like=id=>{const p=posts.find(x=>x.id===id);p.liked=!p.liked;p.likes+=p.liked?1:-1;save(posts);render()};
 window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=voted();v[id]=1;localStorage.setItem(VOTED,JSON.stringify(v));save(posts);render();toast('Đã ghi nhận vote!')};
-window.reg=id=>{const p=posts.find(x=>x.id===id);const n=($('f-name').value||'').trim()||'Khách';p.regs=p.regs||[];if(p.regs.includes(n))return toast('Bạn đã đăng ký lớp này rồi');p.regs.push(n);save(posts);render();toast(p.contact?`Đã đăng ký! Liên hệ ${p.name}: ${p.contact}`:'Đã đăng ký! Chờ người dạy liên hệ lại')};
+window.reg=id=>{const p=posts.find(x=>x.id===id);const n=($('f-name').value||'').trim()||'Khách';p.regs=p.regs||[];if(p.regs.includes(n)){p.regs=p.regs.filter(x=>x!==n);save(posts);render();return toast('Đã hủy đăng ký')}p.regs.push(n);save(posts);render();toast(p.contact?`Đã đăng ký! Liên hệ ${p.name}: ${p.contact}`:'Đã đăng ký! Chờ người dạy liên hệ lại')};
 window.share=id=>{const p=posts.find(x=>x.id===id);const t=`${p.title} — ${p.name} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!'))}else{toast(t)}};
 window.cmt=id=>{const inp=$('c-'+id),t=(inp.value||'').trim();if(!t)return toast('Nhập bình luận đã');const n=($('f-name').value||'').trim()||'Khách';const p=posts.find(x=>x.id===id);p.cmts=p.cmts||[];p.cmts.push({n,t});save(posts);render();toast('Đã gửi bình luận!')};
 window.del=id=>{if(!confirm('Xóa bài này?'))return;posts=posts.filter(x=>x.id!==id);save(posts);render();toast('Đã xóa bài')};
