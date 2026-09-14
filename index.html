@@ -152,6 +152,7 @@ ${media(p)}${p.type==='poll'?pollHtml(p):''}
 <div class="actions">
 <button class="btn like ${p.liked?'liked':''}" onclick="like(${p.id})">❤ ${p.likes}</button>
 <button class="btn" onclick="contact(${p.id})">Đăng ký học</button>
+<button class="btn like" onclick="share(${p.id})">↗</button>
 </div>${cmtHtml(p)}</article>`;
 }
 function render(){
@@ -164,6 +165,7 @@ $('q').oninput=render; $('sort').onchange=render;
 window.like=id=>{const p=posts.find(x=>x.id===id);p.liked=!p.liked;p.likes+=p.liked?1:-1;save(posts);render()};
 window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=voted();v[id]=1;localStorage.setItem(VOTED,JSON.stringify(v));save(posts);render();toast('Đã ghi nhận vote!')};
 window.contact=id=>{const p=posts.find(x=>x.id===id);toast(p.contact?`Liên hệ ${p.name}: ${p.contact}`:`${p.name} chưa để lại liên hệ — hãy like + chờ phản hồi`)};
+window.share=id=>{const p=posts.find(x=>x.id===id);const t=`${p.title} — ${p.name} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!'))}else{toast(t)}};
 window.cmt=id=>{const inp=$('c-'+id),t=(inp.value||'').trim();if(!t)return toast('Nhập bình luận đã');const n=($('f-name').value||'').trim()||'Khách';const p=posts.find(x=>x.id===id);p.cmts=p.cmts||[];p.cmts.push({n,t});save(posts);render();toast('Đã gửi bình luận!')};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.remove('on'));
