@@ -44,6 +44,12 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1c1e21;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;transition:transform .3s;z-index:20;max-width:90%}
 #toast.show{transform:translateX(-50%) translateY(0)}
 .hint{font-size:12px;color:#888;margin-top:6px}
+.cmts{margin-top:10px;border-top:1px solid #eee;padding-top:8px}
+.cmt{font-size:13px;margin-bottom:6px;background:#f8f8fa;border-radius:8px;padding:7px 10px}
+.cmt b{font-size:13px}
+.cmt-row{display:flex;gap:6px;margin-top:6px}
+.cmt-row input{flex:1;padding:7px 10px;font-size:13px}
+.cmt-row button{width:auto;padding:7px 14px;font-size:13px}
 </style>
 </head>
 <body>
@@ -130,6 +136,10 @@ const v=voted(), total=p.options.reduce((a,o)=>a+o.v,0)||1;
 if(v[p.id])return p.options.map(o=>{const pc=Math.round(o.v/total*100);return `<div class="bar"><i style="width:${pc}%"></i><span>${esc(o.t)} <b>${pc}%</b></span></div>`}).join('')+`<p class="hint">${total} lượt vote</p>`;
 return p.options.map((o,i)=>`<button class="opt" onclick="vote(${p.id},${i})">${esc(o.t)}</button>`).join('');
 }
+function cmtHtml(p){
+const list=(p.cmts||[]).map(c=>`<div class="cmt"><b>${esc(c.n)}</b> ${esc(c.t)}</div>`).join('');
+return `<div class="cmts">${list}<div class="cmt-row"><input id="c-${p.id}" placeholder="Hỏi ${esc(p.name)} điều gì đó..."><button class="btn" onclick="cmt(${p.id})">Gửi</button></div></div>`;
+}
 function card(p){
 return `<article class="card">
 <div class="meta"><div class="avatar">${esc(p.name[0]||'?')}</div>
@@ -142,7 +152,7 @@ ${media(p)}${p.type==='poll'?pollHtml(p):''}
 <div class="actions">
 <button class="btn like ${p.liked?'liked':''}" onclick="like(${p.id})">❤ ${p.likes}</button>
 <button class="btn" onclick="contact(${p.id})">Đăng ký học</button>
-</div></article>`;
+</div>${cmtHtml(p)}</article>`;
 }
 function render(){
 const kw=($('q').value||'').toLowerCase().trim();
@@ -154,6 +164,7 @@ $('q').oninput=render; $('sort').onchange=render;
 window.like=id=>{const p=posts.find(x=>x.id===id);p.liked=!p.liked;p.likes+=p.liked?1:-1;save(posts);render()};
 window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=voted();v[id]=1;localStorage.setItem(VOTED,JSON.stringify(v));save(posts);render();toast('Đã ghi nhận vote!')};
 window.contact=id=>{const p=posts.find(x=>x.id===id);toast(p.contact?`Liên hệ ${p.name}: ${p.contact}`:`${p.name} chưa để lại liên hệ — hãy like + chờ phản hồi`)};
+window.cmt=id=>{const inp=$('c-'+id),t=(inp.value||'').trim();if(!t)return toast('Nhập bình luận đã');const n=($('f-name').value||'').trim()||'Khách';const p=posts.find(x=>x.id===id);p.cmts=p.cmts||[];p.cmts.push({n,t});save(posts);render();toast('Đã gửi bình luận!')};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.remove('on'));
 b.classList.add('on');cur=b.dataset.t;
