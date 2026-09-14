@@ -16,7 +16,7 @@ main{max-width:640px;margin:0 auto;padding:12px 12px 60px}
 .composer .tabs button{flex:1;min-width:70px;border:1px solid #ddd;background:#f8f8fa;border-radius:8px;padding:8px 4px;font-size:13px;cursor:pointer}
 .composer .tabs button.on{background:#7c3aed;color:#fff;border-color:#7c3aed}
 .row{display:flex;gap:8px;margin-bottom:8px}
-input,textarea{width:100%;border:1px solid #ddd;border-radius:8px;padding:9px 10px;font-size:14px;font-family:inherit}
+input,textarea,select{width:100%;border:1px solid #ddd;border-radius:8px;padding:9px 10px;font-size:14px;font-family:inherit}
 textarea{resize:vertical;min-height:64px}
 .half{flex:1}
 .btn{background:#7c3aed;color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;width:100%}
@@ -91,6 +91,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 </div>
 <p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ.</p>
 </section>
+<div class="row"><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..."><select id="sort" class="half" style="max-width:160px"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option></select></div>
 <nav class="filters" id="filters">
 <button data-f="all" class="on">Tất cả</button>
 <button data-f="video">🎬 Video</button>
@@ -143,9 +144,12 @@ ${media(p)}${p.type==='poll'?pollHtml(p):''}
 </div></article>`;
 }
 function render(){
-const list=posts.filter(p=>filter==='all'||p.type===filter).sort((a,b)=>b.id-a.id);
-$('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Chưa có bài nào. Đăng bài đầu tiên đi!</div>';
+const kw=($('q').value||'').toLowerCase().trim();
+const byDate=(a,b)=>b.id-a.id, byLike=(a,b)=>b.likes-a.likes;
+const list=posts.filter(p=>(filter==='all'||p.type===filter)&&(!kw||(p.title+' '+p.body+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw))).sort($('sort').value==='liked'?byLike:byDate);
+$('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
 }
+$('q').oninput=render; $('sort').onchange=render;
 window.like=id=>{const p=posts.find(x=>x.id===id);p.liked=!p.liked;p.likes+=p.liked?1:-1;save(posts);render()};
 window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=voted();v[id]=1;localStorage.setItem(VOTED,JSON.stringify(v));save(posts);render();toast('Đã ghi nhận vote!')};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
