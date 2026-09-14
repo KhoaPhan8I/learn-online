@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn Online — Chợ kỹ năng</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f1f2f6;color:#1c1e21}
+header{position:sticky;top:0;z-index:10;background:#7c3aed;color:#fff;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+header h1{font-size:20px}
+header p{font-size:13px;opacity:.85}
+main{max-width:640px;margin:0 auto;padding:12px 12px 60px}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.composer .tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.composer .tabs button{flex:1;min-width:70px;border:1px solid #ddd;background:#f8f8fa;border-radius:8px;padding:8px 4px;font-size:13px;cursor:pointer}
+.composer .tabs button.on{background:#7c3aed;color:#fff;border-color:#7c3aed}
+.row{display:flex;gap:8px;margin-bottom:8px}
+input,textarea{width:100%;border:1px solid #ddd;border-radius:8px;padding:9px 10px;font-size:14px;font-family:inherit}
+textarea{resize:vertical;min-height:64px}
+.half{flex:1}
+.btn{background:#7c3aed;color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;width:100%}
+.btn.ghost{background:#ede9fe;color:#7c3aed;width:auto;padding:8px 14px}
+.filters{display:flex;gap:6px;margin:4px 0 12px;overflow-x:auto}
+.filters button{border:1px solid #ddd;background:#fff;border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer;white-space:nowrap}
+.filters button.on{background:#1c1e21;color:#fff;border-color:#1c1e21}
+.meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.avatar{width:36px;height:36px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.who{flex:1}.who b{font-size:14px}.who small{color:#888;font-size:12px;display:block}
+.tag{font-size:11px;background:#ede9fe;color:#7c3aed;border-radius:6px;padding:3px 8px}
+.price{font-size:11px;background:#dcfce7;color:#15803d;border-radius:6px;padding:3px 8px;font-weight:600}
+.post-title{font-size:16px;margin-bottom:6px}
+.post-body{font-size:14px;color:#333;margin-bottom:8px;white-space:pre-wrap}
+video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
+.actions{display:flex;gap:8px;margin-top:8px}
+.actions .btn{width:auto;flex:1}
+.like{background:#f1f2f6;color:#333}
+.like.liked{background:#fee2e2;color:#dc2626}
+.opt{display:block;width:100%;text-align:left;border:1px solid #ddd;background:#fafafa;border-radius:8px;padding:9px 10px;margin-bottom:6px;font-size:14px;cursor:pointer}
+.bar{position:relative;border:1px solid #ddd;border-radius:8px;margin-bottom:6px;overflow:hidden;font-size:14px}
+.bar i{position:absolute;inset:0;background:#ede9fe}
+.bar span{position:relative;display:block;padding:9px 10px}
+.bar b{float:right}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:#1c1e21;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;transition:transform .3s;z-index:20;max-width:90%}
+#toast.show{transform:translateX(-50%) translateY(0)}
+.hint{font-size:12px;color:#888;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+<h1>🎓 Learn Online</h1>
+<p>Chợ kỹ năng — ai cũng dạy được, ai cũng học được</p>
+</header>
+<main>
+<section class="card composer">
+<div class="tabs">
+<button data-t="video" class="on">🎬 Video</button>
+<button data-t="image">🖼️ Bài viết</button>
+<button data-t="text">✍️ Text</button>
+<button data-t="poll">📊 Poll</button>
+</div>
+<div class="row">
+<input id="f-name" class="half" placeholder="Tên bạn *">
+<input id="f-skill" class="half" placeholder="Kỹ năng (VD: Guitar)">
+</div>
+<div id="pane-video">
+<input id="f-vtitle" placeholder="Tên khóa học / kỹ năng muốn dạy *" style="margin-bottom:8px">
+<input id="f-vurl" placeholder="Link video mp4 (để trống = video demo)" style="margin-bottom:8px">
+<textarea id="f-vdesc" placeholder="Mô tả ngắn: học được gì, lịch rảnh khi nào..."></textarea>
+</div>
+<div id="pane-image" hidden>
+<input id="f-ititle" placeholder="Tiêu đề bài viết *" style="margin-bottom:8px">
+<input id="f-iurl" placeholder="Link ảnh (để trống = ảnh mẫu)" style="margin-bottom:8px">
+<textarea id="f-idesc" placeholder="Nội dung chia sẻ..."></textarea>
+</div>
+<div id="pane-text" hidden>
+<input id="f-ttitle" placeholder="Tiêu đề *" style="margin-bottom:8px">
+<textarea id="f-tbody" placeholder="Viết ngắn gọn điều bạn muốn dạy..."></textarea>
+</div>
+<div id="pane-poll" hidden>
+<input id="f-q" placeholder="Câu hỏi khảo sát *" style="margin-bottom:8px">
+<div id="poll-opts">
+<input placeholder="Lựa chọn 1" style="margin-bottom:8px">
+<input placeholder="Lựa chọn 2" style="margin-bottom:8px">
+</div>
+<button class="btn ghost" id="add-opt" type="button">+ Thêm lựa chọn</button>
+</div>
+<div class="row" style="margin-top:8px">
+<input id="f-price" class="half" placeholder="Học phí (trống = miễn phí)">
+<button class="btn half" id="publish">Đăng bài</button>
+</div>
+<p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ.</p>
+</section>
+<nav class="filters" id="filters">
+<button data-f="all" class="on">Tất cả</button>
+<button data-f="video">🎬 Video</button>
+<button data-f="image">🖼️ Bài viết</button>
+<button data-f="text">✍️ Text</button>
+<button data-f="poll">📊 Poll</button>
+</nav>
+<section id="feed"></section>
+</main>
+<div id="toast"></div>
+<script>
+const LS='learn-online-posts-v1', VOTED='learn-online-voted-v1';
+let cur='video', filter='all';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{return JSON.parse(localStorage.getItem(LS))}catch(e){return null}}
+function save(p){localStorage.setItem(LS,JSON.stringify(p))}
+function voted(){try{return JSON.parse(localStorage.getItem(VOTED))||{}}catch(e){return{}}}
+function seed(){return[
+{id:1,type:'video',name:'Anh Tuấn',skill:'Guitar',price:'150k/buổi',title:'Guitar đệm hát cơ bản — buổi 1 miễn phí',body:'Đệm được 10 bài tủ sau 4 buổi. Tối 2-4-6 rảnh, học online qua call.',media:'https://www.w3schools.com/html/mov_bbb.mp4',likes:24,ts:Date.now()-36e5},
+{id:2,type:'image',name:'Chị Lan',skill:'Excel',price:'',title:'Excel cho dân văn phòng: 5 hàm xử lý 80% việc',body:'VLOOKUP, XLOOKUP, SUMIFS, IF lồng, PivotTable. Kèm file thực hành, học 1-1 hoặc nhóm 3.',media:'https://picsum.photos/seed/excel/640/360',likes:41,ts:Date.now()-72e5},
+{id:3,type:'text',name:'Minh',skill:'Tiếng Anh',price:'99k/buổi',title:'Tiếng Anh giao tiếp cho người mất gốc',body:'Mình từng mất gốc, tự học lên 7.0 IELTS speaking. Chia sẻ đúng lộ trình mình đã đi, không lý thuyết suông. Nhắn mình để học thử free 15 phút.',likes:12,ts:Date.now()-108e5},
+{id:4,type:'poll',name:'Learn Online',skill:'Cộng đồng',price:'',title:'Bạn muốn học kỹ năng nào tiếp theo?',options:[{t:'Nấu ăn',v:18},{t:'Guitar',v:25},{t:'Excel',v:14},{t:'Tiếng Anh',v:31}],likes:8,ts:Date.now()-144e5}
+]}
+let posts=load()||seed(); save(posts);
+function ago(ts){const m=Math.floor((Date.now()-ts)/6e4);if(m<1)return'vừa xong';if(m<60)return m+' phút trước';const h=Math.floor(m/60);if(h<24)return h+' giờ trước';return Math.floor(h/24)+' ngày trước'}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),2500)}
+function media(p){
+if(p.type==='video')return `<video controls src="${esc(p.media)}"></video>`;
+if(p.type==='image'&&p.media)return `<img class="media" src="${esc(p.media)}" loading="lazy">`;
+return '';
+}
+function pollHtml(p){
+const v=voted(), total=p.options.reduce((a,o)=>a+o.v,0)||1;
+if(v[p.id])return p.options.map(o=>{const pc=Math.round(o.v/total*100);return `<div class="bar"><i style="width:${pc}%"></i><span>${esc(o.t)} <b>${pc}%</b></span></div>`}).join('')+`<p class="hint">${total} lượt vote</p>`;
+return p.options.map((o,i)=>`<button class="opt" onclick="vote(${p.id},${i})">${esc(o.t)}</button>`).join('');
+}
+function card(p){
+return `<article class="card">
+<div class="meta"><div class="avatar">${esc(p.name[0]||'?')}</div>
+<div class="who"><b>${esc(p.name)}</b><small>${ago(p.ts)}</small></div>
+<span class="tag">${esc(p.skill||'Chung')}</span>
+<span class="price">${esc(p.price||'Miễn phí')}</span></div>
+<h3 class="post-title">${esc(p.title)}</h3>
+${p.body?`<p class="post-body">${esc(p.body)}</p>`:''}
+${media(p)}${p.type==='poll'?pollHtml(p):''}
+<div class="actions">
+<button class="btn like ${p.liked?'liked':''}" onclick="like(${p.id})">❤ ${p.likes}</button>
+<button class="btn" onclick="toast('Đã gửi lời mời học tới ${esc(p.name)} (demo)')">Đăng ký học</button>
+</div></article>`;
+}
+function render(){
+const list=posts.filter(p=>filter==='all'||p.type===filter).sort((a,b)=>b.id-a.id);
+$('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Chưa có bài nào. Đăng bài đầu tiên đi!</div>';
+}
+window.like=id=>{const p=posts.find(x=>x.id===id);p.liked=!p.liked;p.likes+=p.liked?1:-1;save(posts);render()};
+window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=voted();v[id]=1;localStorage.setItem(VOTED,JSON.stringify(v));save(posts);render();toast('Đã ghi nhận vote!')};
+document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
+document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.remove('on'));
+b.classList.add('on');cur=b.dataset.t;
+['video','image','text','poll'].forEach(t=>$('pane-'+t).hidden=t!==cur);
+});
+$('add-opt').onclick=()=>{const i=document.createElement('input');i.placeholder='Lựa chọn '+( $('poll-opts').children.length+1);i.style.marginBottom='8px';$('poll-opts').appendChild(i)};
+document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
+document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('on'));
+b.classList.add('on');filter=b.dataset.f;render();
+});
+$('publish').onclick=()=>{
+const name=$('f-name').value.trim();
+if(!name)return toast('Nhập tên bạn đã');
+const skill=$('f-skill').value.trim(), price=$('f-price').value.trim();
+const id=Math.max(...posts.map(p=>p.id))+1, base={id,name,skill,price,likes:0,ts:Date.now()};
+let p=null;
+if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập tên khóa học');p={...base,type:'video',title:t,body:$('f-vdesc').value.trim(),media:$('f-vurl').value.trim()||'https://www.w3schools.com/html/mov_bbb.mp4'}}
+if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
+if(cur==='text'){const t=$('f-ttitle').value.trim(),b=$('f-tbody').value.trim();if(!t||!b)return toast('Nhập tiêu đề + nội dung');p={...base,type:'text',title:t,body:b}}
+if(cur==='poll'){const q=$('f-q').value.trim();const opts=[...$('poll-opts').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);if(!q||opts.length<2)return toast('Cần câu hỏi + ít nhất 2 lựa chọn');p={...base,type:'poll',title:q,options:opts.map(t=>({t,v:0}))}}
+posts.push(p);save(posts);
+['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price'].forEach(k=>$(k).value='');
+$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" style="margin-bottom:8px">';
+filter='all';document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
+render();toast('Đăng bài thành công!');
+};
+render();
+</script>
+</body>
+</html>
