@@ -105,12 +105,13 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <button data-f="image">🖼️ Bài viết</button>
 <button data-f="text">✍️ Text</button>
 <button data-f="poll">📊 Poll</button>
+<button data-f="mine">👤 Bài của tôi</button>
 </nav>
 <section id="feed"></section>
 </main>
 <div id="toast"></div>
 <script>
-const LS='learn-online-posts-v1', VOTED='learn-online-voted-v1';
+const LS='learn-online-posts-v1', VOTED='learn-online-voted-v1', ME='learn-online-me-v1';
 let cur='video', filter='all';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -153,12 +154,13 @@ ${media(p)}${p.type==='poll'?pollHtml(p):''}
 <button class="btn like ${p.liked?'liked':''}" onclick="like(${p.id})">❤ ${p.likes}</button>
 <button class="btn" onclick="contact(${p.id})">Đăng ký học</button>
 <button class="btn like" onclick="share(${p.id})">↗</button>
+${p.mine?`<button class="btn like" onclick="del(${p.id})">🗑</button>`:''}
 </div>${cmtHtml(p)}</article>`;
 }
 function render(){
 const kw=($('q').value||'').toLowerCase().trim();
 const byDate=(a,b)=>b.id-a.id, byLike=(a,b)=>b.likes-a.likes;
-const list=posts.filter(p=>(filter==='all'||p.type===filter)&&(!kw||(p.title+' '+p.body+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw))).sort($('sort').value==='liked'?byLike:byDate);
+const list=posts.filter(p=>(filter==='all'||(filter==='mine'?p.mine:p.type===filter))&&(!kw||(p.title+' '+p.body+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw))).sort($('sort').value==='liked'?byLike:byDate);
 $('feed').innerHTML=list.length?list.map(card).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
 }
 $('q').oninput=render; $('sort').onchange=render;
@@ -167,6 +169,7 @@ window.vote=(id,i)=>{const p=posts.find(x=>x.id===id);p.options[i].v++;const v=v
 window.contact=id=>{const p=posts.find(x=>x.id===id);toast(p.contact?`Liên hệ ${p.name}: ${p.contact}`:`${p.name} chưa để lại liên hệ — hãy like + chờ phản hồi`)};
 window.share=id=>{const p=posts.find(x=>x.id===id);const t=`${p.title} — ${p.name} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!'))}else{toast(t)}};
 window.cmt=id=>{const inp=$('c-'+id),t=(inp.value||'').trim();if(!t)return toast('Nhập bình luận đã');const n=($('f-name').value||'').trim()||'Khách';const p=posts.find(x=>x.id===id);p.cmts=p.cmts||[];p.cmts.push({n,t});save(posts);render();toast('Đã gửi bình luận!')};
+window.del=id=>{if(!confirm('Xóa bài này?'))return;posts=posts.filter(x=>x.id!==id);save(posts);render();toast('Đã xóa bài')};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.remove('on'));
 b.classList.add('on');cur=b.dataset.t;
@@ -181,18 +184,19 @@ $('publish').onclick=()=>{
 const name=$('f-name').value.trim();
 if(!name)return toast('Nhập tên bạn đã');
 const skill=$('f-skill').value.trim(), price=$('f-price').value.trim(), contact=$('f-contact').value.trim();
-const id=Math.max(...posts.map(p=>p.id))+1, base={id,name,skill,price,contact,likes:0,ts:Date.now()};
+const id=Math.max(...posts.map(p=>p.id))+1, base={id,name,skill,price,contact,mine:1,likes:0,ts:Date.now()};
 let p=null;
 if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập tên khóa học');p={...base,type:'video',title:t,body:$('f-vdesc').value.trim(),media:$('f-vurl').value.trim()||'https://www.w3schools.com/html/mov_bbb.mp4'}}
 if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
 if(cur==='text'){const t=$('f-ttitle').value.trim(),b=$('f-tbody').value.trim();if(!t||!b)return toast('Nhập tiêu đề + nội dung');p={...base,type:'text',title:t,body:b}}
 if(cur==='poll'){const q=$('f-q').value.trim();const opts=[...$('poll-opts').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);if(!q||opts.length<2)return toast('Cần câu hỏi + ít nhất 2 lựa chọn');p={...base,type:'poll',title:q,options:opts.map(t=>({t,v:0}))}}
-posts.push(p);save(posts);
+posts.push(p);save(posts);try{localStorage.setItem(ME,name)}catch(e){}
 ['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price','f-contact'].forEach(k=>$(k).value='');
 $('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" style="margin-bottom:8px">';
 filter='all';document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
 render();toast('Đăng bài thành công!');
 };
+try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}
 render();
 </script>
 </body>
