@@ -17,3 +17,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | churn-prevention | xóa bài → toast Hoàn tác + khôi phục 1 chạm, nudge sau 3d | 89 |
 | attribution | first/last-touch UTM + kênh nguồn mỗi bài đăng trong export A/B | 90 |
 | ai-seo | llms.txt sinh từ seed (khóa học + mentor + giá Ghim), --check guard | 91 |
+| signup | prefill kỹ năng từ lịch sử tìm kiếm, không đè chữ đã gõ | 92 |
