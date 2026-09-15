@@ -302,32 +302,32 @@ const list=Array.isArray(p.cmts)?p.cmts:[];
 const html=list.filter(c=>c&&typeof c==='object').map(c=>`<div class="cmt"><b>${esc(c.n)}</b> ${esc(c.t)}</div>`).join('');
 return `<div class="cmts">${html}<div class="cmt-row"><input id="c-${id}" placeholder="Hỏi ${esc(nm)} điều gì đó..." aria-label="Hỏi ${esc(nm)} điều gì đó" onkeydown="if(event.key==='Enter')cmt(${id})"><button class="btn" id="csend-${id}" onclick="cmt(${id})" aria-label="Gửi bình luận">Gửi</button></div></div>`;
 }
-function card(p){
-if(!p||typeof p!=='object')return '';
-const id=numId(p.id); if(id===null)return '';
-const nm=(typeof p.name==='string'&&p.name.trim())?p.name.trim():'Ẩn danh';
-const likes=Number(p.likes)||0, regs=regNames(p.regs);
-const iso=Number.isFinite(Number(p.ts))?new Date(Number(p.ts)).toISOString():'';
-const isFresh=Number.isFinite(Number(p.ts))&&(Date.now()-Number(p.ts))<24*3600e3;
-const badge=mentorBadge(nm);
-const pct=badge?mentorPct(nm):null;
-const badgeHtml=badge?`<span class="mentor" title="${esc(badge)}${pct?` — quý ${pct.pq}% · năm ${pct.py}%`:''}">★ MENTOR${pct?` ${Math.max(pct.pq,pct.py)}%`:''}</span>`:'';
-return `<article class="card" id="post-${id}">
-<div class="meta"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div>
-<div class="who"><b data-nm="${esc(nm)}" onclick="profile(this.dataset.nm)" onkeydown="if(event.key==='Enter')profile(this.dataset.nm)" role="button" tabindex="0" title="Xem hồ sơ ${esc(nm)}">${esc(nm)}${badgeHtml}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
+function postHead(p,id,nm,badgeHtml){const iso=Number.isFinite(Number(p.ts))?new Date(Number(p.ts)).toISOString():'';return`<div class="meta"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div>
+<div class="who"><b data-nm="${esc(nm)}" onclick="profile(this.dataset.nm)" onkeydown="if(event.key==='Enter')profile(this.dataset.nm)" role="button" tabindex="0" title="Xem hồ sơ ${esc(nm)}">${esc(nm)}${badgeHtml||''}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
 <span class="tag">${esc(p.skill||'Chung')}</span>
-<span class="price${p.price?'':' free'}">${esc(p.price||'🆓 Miễn phí')}</span></div>
-<h2 class="post-title">${isFresh?'<span class="fresh">MỚI</span>':''}${esc(p.title)}</h2>
-${p.body?`<p class="post-body">${esc(p.body)}</p>`:''}
-${p.contact?`<p class="hint">Liên hệ: ${esc(p.contact)}</p>`:''}
-${media(p)}${p.type==='poll'?pollHtml(p,id):''}
-<div class="actions">
+<span class="price${p.price?'':' free'}">${esc(p.price||'🆓 Miễn phí')}</span></div>`}
+function postActions(p,id){if(!p||typeof p!=='object'||id===null)return'';const likes=Number(p.likes)||0, regs=regNames(p.regs);return`<div class="actions">
 <button class="btn like ${p.liked?'liked':''}" id="like-${id}" onclick="like(${id})" aria-pressed="${p.liked?'true':'false'}" aria-label="Thích bài viết (hiện có ${likes} lượt)">❤ ${likes}</button>
 <button class="btn" id="reg-${id}" onclick="reg(${id})" aria-label="Đăng ký học (hiện có ${regs.length} người)">📝 Đăng ký (${regs.length})</button>
 <button class="btn like iconbtn" id="share-${id}" onclick="share(${id})" aria-label="Chia sẻ bài viết">↗</button>
 ${p.mine?`<button class="btn like iconbtn" id="edit-${id}" onclick="edit(${id})" aria-label="Sửa bài viết">✏️</button><button class="btn like iconbtn" id="del-${id}" onclick="del(${id})" aria-label="Xóa bài viết">🗑</button>`:''}
 ${p.mine&&regs.length?`<p class="hint">👥 Đã đăng ký: ${esc(regs.join(', '))}</p>`:''}
-</div>${cmtHtml(p,id,nm)}</article>`;
+</div>`}
+function card(p){
+if(!p||typeof p!=='object')return '';
+const id=numId(p.id); if(id===null)return '';
+const nm=(typeof p.name==='string'&&p.name.trim())?p.name.trim():'Ẩn danh';
+const isFresh=Number.isFinite(Number(p.ts))&&(Date.now()-Number(p.ts))<24*3600e3;
+const badge=mentorBadge(nm);
+const pct=badge?mentorPct(nm):null;
+const badgeHtml=badge?`<span class="mentor" title="${esc(badge)}${pct?` — quý ${pct.pq}% · năm ${pct.py}%`:''}">★ MENTOR${pct?` ${Math.max(pct.pq,pct.py)}%`:''}</span>`:'';
+return `<article class="card" id="post-${id}">
+${postHead(p,id,nm,badgeHtml)}
+<h2 class="post-title">${isFresh?'<span class="fresh">MỚI</span>':''}${esc(p.title)}</h2>
+${p.body?`<p class="post-body">${esc(p.body)}</p>`:''}
+${p.contact?`<p class="hint">Liên hệ: ${esc(p.contact)}</p>`:''}
+${media(p)}${p.type==='poll'?pollHtml(p,id):''}
+${postActions(p,id)}${cmtHtml(p,id,nm)}</article>`;
 }
 function myRegs(me){return posts.filter(p=>p&&typeof p==='object'&&regHas(p.regs,me)).map(p=>{const r=(Array.isArray(p.regs)?p.regs:[]).find(x=>x===me||(x&&x.n===me));return{p,ts:r&&typeof r==='object'?Number(r.ts)||0:0}})}
 function tickerItem(p,tc,total){if(!p||typeof p!=='object')return'';const s=(p.skill||p.title||'').trim().slice(0,24);if(!s)return'';const icons={video:'🎬',image:'🖼️',text:'✍️',poll:'📊'};const n=tc[p.type]||0;const pc=total&&n?Math.round(n/total*100):0;const likes=Number(p.likes)||0,regs=regCount(p.regs);return`${icons[p.type]||'📌'} Học <b>${esc(s)}</b>${pc?` · ${pc}% cùng loại`:''}${likes?` · ❤${likes}`:''}${regs?` · 📝${regs}`:''} ✦`}
@@ -682,6 +682,11 @@ T('HIST_N cap',HIST_N===8&&hist().length<=HIST_N);
 T('freshNote branches',/lớp mới/.test(freshNote(2,1))&&/mở xem liên hệ/.test(freshNote(1,0))&&/quay lại học/.test(freshNote(0,3)));
 T('schedCard html',(()=>{const h=schedCard({p:{id:7,title:'Lop hay',name:'An',contact:'0901'},ts:Date.now()});return /Lop hay/.test(h)&&/0901/.test(h)&&schedCard(null)===''&&schedCard({})===''})());
 T('schedCard no ts',(()=>{const h=schedCard({p:{id:7,title:'T',name:'N'},ts:0});return /Đã đăng ký/.test(h)})());
+T('postHead html',(()=>{const h=postHead({skill:'Guitar',price:'',ts:Date.now()},9,'An','');return /An/.test(h)&&/Guitar/.test(h)&&/Miễn phí/.test(h)})());
+T('postHead esc',(()=>{const h=postHead({skill:'<x>',price:'',ts:0},9,'<b>','');return !/<b>/.test(h)&&!/<x>/.test(h)})());
+T('postActions counts',(()=>{const h=postActions({liked:true,likes:3,regs:[{n:'A',ts:1}],mine:0},9);return /❤ 3/.test(h)&&/Đăng ký \(1\)/.test(h)&&!/del-9/.test(h)})());
+T('postActions owner',(()=>{const h=postActions({likes:0,regs:['A'],mine:1},9);return /edit-9/.test(h)&&/del-9/.test(h)&&/Đã đăng ký/.test(h)})());
+T('postActions bad',postActions(null,null)===''&&postActions({},null)==='');
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
