@@ -75,3 +75,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops-v4 | 💰 breakdown doanh thu Ghim theo tháng | 147 |
 | churn-v2 | ✍️ nháp composer tự lưu + hỏi khôi phục | 148 |
 | seo-v2 | 🗺️ sitemap lastmod + priority theo loại trang, SEO 4→5 (66) | 149 |
+| positioning-v2 | 📊 aboutsec proof số thật live + positioning 4→5 (67) | 150 |
