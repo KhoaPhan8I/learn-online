@@ -120,6 +120,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <button data-f="poll" aria-pressed="false">📊 Poll</button>
 <button data-f="mine" aria-pressed="false">👤 Bài của tôi</button>
 <button data-f="free" aria-pressed="false">🆓 Miễn phí</button>
+<button data-f="joined" aria-pressed="false">✅ Đã đăng ký</button>
 </nav>
 </div>
 <section id="feed" aria-label="Danh sách bài viết"></section>
@@ -190,9 +191,10 @@ const kw=($('q').value||'').toLowerCase().trim();
 const byDate=(a,b)=>b.id-a.id, byLike=(a,b)=>(Number(b.likes)||0)-(Number(a.likes)||0), byRegs=(a,b)=>((Array.isArray(b.regs)?b.regs.length:0))-((Array.isArray(a.regs)?a.regs.length:0));
 const mode=$('sort').value;
 const seen=new Set();
+const me=($('f-name').value||'').trim()||'Khách';
 const list=posts
 .filter(p=>p&&typeof p==='object')
-.filter(p=>(filter==='all'||(filter==='mine'?!!p.mine:filter==='free'?!String(p.price||'').trim():p.type===filter))&&(!kw||((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)))
+.filter(p=>(filter==='all'||(filter==='mine'?!!p.mine:filter==='free'?!String(p.price||'').trim():filter==='joined'?Array.isArray(p.regs)&&p.regs.includes(me):p.type===filter))&&(!kw||((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)))
 .filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true})
 .sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
