@@ -435,7 +435,8 @@ $('sheet').innerHTML=`<div class="pro-head"><div class="avatar" aria-hidden="tru
 $('modal').classList.add('open');
 const link=location.origin+location.pathname+'#giao-vien-'+encodeURIComponent(nm);const ql=$('qr-link');if(ql)ql.textContent=link;drawQR($('qr'),link)};
 window.doFollow=nm=>{const r=toggleFollow(nm);if(r==='noop')return;render();toast(r==='followed'?'Đã theo dõi '+nm+'! Lớp mới sẽ hiện ★':'Đã bỏ theo dõi '+nm);profile(nm)};
-function backupSizePct(){try{const used=(localStorage.getItem(LS)||"").length+(localStorage.getItem(VOTED)||"").length;const quota=5*1024*1024;return Math.min(100,Math.round(used/quota*100))}catch(e){return 0}}
+function backupKeys(){return[LS,VOTED,ME,HIST,REP,FOLLOW,FAVF,ONB]}
+function backupSizePct(){try{const used=backupKeys().reduce((a,k)=>a+((localStorage.getItem(k)||"").length),0);const quota=5*1024*1024;return Math.min(100,Math.round(used/quota*100))}catch(e){return 0}}
 function renderBackupPct(){try{const b=$("export");if(!b)return;if(!b.dataset.base)b.dataset.base=b.textContent.trim();b.textContent=b.dataset.base+" · "+backupSizePct()+"%"}catch(e){}}
 function renderImportPct(){try{const b=$("import-btn");if(!b)return;if(!b.dataset.base)b.dataset.base=b.textContent.trim();const n=posts.filter(p=>p&&typeof p==='object').length;const pc=Math.min(100,Math.round(n/1000*100));b.textContent=b.dataset.base+" · "+n+"/1000 ("+pc+"%)"}catch(e){}}
 window.closeModal=()=>{try{$('modal').classList.remove('open')}catch(e){}};
@@ -782,6 +783,8 @@ T('csvRowToPost detail',(()=>{const c=csvRowToPost({loai:'text',nguoi_day:'An',k
 T('backupData v3',(()=>{const d=backupData();return d.app==='learn-online'&&d.v===3&&Array.isArray(d.posts)&&d.voted&&typeof d.voted==='object'})());
 T('restoreState puts',(()=>{try{const ok=restoreState({voted:{1:1},rep:{'R1':5},follow:['F1'],favfilter:{f:'free',kw:'',sort:'new'}});const good=ok&&repOf('R1')===5&&isFollow('F1')&&!!getFav();localStorage.removeItem(REP);localStorage.removeItem(FOLLOW);localStorage.removeItem(FAVF);return good}catch(e){return false}})());
 T('restoreState bad',restoreState(null)===false&&restoreState([1,2])===false&&restoreState('x')===false);
+T('backupKeys all',(()=>{const k=backupKeys();return k.includes(LS)&&k.includes(REP)&&k.includes(FOLLOW)&&k.includes(FAVF)&&k.length===8})());
+T('backupSizePct all keys',(()=>{const v=backupSizePct();return v>=0&&v<=100})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
