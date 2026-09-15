@@ -56,3 +56,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | competitor-profiling | profiles Unica/Edumall/Kyna + bảng so-sanh mở rộng | 128 |
 | marketing-council | council 129: KHÔNG thu phí đăng — miễn phí vĩnh viễn | 129 |
 | content-v2 | 📰 Chợ tuần: bản tin tự sinh từ số thật + copy share | 130 |
+| emails-v2 | ✉️ sequence 4 email: welcome/onboard/win-back/Ghim + copy | 131 |
