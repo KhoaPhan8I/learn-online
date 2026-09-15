@@ -595,7 +595,9 @@ window.addEventListener('hashchange',deepLink);
 function openComposer(){try{const b=$('composer-body');b.classList.remove('collapsed');const t=$('composer-toggle');t.textContent='Thu gọn';t.setAttribute('aria-expanded','true')}catch(e){}smoothScroll($('publish'));try{const nm=$('f-name');if(nm&&!nm.value)nm.focus({preventScroll:true})}catch(e){}}
 $('cta-share').onclick=openComposer;$('cta-hero').onclick=openComposer;
 $('cta-explore').onclick=()=>{smoothScroll($('feed-count')||$('feed'),'start')};
+function healthCheck(){const issues=[];try{const seen=new Set();posts.forEach(p=>{if(!p||typeof p!=='object'){issues.push('bài hỏng');return}const n=numId(p.id);if(n===null){issues.push('bài thiếu id');return}if(seen.has(n))issues.push('trùng id '+n);seen.add(n);if(!p.title)issues.push('bài '+n+' thiếu tiêu đề')});const raw=localStorage.getItem(LS);if(raw){try{const v=JSON.parse(raw);if(!Array.isArray(v))issues.push('kho lưu trữ không phải mảng')}catch(e){issues.push('kho lưu trữ lỗi JSON')}}}catch(e){issues.push('lỗi kiểm tra: '+e.message)}return issues}
 render();deepLink();
+try{const hc=healthCheck();if(hc.length)toast('⚠️ Phát hiện '+hc.length+' vấn đề dữ liệu: '+hc.slice(0,2).join(', '))}catch(e){}
 try{const dg=followDigest();if(dg)toast(dg)}catch(e){}
 try{renderBackupPct();renderImportPct();renderHeroPct()}catch(e){}
 try{['f-name','f-skill','f-vtitle','f-vdesc','f-ititle','f-idesc','f-ttitle','f-tbody','f-q'].forEach(id=>{const el=$(id);if(el){const old=el.oninput;el.oninput=()=>{try{if(old)old()}catch(e){}renderComposerProgress()}}});renderComposerProgress()}catch(e){}
@@ -796,6 +798,9 @@ T('autoBackupAge num',(()=>{try{localStorage.removeItem(AUTOBK+':ts');const n1=a
 T('followDigest throttle',(()=>{try{localStorage.removeItem(FOLLOW);localStorage.removeItem('learn-online-digest-v2');const z=followDigest()==='';toggleFollow('DgMentor');posts.push(cleanPost({id:1051,type:'text',name:'DgMentor',skill:'G',title:'Lop digest',body:'b',regs:[],cmts:[]}));const m=/lớp mới/.test(followDigest());const t2=followDigest()==='';posts.length=0;localStorage.removeItem(FOLLOW);localStorage.removeItem('learn-online-digest-v2');return z&&m&&t2}catch(e){return false}})());
 T('loadAutoBackup null',loadAutoBackup()===null||Array.isArray(loadAutoBackup().posts));
 T('loadAutoBackup parses',(()=>{try{const keep=localStorage.getItem(AUTOBK);localStorage.setItem(AUTOBK,JSON.stringify({v:3,posts:[{id:1071,type:'text',name:'Bk',title:'Lop bk',body:'b',regs:[],cmts:[]}],rep:{Bk:4}}));const ab=loadAutoBackup();if(keep===null)localStorage.removeItem(AUTOBK);else localStorage.setItem(AUTOBK,keep);return ab&&ab.posts.length===1&&ab.posts[0].title==='Lop bk'&&ab.raw.rep.Bk===4}catch(e){return false}})());
+T('healthCheck clean',(()=>{try{const keep=posts.slice();posts=[];const ok=healthCheck().length===0;keep.forEach(x=>posts.push(x));return ok}catch(e){return false}})());
+T('healthCheck dup',(()=>{try{const keep=posts.slice();posts=[];posts.push(cleanPost({id:1091,type:'text',name:'A',title:'T',body:'b',regs:[],cmts:[]}));posts.push(cleanPost({id:1091,type:'text',name:'B',title:'T2',body:'b',regs:[],cmts:[]}));const bad=healthCheck().some(i=>/trùng id/.test(i));posts.length=0;keep.forEach(x=>posts.push(x));return bad}catch(e){return false}})());
+T('healthCheck bad',(()=>{try{const keep=posts.slice();posts=[];posts.push(null);posts.push({id:'zz'});const iss=healthCheck();posts.length=0;keep.forEach(x=>posts.push(x));return iss.length>=2}catch(e){return false}})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
