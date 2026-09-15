@@ -19,3 +19,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | ai-seo | llms.txt sinh từ seed (khóa học + mentor + giá Ghim), --check guard | 91 |
 | signup | prefill kỹ năng từ lịch sử tìm kiếm, không đè chữ đã gõ | 92 |
 | marketing-loops | share-streak ngày liên tiếp +2/+3 ⭐, idempotent cùng ngày | 93 |
+| popups | exit-intent save cho người chưa đăng bài, cooldown 1/ngày | 94 |
