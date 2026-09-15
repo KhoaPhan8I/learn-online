@@ -84,3 +84,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | social-v2 | Chia se ho so mentor native (share sheet mobile) | 156 |
 | events-v2 | Lich khai giang them vao Google Calendar 1 cham | 157 |
 | site-arch-v2 | Footer nav: moi trang tinh co loi vao tu trang chu | 158 |
+| reviews-v1 | Hoi review 1 cau sau hoc xong + treo tren card | 159 |
