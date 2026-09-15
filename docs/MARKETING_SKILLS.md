@@ -88,6 +88,7 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | ai-seo-v2 | llms.txt them 5 trang tinh cho AI citation | 166 |
 | revops-v5 | Cau hinh STK nhan Ghim — mentor biet CK di dau | 167 |
 | revops-v6 | Backup STK admin PAYK 19-20 keys (mat may khong mat tien) | 168 |
+| analytics-v2 | Stats dem review + sao TB (proof len so lieu) | 169 |
 | reviews-v1 | Hoi review 1 cau sau hoc xong + treo tren card | 159 |
 | reviews-v2 | Fix cleanPost giu reviews qua reload (whitelist) | 160 |
 | reviews-v3 | CSV bai viet them cot danh_gia (data khong ket) | 161 |
