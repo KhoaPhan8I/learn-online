@@ -31,3 +31,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | competitors | trang so-sanh/trung-tam trung thực + cross-link | 103 |
 | content-strategy | trang use-case cho-nguoi-moi-day 5 bước | 104 |
 | revops | pipeline đơn Ghim chờ→chạy→hết hạn + xuất CSV | 105 |
+| sales-enablement | nút 📣 copy lời chào bán + xử lý từ chối cho mentor | 106 |
