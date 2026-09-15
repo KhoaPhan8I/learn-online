@@ -280,12 +280,13 @@ function save(p){try{localStorage.setItem(LS,JSON.stringify(p));return true}catc
 function voted(){try{const v=JSON.parse(localStorage.getItem(VOTED));return (v&&typeof v==='object'&&!Array.isArray(v))?v:{}}catch(e){return{}}}
 let _l=load();let posts=(_l||[]).map(cleanPost).filter(Boolean);try{if(localStorage.getItem(LS)===null)save(posts)}catch(e){}
 try{const _h=document.querySelector('header');if(_h&&_h.offsetHeight)document.documentElement.style.setProperty('--bar-top',(_h.offsetHeight+6)+'px')}catch(e){}
-function ago(ts){ts=Number(ts);if(!Number.isFinite(ts))return'không rõ thời gian';const m=Math.floor((Date.now()-ts)/6e4);if(m<1)return'vừa xong';if(m<60)return m+' phút trước';const h=Math.floor(m/60);if(h<24)return h+' giờ trước';return Math.floor(h/24)+' ngày trước'}
+function ago(ts){ts=Number(ts);if(!Number.isFinite(ts))return'không rõ thời gian';if(ts>Date.now())return'vừa xong';const m=Math.floor((Date.now()-ts)/6e4);if(m<1)return'vừa xong';if(m<60)return m+' phút trước';const h=Math.floor(m/60);if(h<24)return h+' giờ trước';const d=Math.floor(h/24);if(d<7)return d+' ngày trước';if(d<30)return Math.floor(d/7)+' tuần trước';if(d<365)return Math.floor(d/30)+' tháng trước';return Math.floor(d/365)+' năm trước'}
 function toast(m){const t=$('toast');if(!t)return;t.innerHTML='';const s=document.createElement('span');s.textContent=String(m??'');t.appendChild(s);const b=document.createElement('button');b.textContent='✕';b.setAttribute('aria-label','Đóng thông báo');b.style.cssText='margin-left:10px;background:none;border:0;color:#fff;font-size:14px;cursor:pointer;min-width:44px;min-height:44px';b.onclick=()=>t.classList.remove('show');t.appendChild(b);t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),3500)}
+function mediaKind(p){if(!p||typeof p!=='object')return'';const s=safeUrl(p.media);if(!s)return'';if(p.type==='video')return'video';if(p.type==='image')return'image';return''}
 function media(p){
-const s=safeUrl(p.media);
-if(p.type==='video'&&s)return `<video controls playsinline preload="metadata" src="${esc(s)}" aria-label="Video bài giảng: ${esc(p.title||'không tiêu đề')}"></video>`;
-if(p.type==='image'&&s)return `<img class="media" src="${esc(s)}" loading="lazy" alt="${esc(p.title||'Ảnh minh họa bài viết')}">`;
+const s=safeUrl(p.media);const kind=mediaKind(p);
+if(kind==='video')return `<video controls playsinline preload="metadata" src="${esc(s)}" aria-label="Video bài giảng: ${esc(p.title||'không tiêu đề')}"></video>`;
+if(kind==='image')return `<img class="media" src="${esc(s)}" loading="lazy" decoding="async" alt="${esc(p.title||'Ảnh minh họa bài viết')}">`;
 return '';
 }
 function pollHtml(p,id){
@@ -526,11 +527,12 @@ function mentorStreak(nm){const s7=mentorStats(nm,7),s30=mentorStats(nm,30),s90=
 function mentorNext(nm){const tiers=[[7,'tuần','🔥',2,3],[30,'tháng','🏅',4,8],[90,'quý','💎',8,20],[365,'năm','👑',20,50]];for(const[win,label,icon,minP,minR]of tiers){const st=mentorStats(nm,win);if(!st||(st.posts===0&&st.regs===0))continue;if(st.posts>=minP||st.regs>=minR)continue;const np=Math.max(0,minP-st.posts),nr=Math.max(0,minR-st.regs);return`${icon} còn ${np} lớp + ${nr} đký nữa lên top ${label}`}const any=tiers.some(([win])=>{const st=mentorStats(nm,win);return st&&(st.posts>0||st.regs>0)});return any?'đã max mọi mốc 🏆':'đăng lớp để lên top 🔥'}
 function mentorBadge(nm){const s=mentorStats(nm);if(!s)return'';const tiers=[[mentorStats(nm,365),'năm','👑',20,50],[mentorStats(nm,90),'quý','💎',8,20],[mentorStats(nm,30),'tháng','🏅',4,8],[mentorStats(nm,7),'tuần','🔥',2,3]];let top='';for(const[st,label,icon,minP,minR]of tiers){if(st&&(st.posts>=minP||st.regs>=minR)){top=`${icon} top ${label}: ${st.posts} lớp · ${st.regs} đký`;break}}let b='';if(s.posts>=3&&s.regs>=5)b=s.posts+' lớp · '+s.regs+' đăng ký';else if(s.posts>=3)b=s.posts+' lớp';if(top)b+=(b?' · ':'')+top;else b+=(b?' · ':'')+mentorNext(nm);return b}
 function hotRows(){const week=Date.now()-7*24*3600e3;const m={};posts.forEach(p=>{if(!p||typeof p!=='object')return;if(Number(p.ts)<week)return;const s=(p.skill||'').trim();if(!s)return;m[s]=(m[s]||0)+1+(Number(p.likes)||0)*0.5+regCount(p.regs)});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,5)}
+function hotPct(rows){const best=rows&&rows.length?rows[0][1]:0;if(!best)return rows.map(()=>[0,0]);return rows.map(([s,sc])=>[s,Math.min(100,Math.round(sc/best*100))])}
 function renderHot(){const sec=$('hotweek'),row=$('hotchips');if(!sec||!row)return;
 const top=hotRows();
 if(top.length<2){sec.hidden=true;row.innerHTML='';return}
-sec.hidden=false;const best=top.length?top[0][1]:1;
-row.innerHTML=top.map(([s,sc],i)=>{const pc=Math.min(100,Math.round(sc/best*100));return`<button type="button" data-k="${esc(s)}" aria-label="Tìm ${esc(s)}">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'⭐'} ${esc(s)} · ${pc}%</button>`}).join('');
+sec.hidden=false;const pcts=hotPct(top);
+row.innerHTML=pcts.map(([s,pc],i)=>`<button type="button" data-k="${esc(s)}" aria-label="Tìm ${esc(s)}">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'⭐'} ${esc(s)} · ${pc}%</button>`).join('');
 row.querySelectorAll('button').forEach(b=>b.onclick=()=>{const q=$('q');q.value=b.dataset.k||'';render();q.focus()})}
 function deepLink(){try{const h=location.hash||'';let m=h.match(/^#bai-(\d+)/);if(m){const id=Number(m[1]);const p=findPost(id);if(!p)return;filter='all';const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{const el=$('post-'+id);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),2200)}});return}m=h.match(/^#giao-vien-(.+)/);if(m){const nm=decodeURIComponent(m[1]);if(nm)profile(nm)}}catch(e){}}
 window.addEventListener('hashchange',deepLink);
@@ -645,6 +647,11 @@ T('composerProgress range',(()=>{try{const v=composerProgress();return v>=0&&v<=
 T('parsePostsCsv skill req',(()=>{const r=parsePostsCsv('id,loai,nguoi_day,ky_nang,tieu_de,gia,like,dang_ky,binh_luan,ngay\n1,text,An,,T,,0,0,0,2026-09-01');return r&&r.rows===null&&r.errors.some(e=>/kỹ năng/.test(e))})());
 T('parsePostsCsv price bad',(()=>{const r=parsePostsCsv('id,loai,nguoi_day,ky_nang,tieu_de,gia,like,dang_ky,binh_luan,ngay\n1,text,An,G,T,<bad>,0,0,0,2026-09-01');return r&&r.rows===null&&r.errors.some(e=>/giá/.test(e))})());
 T('parsePostsCsv price ok',(()=>{const r=parsePostsCsv('id,loai,nguoi_day,ky_nang,tieu_de,gia,like,dang_ky,binh_luan,ngay\n1,text,An,G,T,50k,0,0,0,2026-09-01');return r&&r.rows&&r.rows[0].gia==='50k'})());
+T('ago week/month/year',(()=>{const n=Date.now();return ago(n-10*24*3600e3)==='1 tuần trước'&&ago(n-60*24*3600e3)==='2 tháng trước'&&ago(n-400*24*3600e3)==='1 năm trước'&&ago(n+9999)==='vừa xong'&&ago(n-3*24*3600e3)==='3 ngày trước'})());
+T('mediaKind kinds',mediaKind({type:'video',media:'https://x.com/a.mp4'})==='video'&&mediaKind({type:'image',media:'https://x.com/a.jpg'})==='image'&&mediaKind({type:'text',media:''})===''&&mediaKind({type:'video',media:'javascript:alert(1)'})===''&&mediaKind(null)==='');
+T('media lazy attrs',(()=>{const h=media({type:'image',media:'https://x.com/a.jpg',title:'T'});return /loading="lazy"/.test(h)&&/decoding="async"/.test(h)&&media({type:'text',media:''})===''})());
+T('hotPct math',(()=>{const p=hotPct([['A',10],['B',5],['C',1]]);return p[0][1]===100&&p[1][1]===50&&p[2][1]===10})());
+T('hotPct zero guard',(()=>{const p=hotPct([]);return Array.isArray(p)&&p.length===0})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
