@@ -83,3 +83,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | content-v4 | Cho tuan share native (distribute moi piece) | 155 |
 | social-v2 | Chia se ho so mentor native (share sheet mobile) | 156 |
 | events-v2 | Lich khai giang them vao Google Calendar 1 cham | 157 |
+| site-arch-v2 | Footer nav: moi trang tinh co loi vao tu trang chu | 158 |

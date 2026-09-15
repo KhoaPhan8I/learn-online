@@ -1129,6 +1129,7 @@ T('coPromo pairs',(()=>{try{const keep=posts.slice();posts.length=0;posts.push({
 T('videoScript 60s',(()=>{try{const t=videoScript({title:'Guitar cơ bản',skill:'Guitar',price:'200k',name:'An'});return /HOOK/.test(t)&&/0-5s/.test(t)&&/CTA/.test(t)&&/45-60s/.test(t)&&/An/.test(t)}catch(e){return false}})());
 T('vscript fn',typeof window.vscript==='function');
 T('schedLabel countdown',(()=>{try{const f=schedLabel(Date.now()+2*864e5+3*36e5);return /2 ngày/.test(f)&&/3h/.test(f)&&schedLabel(Date.now()-1000)===''&&schedLabel(0)===''}catch(e){return false}})());
+T('footer nav',(()=>{try{const f=document.querySelector('footer');return !!f&&!!f.querySelector('a[href="gia/"]')&&!!f.querySelector('a[href="bao-chi/"]')&&!!f.querySelector('a[href="so-sanh/trung-tam/"]')&&!!f.querySelector('a[href="cho-nguoi-moi-day/"]')&&!!f.querySelector('a[href="cho-nguoi-hoc/"]')}catch(e){return false}})());
 T('gcal link',(()=>{try{const u=gcalUrl({title:'Guitar',name:'An',contact:'090',sched:Date.now()+864e5});return/^https:\/\/calendar\.google\.com\/calendar\/render\?action=TEMPLATE/.test(u)&&/text=Guitar/.test(u)&&gcalUrl({})===''&&typeof window.setSched==='function'}catch(e){return false}})());
 T('setSched fn',typeof window.setSched==='function'&&typeof schedLabel==='function');
 T('ads conv+audience',(()=>{try{const okFn=typeof window.exportConv==='function'&&typeof window.exportAudience==='function'&&typeof convCsv==='function'&&typeof audienceCsv==='function';if(!okFn)return false;const k='learn-online-events-v1';let keep=null;try{keep=localStorage.getItem(k)}catch(e){}try{localStorage.setItem(k,JSON.stringify([{ev:'view',variant:'a',ts:Date.now()},{ev:'publish',variant:'b',src:'facebook',ts:Date.now()}]))}catch(e){return false}const c=convCsv();const okC=/event,ab_variant,source/.test(c)&&/publish/.test(c)&&/facebook/.test(c);try{if(keep===null)localStorage.removeItem(k);else localStorage.setItem(k,keep)}catch(e){}const a=audienceCsv();const okA=typeof a==='string';return okC&&okA}catch(e){return false}})());
@@ -1140,5 +1141,6 @@ T('wrap numbers',(()=>{try{const keep=posts.slice();posts.length=0;posts.push({i
 try{posts.length=0;JSON.parse(_snapPosts||'[]').forEach(x=>posts.push(x));backupKeys().forEach(k=>{if(_snapLS[k]===null||_snapLS[k]===undefined){try{localStorage.removeItem(k)}catch(e){}}else{try{localStorage.setItem(k,_snapLS[k])}catch(e){}}});render()}catch(e){}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
+<footer style="text-align:center;margin:24px 0 8px" aria-label="Lien ket trang"><p class="hint"><a href="gia/">Bang gia</a> · <a href="bao-chi/">Bao chi</a> · <a href="so-sanh/trung-tam/">So sanh trung tam</a> · <a href="cho-nguoi-moi-day/">Cho nguoi moi day</a> · <a href="cho-nguoi-hoc/">Cach tim lop</a></p></footer>
 </body>
 </html>
