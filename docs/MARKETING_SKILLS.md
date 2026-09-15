@@ -44,3 +44,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | video | nút 🎬 copy kịch bản video 60s cho mentor tự quay | 116 |
 | events | ngày khai giảng + đếm ngược trên card (hosting) | 117 |
 | prospecting | Nên-mời-ai-dạy: top tương tác chưa mở lớp + copy tin mời | 118 |
+| product-marketing | khối positioning công khai: là-gì + 3 persona + giá Ghim | 119 |
