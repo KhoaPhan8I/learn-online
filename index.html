@@ -95,6 +95,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <div class="row" style="margin-top:8px">
 <input id="f-price" class="half" placeholder="Học phí (trống = miễn phí)">
 <button class="btn half" id="publish">Đăng bài</button>
+<button class="btn ghost half" id="cancel-edit" hidden>Hủy</button>
 </div>
 <p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ.</p>
 </section>
@@ -179,8 +180,8 @@ if(p.type==='video'){$('f-vtitle').value=p.title;$('f-vdesc').value=p.body||'';$
 if(p.type==='image'){$('f-ititle').value=p.title;$('f-idesc').value=p.body||'';$('f-iurl').value=p.media||''}
 if(p.type==='text'){$('f-ttitle').value=p.title;$('f-tbody').value=p.body||''}
 if(p.type==='poll'){$('f-q').value=p.title;$('poll-opts').innerHTML=p.options.map(o=>`<input value="${esc(o.t)}" style="margin-bottom:8px">`).join('')}
-$('publish').textContent='Lưu thay đổi';window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi')};
-function resetForm(){editId=null;$('publish').textContent='Đăng bài';['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price','f-contact'].forEach(k=>$(k).value='');try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" style="margin-bottom:8px">'};
+$('publish').textContent='Lưu thay đổi';$('cancel-edit').hidden=false;window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi')};
+function resetForm(){editId=null;$('publish').textContent='Đăng bài';$('cancel-edit').hidden=true;['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-price','f-contact'].forEach(k=>$(k).value='');try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" style="margin-bottom:8px">'};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>x.classList.remove('on'));
 b.classList.add('on');cur=b.dataset.t;
@@ -195,7 +196,7 @@ $('publish').onclick=()=>{
 const name=$('f-name').value.trim();
 if(!name)return toast('Nhập tên bạn đã');
 const skill=$('f-skill').value.trim(), price=$('f-price').value.trim(), contact=$('f-contact').value.trim();
-const id=Math.max(...posts.map(p=>p.id))+1, base={id,name,skill,price,contact,mine:1,likes:0,ts:Date.now()};
+const id=Math.max(0,...posts.map(p=>p.id))+1, base={id,name,skill,price,contact,mine:1,likes:0,ts:Date.now()};
 let p=null;
 if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập tên khóa học');p={...base,type:'video',title:t,body:$('f-vdesc').value.trim(),media:$('f-vurl').value.trim()||'https://www.w3schools.com/html/mov_bbb.mp4'}}
 if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
@@ -210,6 +211,7 @@ resetForm();
 filter='all';document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
 render();toast('Đăng bài thành công!');
 };
+$('cancel-edit').onclick=()=>{resetForm();toast('Đã hủy sửa')};
 try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}
 render();
 </script>
