@@ -41,3 +41,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | influencer-marketing | link affiliate KOC + đếm lượt ref trong hồ sơ | 113 |
 | cold-email | tin nhắc 2 chạm cho mentor (nhắc + chào cuối) | 114 |
 | ad-creative | nút 📢 copy mẫu quảng cáo FB/Zalo cho bài của mình | 115 |
+| video | nút 🎬 copy kịch bản video 60s cho mentor tự quay | 116 |
