@@ -54,3 +54,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | aso | PWA installable: manifest + icon + nút cài app | 126 |
 | marketing-plan | 🩺 audit 17 mục rubric: 54/85 + shape mạnh/yếu | 127 |
 | competitor-profiling | profiles Unica/Edumall/Kyna + bảng so-sanh mở rộng | 128 |
+| marketing-council | council 129: KHÔNG thu phí đăng — miễn phí vĩnh viễn | 129 |
