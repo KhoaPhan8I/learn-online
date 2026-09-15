@@ -60,6 +60,22 @@ header p{font-size:12px;color:var(--mut)}
 .feed-head h2{font-size:17px;font-weight:800;letter-spacing:-.01em}
 .feed-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 .feed-head small{color:var(--mut);font-size:12px}
+.chips{display:flex;gap:6px;margin:8px 0 2px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:1px solid rgba(37,244,238,.3);background:rgba(37,244,238,.08);color:var(--acc2);border-radius:999px;padding:7px 14px;min-height:40px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:transform .15s,background .2s}
+.chips button:hover{transform:translateY(-1px);background:rgba(37,244,238,.16)}
+.chips button.dim{border-color:var(--line);background:rgba(255,255,255,.05);color:var(--mut)}
+.topsec{margin:14px 2px 4px}
+.topsec h2{font-size:17px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px}
+.toprow{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.toprow::-webkit-scrollbar{display:none}
+.topcard{flex:0 0 220px;scroll-snap-align:start;background:linear-gradient(160deg,rgba(254,44,85,.16),rgba(29,29,39,.95) 55%);border:1px solid rgba(251,191,36,.3);border-radius:16px;padding:14px;cursor:pointer;transition:transform .18s,box-shadow .2s;text-align:left;color:var(--txt);font-family:inherit}
+.topcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.45),0 0 18px rgba(251,191,36,.15)}
+.topcard .rank{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.08em;margin-bottom:6px}
+.topcard b{display:block;font-size:14px;font-weight:700;line-height:1.4;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.topcard small{font-size:12px;color:var(--mut)}
+.empty-try{margin-top:10px}
+.empty-try p{font-size:13px;color:var(--mut);margin-bottom:8px}
 .fresh{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;color:#0b0b10;background:linear-gradient(90deg,var(--acc2),#a5fcff);border-radius:6px;padding:3px 8px;margin-right:6px;vertical-align:2px;box-shadow:0 0 12px rgba(37,244,238,.5)}
 .composer-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .composer-head .grow{flex:1}
@@ -191,7 +207,8 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 </div>
 </section>
 <div class="stickybar">
-<div class="row"><label class="sr-only" for="q">Tìm kiếm bài viết</label><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..." aria-label="Tìm kiếm bài viết"><label class="sr-only" for="sort">Sắp xếp bài viết</label><select id="sort" class="half" style="max-width:160px" aria-label="Sắp xếp bài viết"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option><option value="random">🎲 Ngẫu nhiên</option></select></div>
+<div class="row"><label class="sr-only" for="q">Tìm kiếm bài viết</label><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..." aria-label="Tìm kiếm bài viết" list="q-history"><datalist id="q-history"></datalist><label class="sr-only" for="sort">Sắp xếp bài viết</label><select id="sort" class="half" style="max-width:160px" aria-label="Sắp xếp bài viết"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option><option value="random">🎲 Ngẫu nhiên</option></select></div>
+<div class="chips" id="chips" aria-label="Gợi ý tìm kiếm"></div>
 <nav class="filters" id="filters" aria-label="Lọc bài viết theo loại">
 <button data-f="all" class="on" aria-pressed="true">Tất cả</button>
 <button data-f="video" aria-pressed="false">🎬 Video</button>
@@ -203,13 +220,14 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <button data-f="joined" aria-pressed="false">✅ Đã đăng ký</button>
 </nav>
 </div>
+<div class="topsec" id="topsec" hidden><h2>🏆 Được quan tâm nhất</h2><div class="toprow" id="toprow"></div></div>
 <div class="feed-head"><h2>🔥 Lớp mới nhất</h2><span class="line"></span><small id="feed-count"></small></div>
 <section id="feed" aria-label="Danh sách bài viết"></section>
 <p class="hint" style="text-align:center;margin:16px 0 4px"><button class="btn ghost" id="export" type="button" aria-label="Tải bản sao lưu dữ liệu">⬇ Sao lưu</button> <button class="btn ghost" id="import-btn" type="button" aria-label="Khôi phục dữ liệu từ file sao lưu">⬆ Khôi phục</button><input type="file" id="import" accept="application/json" hidden aria-label="Chọn file sao lưu JSON"></p>
 </main>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
-const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2';
+const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2', HIST='learn-online-search-v2';
 let cur='video', filter='all', editId=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -285,16 +303,33 @@ const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.n
 const st=$('stats');if(st)st.innerHTML=`<span class="pill">📚 <b>${ok.length}</b> lớp</span><span class="pill">👩‍🏫 <b>${teachers}</b> người dạy</span><span class="pill">📝 <b>${regs}</b> đăng ký</span>`;
 const fc=$('feed-count');if(fc)fc.textContent=list.length?list.length+' bài':'';
 function liveTicker(){const t=$('ticker-track');if(!t)return;const items=posts.filter(p=>p&&typeof p==='object').slice(0,12).map(p=>{const s=(p.skill||p.title||'').trim().slice(0,24);return s?`Học <b>${esc(s)}</b> hôm nay ✦`:''}).filter(Boolean);t.innerHTML=items.length?(items.join(' ')+' '+items.join(' ')):'Đăng lớp đầu tiên để hiện ở đây ✦ Đăng lớp đầu tiên để hiện ở đây ✦'}
-liveTicker();
-$('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):(posts.length?'<div class="card">Không tìm thấy bài nào.</div>':'<div class="card"><h2 class="post-title">Chợ còn trống 🎉</h2><p class="post-body">Chưa có ai đăng lớp. Hãy là người đầu tiên chia sẻ kỹ năng của bạn ở form phía trên!</p></div>');
+liveTicker();renderChips();renderTop();
+function emptyHtml(kw){if(!posts.length)return '<div class="card"><h2 class="post-title">Chợ còn trống 🎉</h2><p class="post-body">Chưa có ai đăng lớp. Hãy là người đầu tiên chia sẻ kỹ năng của bạn ở form phía trên!</p></div>';
+const sug=posts.filter(p=>p&&typeof p==='object').sort((a,b)=>(Number(b.ts)||0)-(Number(a.ts)||0)).slice(0,3);
+return `<div class="card"><h2 class="post-title">Không tìm thấy${kw?` “${esc(kw)}”`:''} 😅</h2><div class="empty-try"><p>Thử lớp mới nhất:</p><div style="display:flex;gap:6px;flex-wrap:wrap">${sug.map(p=>`<button type="button" class="btn ghost" onclick="jumpTop(${numId(p.id)})">${esc((p.skill||p.title||'').slice(0,24))}</button>`).join('')}</div></div></div>`}
+$('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):emptyHtml(kw);
 if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
 }catch(e){$('feed').innerHTML='<div class="card">Có lỗi hiển thị feed. Thử tải lại trang.</div>';}
 }
-let _qt=null;$('q').oninput=()=>{clearTimeout(_qt);_qt=setTimeout(render,300)}; $('sort').onchange=render;
+let _qt=null;$('q').oninput=()=>{clearTimeout(_qt);_qt=setTimeout(()=>{pushHist($('q').value);render()},400)}; $('sort').onchange=render;
 window.like=id=>{const p=findPost(id);if(!p)return;const _liked=p.liked,_n=Number(p.likes)||0;p.liked=!p.liked;p.likes=_n+(p.liked?1:-1);if(p.likes<0)p.likes=0;if(!save(posts)){p.liked=_liked;p.likes=_n;return}render()};
 window.vote=(id,i)=>{i=Number(i);const p=findPost(id);if(!p||!Array.isArray(p.options)||!Number.isInteger(i)||i<0||i>=p.options.length||!p.options[i])return;const nid=numId(id);const v=voted();const prev=v[nid];if(prev===i+1)return;const _a=prev&&p.options[prev-1]?Number(p.options[prev-1].v)||0:null,_b=Number(p.options[i].v)||0;if(prev&&p.options[prev-1])p.options[prev-1].v=Math.max(0,(Number(p.options[prev-1].v)||0)-1);v[nid]=i+1;try{localStorage.setItem(VOTED,JSON.stringify(v))}catch(e){if(prev&&p.options[prev-1])p.options[prev-1].v=_a;toast('Không lưu được vote (bộ nhớ đầy)');return}p.options[i].v=_b+1;if(!save(posts)){p.options[i].v=_b;if(prev&&p.options[prev-1])p.options[prev-1].v=_a;try{const vv=voted();delete vv[nid];if(prev)vv[nid]=prev;localStorage.setItem(VOTED,JSON.stringify(vv))}catch(e){}return}render();toast(prev?'Đã đổi lựa chọn!':'Đã ghi nhận vote!')};
 window.reg=id=>{const p=findPost(id);if(!p)return;const n=($('f-name').value||'').trim()||'Khách';p.regs=Array.isArray(p.regs)?p.regs:[];if(p.regs.includes(n)){const _r=p.regs.slice();p.regs=p.regs.filter(x=>x!==n);if(!save(posts)){p.regs=_r;return}render();return toast('Đã hủy đăng ký')}p.regs.push(n);if(!save(posts)){p.regs.pop();return}render();toast('Đã đăng ký! Mở bài viết để xem liên hệ')};
 function markInvalid(el,on){if(!el)return;try{if(on){el.setAttribute('aria-invalid','true')}else if(el.removeAttribute){el.removeAttribute('aria-invalid')}}catch(e){}}
+function hist(){try{const v=JSON.parse(localStorage.getItem(HIST));return Array.isArray(v)?v.filter(x=>typeof x==='string').slice(0,8):[]}catch(e){return[]}}
+function pushHist(kw){kw=(kw||'').trim().slice(0,60);if(kw.length<2)return;try{let h=hist().filter(x=>x.toLowerCase()!==kw.toLowerCase());h.unshift(kw);localStorage.setItem(HIST,JSON.stringify(h.slice(0,8)))}catch(e){}}
+function skillFreq(){const m={};posts.forEach(p=>{if(!p||typeof p!=='object')return;const s=(p.skill||'').trim();if(s)m[s]=(m[s]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0])}
+function renderChips(){const c=$('chips');if(!c)return;const h=hist(), fr=skillFreq();const picks=[...new Set([...h,...fr])].slice(0,6);
+if(!picks.length){c.innerHTML='';return}
+c.innerHTML=picks.map((k,i)=>`<button type="button" class="${i<h.length?'':'dim'}" data-k="${esc(k)}" aria-label="Tìm ${esc(k)}">${i<h.length?'🕘':'🏷️'} ${esc(k)}</button>`).join('');
+c.querySelectorAll('button').forEach(b=>b.onclick=()=>{const q=$('q');q.value=b.dataset.k||'';render();q.focus()});
+const dl=$('q-history');if(dl)dl.innerHTML=h.map(k=>`<option value="${esc(k)}">`).join('')}
+window.jumpTop=id=>{const p=findPost(id);if(!p)return;filter='all';document.querySelectorAll('#filters button').forEach(x=>{const on=x.dataset.f==='all';x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{try{const el=$('like-'+numId(id));if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.focus({preventScroll:true})}catch(e){}})};
+function renderTop(){const sec=$('topsec'),row=$('toprow');if(!sec||!row)return;
+const ranked=posts.filter(p=>p&&typeof p==='object').map(p=>({p,s:(Number(p.likes)||0)*2+(Array.isArray(p.regs)?p.regs.length:0)*3+(Array.isArray(p.cmts)?p.cmts.length:0)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,5);
+if(ranked.length<2||filter!=='all'||(($('q')||{}).value||'').trim()){sec.hidden=true;row.innerHTML='';return}
+sec.hidden=false;const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+row.innerHTML=ranked.map((x,i)=>`<button type="button" class="topcard" onclick="jumpTop(${numId(x.p.id)})" aria-label="Xem lớp ${esc(x.p.title||'')}"><div class="rank">${medals[i]||'⭐'} TOP ${i+1}</div><b>${esc(x.p.title||'(không tiêu đề)')}</b><small>❤ ${Number(x.p.likes)||0} · 📝 ${Array.isArray(x.p.regs)?x.p.regs.length:0} · 💬 ${Array.isArray(x.p.cmts)?x.p.cmts.length:0}</small></button>`).join('')}
 window.share=id=>{const p=findPost(id);if(!p)return;const t=`${p.title||''} — ${p.name||'Ẩn danh'} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).then(()=>toast('Đã chia sẻ!')).catch(()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!')).catch(()=>toast(t));else toast(t)})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!')).catch(()=>toast(t))}else{toast(t)}};
 window.cmt=id=>{const nid=numId(id);if(nid===null)return;const inp=$('c-'+nid);if(!inp)return toast('Không tìm thấy ô bình luận');const t=(inp.value||'').trim().slice(0,1000);if(!t)return toast('Nhập bình luận đã');const n=(($('f-name').value||'').trim()||'Khách').slice(0,80);const p=findPost(id);if(!p)return;p.cmts=Array.isArray(p.cmts)?p.cmts:[];p.cmts.push({n,t});if(!save(posts)){p.cmts.pop();return}render();toast('Đã gửi bình luận!')};
 window.del=id=>{const p=findPost(id);if(!confirm(p&&p.title?('Xóa bài "'+String(p.title).slice(0,80)+'"?'):'Xóa bài này?'))return;const _all=posts.slice();posts=posts.filter(x=>!(x&&typeof x==='object'&&sameId(x.id,id)));if(!save(posts)){posts=_all;return}if(editId!==null&&sameId(editId,id)){resetForm()}render();toast('Đã xóa bài')};
