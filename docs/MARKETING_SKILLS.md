@@ -51,3 +51,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | pricing | bảng so sánh gói Free vs Ghim trong modal (packaging tiers) | 123 |
 | co-marketing | 🤝 dạy chéo mentor↔mentor: gợi ý cặp kỹ năng bù + tin mời | 124 |
 | analytics | 📊 dashboard 3 câu hỏi: tới? bấm? đăng bài? + việc cần làm | 125 |
+| aso | PWA installable: manifest + icon + nút cài app | 126 |

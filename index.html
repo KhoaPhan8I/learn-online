@@ -13,6 +13,8 @@
 <title>Learn Online — Chợ kỹ năng</title>
 <meta name="description" content="Learn Online — chợ kỹ năng sharing online: ai cũng dạy được, ai cũng học được. Đăng video, bài viết, text hoặc poll.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Learn Online">
 <meta property="og:title" content="Learn Online — Chợ kỹ năng">
@@ -197,6 +199,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <div class="row-btn">
 <button class="btn-primary" id="cta-hero" type="button">🚀 Đăng lớp miễn phí — 1 phút xong</button>
 <button class="btn-quiet" id="cta-explore" type="button">Xem lớp đang có ↓</button>
+<button class="btn-quiet" id="install-btn" type="button" hidden onclick="installApp()">📲 Cài app</button>
 </div>
 <div class="ticker" aria-hidden="true"><span class="track" id="ticker-track"></span></div>
 </section>
@@ -731,6 +734,9 @@ window.dash=()=>{try{$('sheet').innerHTML=dashHtml()+`<button class="btn ghost" 
 function applyAb(){try{const v=abVar();const h=document.querySelector('.hero h2');if(h){if(!h.dataset.a)h.dataset.a=h.innerHTML;h.innerHTML=v==='b'?'Học viên đang chờ lớp của bạn —<br><span class="grad">đăng xong trong 1 phút</span>':h.dataset.a}abTrack('view',v);return v}catch(e){return'a'}}
 $('cta-share').onclick=()=>{abTrack('cta',abVar());openComposer()};$('cta-hero').onclick=()=>{abTrack('cta',abVar());openComposer()};
 $('cta-explore').onclick=()=>{smoothScroll($('feed-count')||$('feed'),'start')};
+let deferredInstall=null;
+try{window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;const b=$('install-btn');if(b)b.hidden=false})}catch(e){}
+window.installApp=async()=>{try{if(deferredInstall){deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;const b=$('install-btn');if(b)b.hidden=true}else toast('Mở menu trình duyệt → Thêm vào màn hình chính để cài 📲')}catch(e){toast('Mở menu trình duyệt → Thêm vào màn hình chính để cài 📲')}};
 function healthCheck(){const issues=[];try{const seen=new Set();posts.forEach(p=>{if(!p||typeof p!=='object'){issues.push('bài hỏng');return}const n=numId(p.id);if(n===null){issues.push('bài thiếu id');return}if(seen.has(n))issues.push('trùng id '+n);seen.add(n);if(!p.title)issues.push('bài '+n+' thiếu tiêu đề')});const raw=localStorage.getItem(LS);if(raw){try{const v=JSON.parse(raw);if(!Array.isArray(v))issues.push('kho lưu trữ không phải mảng')}catch(e){issues.push('kho lưu trữ lỗi JSON')}}}catch(e){issues.push('lỗi kiểm tra: '+e.message)}return issues}
 function healthFix(){let fixed=0;try{const seen=new Set();const clean=[];posts.forEach(p=>{if(!p||typeof p!=='object')return;const n=numId(p.id);if(n===null)return;if(seen.has(n)){fixed++;return}seen.add(n);const c=cleanPost(p);if(!c){fixed++;return}if(!c.title){c.title='(không tiêu đề)';fixed++}clean.push(c)});if(fixed){posts=clean;save(posts);render()}}catch(e){}return fixed}
 try{const _ref=claimRef();try{captureAttr()}catch(e){}render();try{applyAb()}catch(e){}deepLink();if(_ref)toast('🎁 Bạn mở link của '+_ref+' — +2 ⭐ cho mentor!')}catch(e){render();deepLink()}
@@ -1047,6 +1053,7 @@ T('pricing tiers',(()=>{try{const h=boostSheetHtml([]);return /Miễn phí — 0
 T('adText hook',(()=>{try{const t=adText({title:'Guitar cơ bản',skill:'Guitar',price:'200k',name:'An'});return /🔥/.test(t)&&/Guitar cơ bản/.test(t)&&/200k/.test(t)&&/không hợp không mất gì/.test(t)&&/Đăng ký ngay/.test(t)}catch(e){return false}})());
 T('adcopy fn',typeof window.adcopy==='function');
 T('dash decisions',(()=>{try{const h=dashHtml();return typeof window.dash==='function'&&/có tới không/.test(h)&&/Có bấm không/.test(h)&&/Có đăng bài không/.test(h)&&/view→bài/.test(h)&&/Ít view/.test(h)&&/verdict A\/B/.test(h)}catch(e){return false}})());
+T('aso installable',(()=>{try{return !!document.querySelector('link[rel="manifest"]')&&!!document.querySelector('link[rel="apple-touch-icon"]')&&typeof window.installApp==='function'}catch(e){return false}})());
 T('coPromo pairs',(()=>{try{const keep=posts.slice();posts.length=0;posts.push({id:9201,name:'Illust',skill:'Vẽ',regs:[],cmts:[],ts:Date.now()});posts.push({id:9202,name:'Music',skill:'Guitar',regs:[{n:'U1',ts:1}],cmts:[],ts:Date.now()});posts.push({id:9203,name:'Vẽ2',skill:'Vẽ',regs:[],cmts:[],ts:Date.now()});const r=coPromo('Illust');const ok=Array.isArray(r)&&r.length===1&&r[0].nm==='Music'&&/dạy chéo/.test(coPromoText('Illust','Music'))&&typeof window.coInvite==='function'&&coPromoHtml('Illust').includes('Music')&&!coPromoHtml('Illust').includes('Vẽ2');posts.length=0;keep.forEach(x=>posts.push(x));return ok}catch(e){return false}})());
 T('videoScript 60s',(()=>{try{const t=videoScript({title:'Guitar cơ bản',skill:'Guitar',price:'200k',name:'An'});return /HOOK/.test(t)&&/0-5s/.test(t)&&/CTA/.test(t)&&/45-60s/.test(t)&&/An/.test(t)}catch(e){return false}})());
 T('vscript fn',typeof window.vscript==='function');
