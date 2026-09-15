@@ -61,3 +61,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | competitor-v2 | ✅ verify giá Unica 49k–999k; Kyna/Edumall ghi rõ chưa verify | 133 |
 | revops-v2 | 💰 doanh thu Ghim đã thu + chờ duyệt + dự báo trong dashboard | 134 |
 | marketing-plan-v2 | 🩺 chấm lại audit: 54→58 sau vòng 2 | 135 |
+| customer-research-v2 | 🎯 persona follow-up: chọn xong dẫn tới hành động ngay | 136 |
