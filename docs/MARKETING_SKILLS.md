@@ -22,3 +22,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | popups | exit-intent save cho người chưa đăng bài, cooldown 1/ngày | 94 |
 | free-tools | công cụ gợi ý học phí từ giá thật, dẫn sang đăng bài | 95 |
 | site-architecture | cross-link 2 chiều course↔mentor trên trang tĩnh | 96 |
+| emails | capture email + xuất CSV (nền cho sequence khi có backend) | 97 |
