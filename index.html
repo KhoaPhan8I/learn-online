@@ -181,9 +181,9 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 </header>
 <main>
 <section class="hero">
-<span class="kicker">✦ Chợ kỹ năng sharing online</span>
-<h2>Học điều mới mỗi ngày,<br><span class="grad">dạy điều bạn giỏi nhất</span></h2>
-<p>Đăng video, bài viết, text hoặc poll — mất chưa tới 1 phút. Miễn phí đăng lớp, học phí do bạn tự đặt.</p>
+<span class="kicker">✦ Chợ kỹ năng sharing online — miễn phí đăng lớp</span>
+<h2>Biến kỹ năng của bạn thành lớp học,<br><span class="grad">học viên tự tìm đến</span></h2>
+<p>Đăng lớp chưa tới 1 phút — video, bài viết, text hoặc poll. Không cần vốn, không cần chạy quảng cáo, học phí do bạn tự đặt.</p>
 <div class="row-btn">
 <button class="btn-primary" id="cta-hero" type="button">🚀 Đăng lớp ngay</button>
 <button class="btn-quiet" id="cta-explore" type="button">Khám phá lớp học ↓</button>
@@ -695,6 +695,8 @@ T('pollBar pct',(()=>{const h=pollBar(5,0,'A',3,4,true);return /75%/.test(h)&&/�
 T('pollBar zero',(()=>{const h=pollBar(5,1,'B',0,1,false);return /0%/.test(h)&&!/✓/.test(h)})());
 T('cmtRow html',(()=>{const h=cmtRow({n:'An',t:'hay'});return /An/.test(h)&&/hay/.test(h)&&cmtRow(null)===''&&cmtRow(42)===''})());
 T('cmtRow esc',(()=>{const h=cmtRow({n:'<b>',t:'<i>'});return /&lt;b&gt;/.test(h)&&/&lt;i&gt;/.test(h)})());
+T('hero copy outcome',(()=>{const h=document.querySelector('.hero h2');return /Biến kỹ năng/.test(h.textContent)&&/học viên tự tìm đến/.test(h.textContent)})());
+T('hero sub specifics',(()=>{const p=document.querySelector('.hero p');return /1 phút/.test(p.textContent)&&/học phí do bạn/.test(p.textContent)})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
