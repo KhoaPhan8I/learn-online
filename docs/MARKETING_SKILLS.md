@@ -79,3 +79,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | community-v2 | 💬 nudge mentor trả lời câu hỏi chờ trên card (unanswered) | 151 |
 | emails-v3 | ✉️ gửi sequence thật qua mailto BCC (không cần backend) | 152 |
 | emails-v4 | 🔒 BCC ẩn danh sách + Email 3→4 (68) | 153 |
+| sms-v2 | 📱 nhắn SMS thật qua sms: URI (mirror mailto) | 154 |
