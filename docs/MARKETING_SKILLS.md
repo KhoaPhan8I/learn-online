@@ -39,3 +39,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | community-marketing | huy hiệu Mentor tuần cho top 1 bảng xếp hạng | 111 |
 | sms | opt-in SĐT + cam kết tần suất + xuất CSV (chờ gateway) | 112 |
 | influencer-marketing | link affiliate KOC + đếm lượt ref trong hồ sơ | 113 |
+| cold-email | tin nhắc 2 chạm cho mentor (nhắc + chào cuối) | 114 |
