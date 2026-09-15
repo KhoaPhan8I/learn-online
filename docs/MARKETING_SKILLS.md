@@ -30,3 +30,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | directory-submissions | FAQPage JSON-LD 3 câu (điểm AI citation) | 102 |
 | competitors | trang so-sanh/trung-tam trung thực + cross-link | 103 |
 | content-strategy | trang use-case cho-nguoi-moi-day 5 bước | 104 |
+| revops | pipeline đơn Ghim chờ→chạy→hết hạn + xuất CSV | 105 |
