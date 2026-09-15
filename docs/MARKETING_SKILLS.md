@@ -32,3 +32,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | content-strategy | trang use-case cho-nguoi-moi-day 5 bước | 104 |
 | revops | pipeline đơn Ghim chờ→chạy→hết hạn + xuất CSV | 105 |
 | sales-enablement | nút 📣 copy lời chào bán + xử lý từ chối cho mentor | 106 |
+| copy-editing | clarity sweep: lỗi đăng bài nói rõ ô nào + vì sao | 107 |
