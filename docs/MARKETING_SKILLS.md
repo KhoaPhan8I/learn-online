@@ -46,3 +46,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | prospecting | Nên-mời-ai-dạy: top tương tác chưa mở lớp + copy tin mời | 118 |
 | product-marketing | khối positioning công khai: là-gì + 3 persona + giá Ghim | 119 |
 | marketing-ideas | 🎁 Tổng kết của tôi: số thật + copy khoe (year-wrap/viral) | 120 |
+| ads | 📈 conversion-events CSV + 👥 custom-audience CSV (pixel-ready) | 121 |
