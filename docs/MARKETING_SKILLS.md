@@ -25,3 +25,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | emails | capture email + xuất CSV (nền cho sequence khi có backend) | 97 |
 | lead-magnets | checklist đăng lớp tải ngay sau đăng ký email | 98 |
 | cro | CTA value-copy + microcopy cạnh nút đăng bài | 99 |
+| marketing-psychology | social proof thật: ẩn số 0, empty-state mời lớp đầu tiên | 100 |
