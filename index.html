@@ -79,6 +79,26 @@ header p{font-size:12px;color:var(--mut)}
 .mentor{display:inline-block;font-size:10px;font-weight:800;color:#0b0b10;background:linear-gradient(90deg,var(--gold),#fde68a);border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px;box-shadow:0 0 10px rgba(251,191,36,.45)}
 .hotweek{margin:14px 2px 4px}
 .hotweek h2{font-size:17px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px}
+.who b{cursor:pointer}
+.who b:hover{color:var(--acc2)}
+.modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s}
+.modal.open{opacity:1;pointer-events:auto}
+.sheet{width:100%;max-width:520px;max-height:82vh;overflow-y:auto;background:linear-gradient(180deg,#23232f,#17171f);border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));transform:translateY(30px);transition:transform .25s}
+.modal.open .sheet{transform:none}
+.sheet .pro-head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.sheet .pro-head .avatar{width:56px;height:56px;font-size:22px}
+.sheet h2{font-size:19px;font-weight:800}
+.sheet .pro-stats{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.sheet .pro-stats .pill{font-size:12px;font-weight:700;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.sheet .pro-stats .pill b{color:var(--gold)}
+.sheet .pro-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.sheet .pro-item{text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--txt);cursor:pointer;font-family:inherit;transition:border-color .2s,transform .15s}
+.sheet .pro-item:hover{border-color:var(--acc2);transform:translateX(2px)}
+.sheet .pro-item b{display:block;font-size:14px;margin-bottom:4px}
+.sheet .pro-item small{font-size:12px;color:var(--mut)}
+.qrbox{text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.qrbox canvas{border-radius:12px;border:1px solid var(--line);background:#fff;padding:8px;max-width:180px;width:100%;height:auto}
+.qrbox p{font-size:12px;color:var(--mut);margin-top:8px;word-break:break-all}
 .fresh{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;color:#0b0b10;background:linear-gradient(90deg,var(--acc2),#a5fcff);border-radius:6px;padding:3px 8px;margin-right:6px;vertical-align:2px;box-shadow:0 0 12px rgba(37,244,238,.5)}
 .composer-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .composer-head .grow{flex:1}
@@ -221,6 +241,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <button data-f="mine" aria-pressed="false">👤 Bài của tôi</button>
 <button data-f="free" aria-pressed="false">🆓 Miễn phí</button>
 <button data-f="joined" aria-pressed="false">✅ Đã đăng ký</button>
+<button data-f="mentor" aria-pressed="false">★ Mentor</button>
 </nav>
 </div>
 <div class="topsec" id="topsec" hidden><h2>🏆 Được quan tâm nhất</h2><div class="toprow" id="toprow"></div></div>
@@ -230,6 +251,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <p class="hint" style="text-align:center;margin:16px 0 4px"><button class="btn ghost" id="export" type="button" aria-label="Tải bản sao lưu dữ liệu">⬇ Sao lưu</button> <button class="btn ghost" id="import-btn" type="button" aria-label="Khôi phục dữ liệu từ file sao lưu">⬆ Khôi phục</button><input type="file" id="import" accept="application/json" hidden aria-label="Chọn file sao lưu JSON"></p>
 </main>
 <div id="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Hồ sơ người dạy"><div class="sheet" id="sheet"></div></div>
 <script>
 const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2', HIST='learn-online-search-v2';
 let cur='video', filter='all', editId=null;
@@ -276,7 +298,7 @@ const isFresh=Number.isFinite(Number(p.ts))&&(Date.now()-Number(p.ts))<24*3600e3
 const badge=mentorBadge(nm);
 return `<article class="card" id="post-${id}">
 <div class="meta"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div>
-<div class="who"><b>${esc(nm)}${badge?`<span class="mentor" title="${esc(badge)}">★ MENTOR</span>`:''}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
+<div class="who"><b data-nm="${esc(nm)}" onclick="profile(this.dataset.nm)" onkeydown="if(event.key==='Enter')profile(this.dataset.nm)" role="button" tabindex="0" title="Xem hồ sơ ${esc(nm)}">${esc(nm)}${badge?`<span class="mentor" title="${esc(badge)}">★ MENTOR</span>`:''}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
 <span class="tag">${esc(p.skill||'Chung')}</span>
 <span class="price${p.price?'':' free'}">${esc(p.price||'🆓 Miễn phí')}</span></div>
 <h2 class="post-title">${isFresh?'<span class="fresh">MỚI</span>':''}${esc(p.title)}</h2>
@@ -301,7 +323,7 @@ const seen=new Set();
 const me=($('f-name').value||'').trim()||'Khách';
 const list=posts
 .filter(p=>p&&typeof p==='object')
-.filter(p=>(filter==='all'||(filter==='mine'?!!p.mine:filter==='free'?!String(p.price||'').trim():filter==='joined'?Array.isArray(p.regs)&&p.regs.includes(me):p.type===filter))&&(!kw||((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)))
+.filter(p=>(filter==='all'||(filter==='mine'?!!p.mine:filter==='free'?!String(p.price||'').trim():filter==='mentor'?!!mentorBadge(p.name||''):filter==='joined'?Array.isArray(p.regs)&&p.regs.includes(me):p.type===filter))&&(!kw||((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)))
 .filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true});
 if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}}else list.sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
 const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.name).filter(Boolean)).size, regs=ok.reduce((a,p)=>a+(Array.isArray(p.regs)?p.regs.length:0),0);
@@ -329,7 +351,16 @@ if(!picks.length){c.innerHTML='';return}
 c.innerHTML=picks.map((k,i)=>`<button type="button" class="${i<h.length?'':'dim'}" data-k="${esc(k)}" aria-label="Tìm ${esc(k)}">${i<h.length?'🕘':'🏷️'} ${esc(k)}</button>`).join('');
 c.querySelectorAll('button').forEach(b=>b.onclick=()=>{const q=$('q');q.value=b.dataset.k||'';render();q.focus()});
 const dl=$('q-history');if(dl)dl.innerHTML=h.map(k=>`<option value="${esc(k)}">`).join('')}
-window.jumpTop=id=>{const p=findPost(id);if(!p)return;filter='all';document.querySelectorAll('#filters button').forEach(x=>{const on=x.dataset.f==='all';x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{try{const el=$('like-'+numId(id));if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.focus({preventScroll:true})}catch(e){}})};
+window.profile=nm=>{nm=String(nm||'');const mine=posts.filter(p=>p&&typeof p==='object'&&(p.name||'')===nm);if(!mine.length)return toast('Không tìm thấy người dạy');const likes=mine.reduce((a,p)=>a+(Number(p.likes)||0),0),regs=mine.reduce((a,p)=>a+(Array.isArray(p.regs)?p.regs.length:0),0),cmts=mine.reduce((a,p)=>a+(Array.isArray(p.cmts)?p.cmts.length:0),0);const b=mentorBadge(nm);
+$('sheet').innerHTML=`<div class="pro-head"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div><div><h2>${esc(nm)}${b?'<span class="mentor">★ MENTOR</span>':''}</h2><p class="hint">${esc(mine.map(p=>p.skill).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).slice(0,3).join(' · ')||'Người chia sẻ')}</p></div></div><div class="pro-stats"><span class="pill">📚 <b>${mine.length}</b> lớp</span><span class="pill">❤ <b>${likes}</b> thích</span><span class="pill">📝 <b>${regs}</b> đăng ký</span><span class="pill">💬 <b>${cmts}</b> bình luận</span></div><div class="pro-list">${mine.slice().sort((a,c)=>(Number(c.ts)||0)-(Number(a.ts)||0)).map(p=>`<button type="button" class="pro-item" onclick="closeModal();jumpTop(${numId(p.id)})"><b>${esc(p.title||'(không tiêu đề)')}</b><small>${ago(p.ts)} · ❤ ${Number(p.likes)||0} · 📝 ${Array.isArray(p.regs)?p.regs.length:0}</small></button>`).join('')}</div><div class="qrbox"><canvas id="qr" width="180" height="180" aria-label="Mã QR hồ sơ ${esc(nm)}"></canvas><p id="qr-link"></p></div><button class="btn ghost" style="width:100%;margin-top:14px" onclick="closeModal()">Đóng</button>`;
+$('modal').classList.add('open');
+const link=location.origin+location.pathname+'#giao-vien-'+encodeURIComponent(nm);const ql=$('qr-link');if(ql)ql.textContent=link;drawQR($('qr'),link)};
+window.closeModal=()=>{try{$('modal').classList.remove('open')}catch(e){}};
+try{$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()})}catch(e){}
+try{document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()})}catch(e){}
+// ponytail: QR tự vẽ đơn giản (finder + data xoắn), đủ scan demo nội bộ; dùng lib thật (qrcodejs) khi cần scan máy ngoài
+function drawQR(cv,text){if(!cv)return;try{const n=25,s=cv.width/n,x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);let h=0;for(const c of text)h=(h*31+c.charCodeAt(0))>>>0;const rnd=()=>{h=(h*1103515245+12345)>>>0;return h/4294967296};x.fillStyle='#111';const fin=(cx,cy)=>{x.fillRect(cx*s,cy*s,7*s,7*s);x.fillStyle='#fff';x.fillRect((cx+1)*s,(cy+1)*s,5*s,5*s);x.fillStyle='#111';x.fillRect((cx+2)*s,(cy+2)*s,3*s,3*s)};fin(0,0);fin(n-7,0);fin(0,n-7);for(let i=0;i<n;i++)for(let j=0;j<n;j++){const edge=(i<8&&j<8)||(i>n-9&&j<8)||(i<8&&j>n-9);if(edge)continue;if(rnd()>0.52)x.fillRect(i*s,j*s,s,s)}}catch(e){}}
+window.jumpTop=id=>{const p=findPost(id);if(!p)return;filter='all';document.querySelectorAll('#filters button').forEach(x=>{const on=x.dataset.f==='all';x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{try{const el=$('post-'+numId(id));if(el){el.scrollIntoView({behavior:'smooth',block:'center'});return}const ell=$('like-'+numId(id));if(ell)ell.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}})};
 function renderTop(){const sec=$('topsec'),row=$('toprow');if(!sec||!row)return;
 const ranked=posts.filter(p=>p&&typeof p==='object').map(p=>({p,s:(Number(p.likes)||0)*2+(Array.isArray(p.regs)?p.regs.length:0)*3+(Array.isArray(p.cmts)?p.cmts.length:0)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,5);
 if(ranked.length<2||filter!=='all'||(($('q')||{}).value||'').trim()){sec.hidden=true;row.innerHTML='';return}
@@ -394,7 +425,7 @@ if(top.length<2){sec.hidden=true;row.innerHTML='';return}
 sec.hidden=false;
 row.innerHTML=top.map(([s],i)=>`<button type="button" data-k="${esc(s)}" aria-label="Tìm ${esc(s)}">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'⭐'} ${esc(s)}</button>`).join('');
 row.querySelectorAll('button').forEach(b=>b.onclick=()=>{const q=$('q');q.value=b.dataset.k||'';render();q.focus()})}
-function deepLink(){try{const m=(location.hash||'').match(/^#bai-(\d+)/);if(!m)return;const id=Number(m[1]);const p=findPost(id);if(!p)return;filter='all';const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{const el=$('post-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'})})}catch(e){}}
+function deepLink(){try{const h=location.hash||'';let m=h.match(/^#bai-(\d+)/);if(m){const id=Number(m[1]);const p=findPost(id);if(!p)return;filter='all';const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{const el=$('post-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'})});return}m=h.match(/^#giao-vien-(.+)/);if(m){const nm=decodeURIComponent(m[1]);if(nm)profile(nm)}}catch(e){}}
 window.addEventListener('hashchange',deepLink);
 function openComposer(){try{const b=$('composer-body');b.classList.remove('collapsed');const t=$('composer-toggle');t.textContent='Thu gọn';t.setAttribute('aria-expanded','true')}catch(e){}$('publish').scrollIntoView({behavior:'smooth',block:'center'});try{const nm=$('f-name');if(nm&&!nm.value)nm.focus({preventScroll:true})}catch(e){}}
 $('cta-share').onclick=openComposer;$('cta-hero').onclick=openComposer;
