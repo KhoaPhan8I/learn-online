@@ -15,3 +15,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | onboarding | onboardSteps hành động thật + nút Làm ngay 1 chạm | 86 |
 | launch | banner Có gì mới theo round + seen-state | 88 |
 | churn-prevention | xóa bài → toast Hoàn tác + khôi phục 1 chạm, nudge sau 3d | 89 |
+| attribution | first/last-touch UTM + kênh nguồn mỗi bài đăng trong export A/B | 90 |
