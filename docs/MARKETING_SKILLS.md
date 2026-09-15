@@ -88,3 +88,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | reviews-v2 | Fix cleanPost giu reviews qua reload (whitelist) | 160 |
 | reviews-v3 | CSV bai viet them cot danh_gia (data khong ket) | 161 |
 | reviews-v4 | Sao 1-5 + AggregateRating JSON-LD tu so that | 162 |
+| reviews-v5 | Card hien sao review (starStr) | 163 |
