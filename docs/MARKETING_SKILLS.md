@@ -18,3 +18,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | attribution | first/last-touch UTM + kênh nguồn mỗi bài đăng trong export A/B | 90 |
 | ai-seo | llms.txt sinh từ seed (khóa học + mentor + giá Ghim), --check guard | 91 |
 | signup | prefill kỹ năng từ lịch sử tìm kiếm, không đè chữ đã gõ | 92 |
+| marketing-loops | share-streak ngày liên tiếp +2/+3 ⭐, idempotent cùng ngày | 93 |
