@@ -89,3 +89,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | reviews-v3 | CSV bai viet them cot danh_gia (data khong ket) | 161 |
 | reviews-v4 | Sao 1-5 + AggregateRating JSON-LD tu so that | 162 |
 | reviews-v5 | Card hien sao review (starStr) | 163 |
+| sales-v4 | Pitch chen review tot nhat (proof ban hang) | 164 |
