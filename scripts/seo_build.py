@@ -415,9 +415,19 @@ def write_og_covers(seed):
 
 
 def write_sitemap(pages):
+    import datetime
+    today = datetime.date.today().isoformat()
+    def prio(u):
+        if u == f"{SITE}/":
+            return ("daily", "1.0")
+        if "/khoa-hoc/" in u or "/giao-vien/" in u:
+            return ("weekly", "0.8")
+        return ("monthly", "0.6")
     urls = [f"{SITE}/"] + sorted(f"{SITE}/{p.replace('index.html', '')}" for p in pages)
     body = "\n".join(
-        f"<url><loc>{u}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>" for u in urls)
+        (lambda cf_pr: f"<url><loc>{u}</loc><lastmod>{today}</lastmod>"
+         f"<changefreq>{cf_pr[0]}</changefreq><priority>{cf_pr[1]}</priority></url>")(prio(u))
+        for u in urls)
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             f"{body}\n</urlset>\n")
