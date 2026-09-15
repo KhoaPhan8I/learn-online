@@ -18,7 +18,13 @@
 <meta property="og:title" content="Learn Online — Chợ kỹ năng">
 <meta property="og:description" content="Ai cũng dạy được, ai cũng học được. Chia sẻ kỹ năng qua video, bài viết, text hoặc poll.">
 <meta property="og:url" content="https://khoaphan8i.github.io/learn-online/">
+<link rel="canonical" href="https://khoaphan8i.github.io/learn-online/">
+<meta name="robots" content="index,follow">
+<meta property="og:locale" content="vi_VN">
 <meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Learn Online","url":"https://khoaphan8i.github.io/learn-online/","inLanguage":"vi"},{"@type":"Organization","name":"Learn Online","url":"https://khoaphan8i.github.io/learn-online/"}]}
+</script>
 <style>
 :root{--bg:#0f0f14;--bg2:#17171f;--surface:#1d1d27;--surface2:#24242f;--line:rgba(255,255,255,.08);--txt:#f4f4f6;--mut:#a7a7b8;--acc:#fe2c55;--acc2:#25f4ee;--gold:#fbbf24;--r:16px;--bar-top:70px;--grad:linear-gradient(135deg,#fe2c55,#ff6b4a 55%,#fbbf24 130%);--glass:rgba(20,20,28,.72)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -476,7 +482,9 @@ if(ranked.length<2||filter!=='all'||(($('q')||{}).value||'').trim()){sec.hidden=
 sec.hidden=false;const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
 const topScore=ranked.length?ranked[0].s:1;
 row.innerHTML=ranked.map((x,i)=>{const pc=Math.min(100,Math.round(x.s/topScore*100));return`<button type="button" class="topcard" onclick="jumpTop(${numId(x.p.id)})" aria-label="Xem lớp ${esc(x.p.title||'')}"><div class="rank">${medals[i]||'⭐'} TOP ${i+1} · ${pc}%</div><b>${esc(x.p.title||'(không tiêu đề)')}</b><small>❤ ${Number(x.p.likes)||0} · 📝 ${regCount(x.p.regs)} · 💬 ${Array.isArray(x.p.cmts)?x.p.cmts.length:0}</small></button>`}).join('')}
-window.share=id=>{const p=findPost(id);if(!p)return;const url=location.origin+location.pathname+'#bai-'+numId(id);const t=`${p.title||''} — ${p.name||'Ẩn danh'} (${p.price||'Miễn phí'}) ${url}`;const done=()=>toast('Đã copy link bài!');if(navigator.share){navigator.share({title:'Learn Online',text:p.title||'Learn Online',url}).then(()=>toast('Đã chia sẻ!')).catch(()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done).catch(()=>toast(t));else toast(t)})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(done).catch(()=>toast(t))}else{toast(t)}};
+function shareUrl(id,ref){const r=ref||(((typeof document!=='undefined'&&document.getElementById('f-name')&&document.getElementById('f-name').value)||'').trim());return location.origin+location.pathname+'?utm_source=share&utm_medium=post&utm_campaign=bai-'+numId(id)+(r?'&ref='+encodeURIComponent(r):'')+'#bai-'+numId(id)}
+function claimRef(){try{const r=new URLSearchParams(location.search).get('ref');if(r&&String(r).trim()){addRep(String(r).trim().slice(0,80),2);history.replaceState(null,'',location.pathname+location.hash);return String(r).trim().slice(0,80)}}catch(e){}return''}
+window.share=id=>{const p=findPost(id);if(!p)return;const url=shareUrl(id,p.name);const t=`${p.title||''} — ${p.name||'Ẩn danh'} (${p.price||'Miễn phí'}) ${url}`;const done=()=>{try{addRep(p.name||'',1);render()}catch(e){}toast('Đã copy link bài! +1 ⭐ cho mentor')};if(navigator.share){navigator.share({title:'Learn Online',text:p.title||'Learn Online',url}).then(()=>{try{addRep(p.name||'',1);render()}catch(e){}toast('Đã chia sẻ! +1 ⭐ cho mentor')}).catch(()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done).catch(()=>toast(t));else toast(t)})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(done).catch(()=>toast(t))}else{toast(t)}};
 function addCmt(p,n,t){if(!p||typeof p!=='object')return'noop';t=String(t||'').trim().slice(0,1000);if(!t)return'empty';n=String(n||'').trim().slice(0,80)||'Khách';p.cmts=Array.isArray(p.cmts)?p.cmts:[];p.cmts.push({n,t});if(!save(posts)){p.cmts.pop();return'noop'}return'ok'}
 function askPrompt(){const tips=['Lớp này có cần kiến thức nền không?','Học online hay offline, giờ nào?','Học phí đã gồm tài liệu chưa?'];return tips[Math.floor(Math.random()*tips.length)]}
 window.ask=id=>{const nid=numId(id);if(nid===null)return;const inp=$('c-'+nid);if(!inp)return toast('Không tìm thấy ô bình luận');if(!inp.value.trim())inp.value=askPrompt();inp.focus();toast('Hỏi mentor trước khi đăng ký nhé!')};
@@ -599,7 +607,7 @@ $('cta-share').onclick=openComposer;$('cta-hero').onclick=openComposer;
 $('cta-explore').onclick=()=>{smoothScroll($('feed-count')||$('feed'),'start')};
 function healthCheck(){const issues=[];try{const seen=new Set();posts.forEach(p=>{if(!p||typeof p!=='object'){issues.push('bài hỏng');return}const n=numId(p.id);if(n===null){issues.push('bài thiếu id');return}if(seen.has(n))issues.push('trùng id '+n);seen.add(n);if(!p.title)issues.push('bài '+n+' thiếu tiêu đề')});const raw=localStorage.getItem(LS);if(raw){try{const v=JSON.parse(raw);if(!Array.isArray(v))issues.push('kho lưu trữ không phải mảng')}catch(e){issues.push('kho lưu trữ lỗi JSON')}}}catch(e){issues.push('lỗi kiểm tra: '+e.message)}return issues}
 function healthFix(){let fixed=0;try{const seen=new Set();const clean=[];posts.forEach(p=>{if(!p||typeof p!=='object')return;const n=numId(p.id);if(n===null)return;if(seen.has(n)){fixed++;return}seen.add(n);const c=cleanPost(p);if(!c){fixed++;return}if(!c.title){c.title='(không tiêu đề)';fixed++}clean.push(c)});if(fixed){posts=clean;save(posts);render()}}catch(e){}return fixed}
-render();deepLink();
+try{const _ref=claimRef();render();deepLink();if(_ref)toast('🎁 Bạn mở link của '+_ref+' — +2 ⭐ cho mentor!')}catch(e){render();deepLink()}
 try{const hc=healthCheck();if(hc.length){const fx=healthFix();toast(fx?('🛠️ Đã tự sửa '+fx+' vấn đề dữ liệu!'):('⚠️ Phát hiện '+hc.length+' vấn đề dữ liệu: '+hc.slice(0,2).join(', ')))}}catch(e){}
 try{const dg=followDigest();if(dg)toast(dg)}catch(e){}
 try{renderBackupPct();renderImportPct();renderHeroPct()}catch(e){}
@@ -833,6 +841,11 @@ T('contactsCsv rep+follow',(()=>{try{const keep=posts.slice();localStorage.remov
 T('buildICS status',(()=>{try{const keep=posts.slice();posts=[];const p={id:1161,type:'text',name:'IcsM',skill:'G',title:'Lop ics',body:'b',regs:[],cmts:[]};posts.push(p);toggleReg(p,'IcsMe');confirmReg(p,'IcsMe');const ics=buildICS('IcsMe');const ok=/Đã xác nhận lịch/.test(ics)&&/Lop ics/.test(ics);posts.length=0;keep.forEach(x=>posts.push(x));render();return ok}catch(e){return false}})());
 T('buildICS done+note',(()=>{try{const keep=posts.slice();posts=[];const p={id:1162,type:'text',name:'IcsM2',skill:'G',title:'Lop ics2',body:'b',regs:[],cmts:[]};posts.push(p);toggleReg(p,'IcsMe2','sang CN');confirmReg(p,'IcsMe2');localStorage.removeItem(REP);completeReg(p,'IcsMe2');const ics=buildICS('IcsMe2');const ok=/Đã học xong/.test(ics)&&/sang CN/.test(ics);localStorage.removeItem(REP);posts.length=0;keep.forEach(x=>posts.push(x));render();return ok}catch(e){return false}})());
 T('schedNote status',(()=>{try{const keep=posts.slice();posts=[];const p={id:1171,type:'text',name:'SnM',skill:'G',title:'Lop sn',body:'b',regs:[],cmts:[]};posts.push(p);toggleReg(p,'SnMe');const n0=schedNote('SnMe');confirmReg(p,'SnMe');const n1=schedNote('SnMe');localStorage.removeItem(REP);completeReg(p,'SnMe');const n2=schedNote('SnMe');localStorage.removeItem(REP);posts.length=0;keep.forEach(x=>posts.push(x));render();return /lớp mới/.test(n0)&&/đã xác nhận/.test(n1)&&/đã xong/.test(n2)}catch(e){return false}})());
+T('shareUrl utm+hash',(()=>{try{const u=shareUrl(7,'An');return /utm_source=share/.test(u)&&/utm_medium=post/.test(u)&&/utm_campaign=bai-7/.test(u)&&/#bai-7$/.test(u)&&/ref=An/.test(u)}catch(e){return false}})());
+T('shareUrl no ref',(()=>{try{const keep=($('f-name')||{}).value;$('f-name').value='';const u=shareUrl(9,'');$('f-name').value=keep;return /utm_campaign=bai-9/.test(u)&&!/ref=/.test(u)&&/#bai-9$/.test(u)}catch(e){return false}})());
+T('claimRef bad',claimRef()==='');
+T('seo head tags',(()=>{try{const c=document.querySelector('link[rel="canonical"]');const r=document.querySelector('meta[name="robots"]');const l=document.querySelector('meta[property="og:locale"]');const j=document.querySelector('script[type="application/ld+json"]');return !!c&&/learn-online/.test(c.href)&&!!r&&/index/.test(r.content)&&!!l&&l.content==='vi_VN'&&!!j&&/WebSite/.test(j.textContent)}catch(e){return false}})());
+T('share adds rep',(()=>{try{localStorage.removeItem(REP);addRep('ShareMe',4);const before=repOf('ShareMe');addRep('ShareMe',1);const ok=repOf('ShareMe')===before+1;localStorage.removeItem(REP);render();return ok}catch(e){return false}})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
