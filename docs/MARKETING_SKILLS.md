@@ -49,3 +49,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | ads | 📈 conversion-events CSV + 👥 custom-audience CSV (pixel-ready) | 121 |
 | referrals | mốc giới thiệu 1/5/20 + thưởng 2 chiều + thanh tiến trình | 122 |
 | pricing | bảng so sánh gói Free vs Ghim trong modal (packaging tiers) | 123 |
+| co-marketing | 🤝 dạy chéo mentor↔mentor: gợi ý cặp kỹ năng bù + tin mời | 124 |
