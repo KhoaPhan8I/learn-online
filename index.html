@@ -23,13 +23,13 @@ main{max-width:640px;margin:0 auto;padding:12px 12px 60px}
 .composer .tabs button{flex:1;min-width:70px;min-height:44px;border:1px solid #ddd;background:#f8f8fa;border-radius:8px;padding:8px 4px;font-size:13px;cursor:pointer}
 .composer .tabs button.on{background:#7c3aed;color:#fff;border-color:#7c3aed}
 .row{display:flex;gap:8px;margin-bottom:8px}
-input,textarea,select{width:100%;border:1px solid #ddd;border-radius:8px;padding:9px 10px;min-height:44px;font-size:14px;font-family:inherit}
+input,textarea,select{width:100%;border:1px solid #ddd;border-radius:8px;padding:9px 10px;min-height:44px;font-size:16px;font-family:inherit}
 textarea{resize:vertical;min-height:64px}
 .half{flex:1}
 .btn{background:#7c3aed;color:#fff;border:0;border-radius:8px;padding:10px 16px;min-height:44px;font-size:14px;font-weight:600;cursor:pointer;width:100%}
 .btn.ghost{background:#ede9fe;color:#7c3aed;width:auto;padding:8px 14px}
-.stickybar{position:sticky;top:70px;z-index:5;background:#f1f2f6;padding:6px 0 2px}
-.filters{display:flex;gap:6px;margin:4px 0 12px;overflow-x:auto}
+.stickybar{position:sticky;top:var(--bar-top,70px);z-index:5;background:#f1f2f6;padding:6px 0 2px}
+.filters{display:flex;gap:6px;margin:4px 0 12px;overflow-x:auto;-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent)}
 .filters button{border:1px solid #ddd;background:#fff;border-radius:20px;padding:6px 14px;min-height:44px;font-size:13px;cursor:pointer;white-space:nowrap}
 .filters button.on{background:#1c1e21;color:#fff;border-color:#1c1e21}
 .meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -39,7 +39,7 @@ textarea{resize:vertical;min-height:64px}
 .price{font-size:11px;background:#dcfce7;color:#166534;border-radius:6px;padding:3px 8px;font-weight:600}
 .post-title{font-size:16px;margin-bottom:6px}
 .post-body{font-size:14px;color:#333;margin-bottom:8px;white-space:pre-wrap}
-video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
+video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000;aspect-ratio:16/9;object-fit:cover;max-height:360px}
 .actions{display:flex;gap:8px;margin-top:8px}
 .actions .btn{width:auto;flex:1}
 .iconbtn{min-width:44px;min-height:44px;flex:0 0 44px !important}
@@ -53,11 +53,13 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 #toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(80px);background:#1c1e21;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;transition:transform .3s;z-index:20;max-width:90%}
 #toast.show{transform:translateX(-50%) translateY(0)}
 .hint{font-size:12px;color:#666;margin-top:6px}
+:root{--bar-top:70px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .cmts{margin-top:10px;border-top:1px solid #eee;padding-top:8px}
 .cmt{font-size:13px;margin-bottom:6px;background:#f8f8fa;border-radius:8px;padding:7px 10px}
 .cmt b{font-size:13px}
 .cmt-row{display:flex;gap:6px;margin-top:6px}
-.cmt-row input{flex:1;padding:7px 10px;font-size:13px}
+.cmt-row input{flex:1;padding:9px 10px;font-size:16px}
 .cmt-row button{width:auto;padding:7px 14px;font-size:13px}
 </style>
 </head>
@@ -76,43 +78,43 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <button data-t="poll" role="tab" aria-selected="false" aria-controls="pane-poll">📊 Poll</button>
 </div>
 <div class="row">
-<input id="f-name" class="half" placeholder="Tên bạn *" aria-label="Tên bạn (bắt buộc)">
-<input id="f-skill" class="half" placeholder="Kỹ năng (VD: Guitar)" aria-label="Kỹ năng của bạn">
+<label class="sr-only" for="f-name">Tên bạn (bắt buộc)</label><input id="f-name" class="half" placeholder="Tên bạn *" aria-label="Tên bạn (bắt buộc)">
+<label class="sr-only" for="f-skill">Kỹ năng của bạn</label><input id="f-skill" class="half" placeholder="Kỹ năng (VD: Guitar)" aria-label="Kỹ năng của bạn">
 </div>
 <div id="pane-video" role="tabpanel">
-<input id="f-vtitle" placeholder="Tên khóa học / kỹ năng muốn dạy *" aria-label="Tên khóa học (bắt buộc)" style="margin-bottom:8px">
-<input id="f-vurl" placeholder="Link video mp4 (để trống = video demo)" aria-label="Link video mp4" style="margin-bottom:8px">
-<input type="file" id="f-vfile" accept="video/*" aria-label="Chọn video từ máy (tối đa 8MB)" style="margin-bottom:8px">
-<textarea id="f-vdesc" placeholder="Mô tả ngắn: học được gì, lịch rảnh khi nào..." aria-label="Mô tả khóa học"></textarea>
+<label class="sr-only" for="f-vtitle">Tên khóa học (bắt buộc)</label><input id="f-vtitle" placeholder="Tên khóa học / kỹ năng muốn dạy *" aria-label="Tên khóa học (bắt buộc)" style="margin-bottom:8px">
+<label class="sr-only" for="f-vurl">Link video mp4</label><input id="f-vurl" placeholder="Link video mp4 (để trống = video demo)" aria-label="Link video mp4 (https, để trống = video demo)" style="margin-bottom:8px">
+<label class="sr-only" for="f-vfile">Chọn video từ máy (tối đa 8MB)</label><input type="file" id="f-vfile" accept="video/*" aria-label="Chọn video từ máy (tối đa 8MB)" style="margin-bottom:8px">
+<label class="sr-only" for="f-vdesc">Mô tả khóa học</label><textarea id="f-vdesc" placeholder="Mô tả ngắn: học được gì, lịch rảnh khi nào..." aria-label="Mô tả khóa học"></textarea>
 </div>
 <div id="pane-image" role="tabpanel" hidden>
-<input id="f-ititle" placeholder="Tiêu đề bài viết *" aria-label="Tiêu đề bài viết (bắt buộc)" style="margin-bottom:8px">
-<input id="f-iurl" placeholder="Link ảnh (để trống = ảnh mẫu)" aria-label="Link ảnh minh họa" style="margin-bottom:8px">
-<input type="file" id="f-ifile" accept="image/*" aria-label="Chọn ảnh từ máy (tối đa 3MB)" style="margin-bottom:8px">
-<textarea id="f-idesc" placeholder="Nội dung chia sẻ..." aria-label="Nội dung bài viết"></textarea>
+<label class="sr-only" for="f-ititle">Tiêu đề bài viết (bắt buộc)</label><input id="f-ititle" placeholder="Tiêu đề bài viết *" aria-label="Tiêu đề bài viết (bắt buộc)" style="margin-bottom:8px">
+<label class="sr-only" for="f-iurl">Link ảnh minh họa</label><input id="f-iurl" placeholder="Link ảnh (để trống = ảnh mẫu)" aria-label="Link ảnh minh họa (https, để trống = ảnh mẫu)" style="margin-bottom:8px">
+<label class="sr-only" for="f-ifile">Chọn ảnh từ máy (tối đa 3MB)</label><input type="file" id="f-ifile" accept="image/*" aria-label="Chọn ảnh từ máy (tối đa 3MB)" style="margin-bottom:8px">
+<label class="sr-only" for="f-idesc">Nội dung bài viết</label><textarea id="f-idesc" placeholder="Nội dung chia sẻ..." aria-label="Nội dung bài viết"></textarea>
 </div>
 <div id="pane-text" role="tabpanel" hidden>
-<input id="f-ttitle" placeholder="Tiêu đề *" aria-label="Tiêu đề (bắt buộc)" style="margin-bottom:8px">
-<textarea id="f-tbody" placeholder="Viết ngắn gọn điều bạn muốn dạy..." aria-label="Nội dung (bắt buộc)"></textarea>
+<label class="sr-only" for="f-ttitle">Tiêu đề (bắt buộc)</label><input id="f-ttitle" placeholder="Tiêu đề *" aria-label="Tiêu đề (bắt buộc)" style="margin-bottom:8px">
+<label class="sr-only" for="f-tbody">Nội dung (bắt buộc)</label><textarea id="f-tbody" placeholder="Viết ngắn gọn điều bạn muốn dạy..." aria-label="Nội dung (bắt buộc)"></textarea>
 </div>
 <div id="pane-poll" role="tabpanel" hidden>
-<input id="f-q" placeholder="Câu hỏi khảo sát *" aria-label="Câu hỏi khảo sát (bắt buộc)" style="margin-bottom:8px">
+<label class="sr-only" for="f-q">Câu hỏi khảo sát (bắt buộc)</label><input id="f-q" placeholder="Câu hỏi khảo sát *" aria-label="Câu hỏi khảo sát (bắt buộc)" style="margin-bottom:8px">
 <div id="poll-opts">
 <input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px">
 <input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">
 </div>
 <button class="btn ghost" id="add-opt" type="button">+ Thêm lựa chọn</button>
 </div>
-<div class="row"><input id="f-contact" placeholder="Liên hệ (SĐT / Zalo / link FB...)" aria-label="Thông tin liên hệ"></div>
+<div class="row"><label class="sr-only" for="f-contact">Thông tin liên hệ</label><input id="f-contact" placeholder="Liên hệ (SĐT / Zalo / link FB...)" aria-label="Thông tin liên hệ"></div>
 <div class="row" style="margin-top:8px">
-<input id="f-price" class="half" placeholder="Học phí (trống = miễn phí)" aria-label="Học phí (trống = miễn phí)">
+<label class="sr-only" for="f-price">Học phí (trống = miễn phí)</label><input id="f-price" class="half" placeholder="Học phí (trống = miễn phí)" aria-label="Học phí (trống = miễn phí)">
 <button class="btn half" id="publish">Đăng bài</button>
 <button class="btn ghost half" id="cancel-edit" hidden>Hủy</button>
 </div>
-<p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ.</p>
+<p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ. Video tải lên tối đa 8MB, ảnh tối đa 3MB; link media chỉ nhận https:// hoặc file vừa chọn.</p>
 </section>
 <div class="stickybar">
-<div class="row"><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..." aria-label="Tìm kiếm bài viết"><select id="sort" class="half" style="max-width:160px" aria-label="Sắp xếp bài viết"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option><option value="random">🎲 Ngẫu nhiên</option></select></div>
+<div class="row"><label class="sr-only" for="q">Tìm kiếm bài viết</label><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..." aria-label="Tìm kiếm bài viết"><label class="sr-only" for="sort">Sắp xếp bài viết</label><select id="sort" class="half" style="max-width:160px" aria-label="Sắp xếp bài viết"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option><option value="random">🎲 Ngẫu nhiên</option></select></div>
 <nav class="filters" id="filters" aria-label="Lọc bài viết theo loại">
 <button data-f="all" class="on" aria-pressed="true">Tất cả</button>
 <button data-f="video" aria-pressed="false">🎬 Video</button>
@@ -136,6 +138,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const numId=v=>{if(v===null||v===undefined||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null};
 const sameId=(a,b)=>{if(a===null||a===undefined||typeof a==='object')return false;return numId(a)!==null&&numId(a)===numId(b)};
 const findPost=id=>posts.find(x=>x&&typeof x==='object'&&sameId(x.id,id));
+const safeUrl=u=>{if(typeof u!=='string')return '';const t=u.trim();if(/^(https?:\/\/|data:image\/|data:video\/)/i.test(t)&&!/[\s<>"]/i.test(t))return t;return ''};
+function cleanPost(p){if(!p||typeof p!=='object'||Array.isArray(p))return null;const id=numId(p.id);if(id===null)return null;const types=['video','image','text','poll'];const type=types.includes(p.type)?p.type:'';const o={id,type,name:typeof p.name==='string'?p.name.slice(0,80):'',skill:typeof p.skill==='string'?p.skill.slice(0,80):'',price:typeof p.price==='string'?p.price.slice(0,80):'',contact:typeof p.contact==='string'?p.contact.slice(0,200):'',title:typeof p.title==='string'?p.title.slice(0,200):'',body:typeof p.body==='string'?p.body.slice(0,5000):'',media:typeof p.media==='string'?(p.media.length>300000?'':p.media):'',mine:p.mine?1:0,liked:!!p.liked,likes:Math.max(0,Math.min(1e6,Number(p.likes)||0)),ts:Number.isFinite(Number(p.ts))?Number(p.ts):Date.now(),regs:Array.isArray(p.regs)?p.regs.filter(x=>typeof x==='string').map(x=>x.slice(0,80)).slice(0,1000):[],cmts:Array.isArray(p.cmts)?p.cmts.filter(c=>c&&typeof c==='object').slice(0,500).map(c=>({n:String(c.n||'').slice(0,80),t:String(c.t||'').slice(0,1000)})):[]};if(type==='poll'){o.options=Array.isArray(p.options)?p.options.slice(0,10).map(x=>({t:x&&typeof x.t==='string'?x.t.slice(0,120):'',v:Math.max(0,Math.min(1e6,Number(x&&x.v)||0))})).filter(x=>x.t):[]}return o}
 function load(){try{const v=JSON.parse(localStorage.getItem(LS));return Array.isArray(v)?v:null}catch(e){return null}}
 function save(p){try{localStorage.setItem(LS,JSON.stringify(p));return true}catch(e){toast('Không lưu được (bộ nhớ đầy hoặc chế độ riêng tư)');return false}}
 function voted(){try{const v=JSON.parse(localStorage.getItem(VOTED));return (v&&typeof v==='object'&&!Array.isArray(v))?v:{}}catch(e){return{}}}
@@ -145,51 +149,57 @@ function seed(){return[
 {id:3,type:'text',name:'Minh',skill:'Tiếng Anh',price:'99k/buổi',title:'Tiếng Anh giao tiếp cho người mất gốc',body:'Mình từng mất gốc, tự học lên 7.0 IELTS speaking. Chia sẻ đúng lộ trình mình đã đi, không lý thuyết suông. Nhắn mình để học thử free 15 phút.',regs:['Tú'],likes:12,ts:Date.now()-108e5},
 {id:4,type:'poll',name:'Learn Online',skill:'Cộng đồng',price:'',title:'Bạn muốn học kỹ năng nào tiếp theo?',options:[{t:'Nấu ăn',v:18},{t:'Guitar',v:25},{t:'Excel',v:14},{t:'Tiếng Anh',v:31}],likes:8,ts:Date.now()-144e5}
 ]}
-let posts=load()||seed(); save(posts);
+let _l=load();let posts=(_l||seed()).map(cleanPost).filter(Boolean);try{if(localStorage.getItem(LS)===null)save(posts)}catch(e){}
+try{const _h=document.querySelector('header');if(_h&&_h.offsetHeight)document.documentElement.style.setProperty('--bar-top',(_h.offsetHeight+6)+'px')}catch(e){}
 function ago(ts){ts=Number(ts);if(!Number.isFinite(ts))return'không rõ thời gian';const m=Math.floor((Date.now()-ts)/6e4);if(m<1)return'vừa xong';if(m<60)return m+' phút trước';const h=Math.floor(m/60);if(h<24)return h+' giờ trước';return Math.floor(h/24)+' ngày trước'}
-function toast(m){const t=$('toast');if(!t)return;t.textContent=m;t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),2500)}
+function toast(m){const t=$('toast');if(!t)return;t.innerHTML='';const s=document.createElement('span');s.textContent=String(m??'');t.appendChild(s);const b=document.createElement('button');b.textContent='✕';b.setAttribute('aria-label','Đóng thông báo');b.style.cssText='margin-left:10px;background:none;border:0;color:#fff;font-size:14px;cursor:pointer;min-width:44px;min-height:44px';b.onclick=()=>t.classList.remove('show');t.appendChild(b);t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),3500)}
 function media(p){
-if(p.type==='video')return `<video controls playsinline preload="metadata" src="${esc(p.media)}"></video>`;
-if(p.type==='image'&&p.media)return `<img class="media" src="${esc(p.media)}" loading="lazy" alt="${esc(p.title||'Ảnh minh họa bài viết')}">`;
+const s=safeUrl(p.media);
+if(p.type==='video'&&s)return `<video controls playsinline preload="metadata" src="${esc(s)}" aria-label="Video bài giảng: ${esc(p.title||'không tiêu đề')}"></video>`;
+if(p.type==='image'&&s)return `<img class="media" src="${esc(s)}" loading="lazy" alt="${esc(p.title||'Ảnh minh họa bài viết')}">`;
 return '';
 }
 function pollHtml(p,id){
 const opts=Array.isArray(p.options)?p.options:[];
+if(!opts.length)return '<p class="hint">Poll chưa có lựa chọn nào.</p>';
 const total=opts.reduce((a,o)=>a+(Number(o&&o.v)||0),0)||1;
 const v=voted();
-if(v[id])return opts.map((o,i)=>{const vv=Number(o&&o.v)||0,t=typeof o?.t==='string'?o.t:'';const pc=Math.round(vv/total*100);const mine=v[id]===i+1?' ✓':'';return `<button class="opt" onclick="vote(${id},${i})" aria-label="Đổi sang ${esc(t)} (hiện ${pc}%)"><div class="bar" style="margin:0;border:0"><i style="width:${pc}%"></i><span>${esc(t)}${mine} <b>${pc}%</b></span></div></button>`}).join('')+`<p class="hint">${total} lượt vote — bấm để đổi lựa chọn</p>`;
-return opts.map((o,i)=>{const t=typeof o?.t==='string'?o.t:'';return `<button class="opt" onclick="vote(${id},${i})" aria-label="Bình chọn ${esc(t)}">${esc(t)}</button>`}).join('');
+if(v[id])return opts.map((o,i)=>{const vv=Number(o&&o.v)||0,t=typeof o?.t==='string'?o.t:'';const pc=Math.round(vv/total*100);const mine=v[id]===i+1?' ✓':'';return `<button class="opt" id="vote-${id}-${i}" onclick="vote(${id},${i})" aria-label="Đổi sang ${esc(t)} (hiện ${pc}%)"><div class="bar" style="margin:0;border:0" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100" aria-label="${esc(t)}: ${pc} phần trăm"><i style="width:${pc}%"></i><span>${esc(t)}${mine} <b>${pc}%</b></span></div></button>`}).join('')+`<p class="hint">${total} lượt vote — bấm để đổi lựa chọn</p>`;
+return opts.map((o,i)=>{const t=typeof o?.t==='string'?o.t:'';return `<button class="opt" id="vote-${id}-${i}" onclick="vote(${id},${i})" aria-label="Bình chọn ${esc(t)}">${esc(t)}</button>`}).join('');
 }
 function cmtHtml(p,id,nm){
 const list=Array.isArray(p.cmts)?p.cmts:[];
 const html=list.filter(c=>c&&typeof c==='object').map(c=>`<div class="cmt"><b>${esc(c.n)}</b> ${esc(c.t)}</div>`).join('');
-return `<div class="cmts">${html}<div class="cmt-row"><input id="c-${id}" placeholder="Hỏi ${esc(nm)} điều gì đó..." aria-label="Bình luận về bài viết này"><button class="btn" onclick="cmt(${id})" aria-label="Gửi bình luận">Gửi</button></div></div>`;
+return `<div class="cmts">${html}<div class="cmt-row"><input id="c-${id}" placeholder="Hỏi ${esc(nm)} điều gì đó..." aria-label="Hỏi ${esc(nm)} điều gì đó"><button class="btn" id="csend-${id}" onclick="cmt(${id})" aria-label="Gửi bình luận">Gửi</button></div></div>`;
 }
 function card(p){
 if(!p||typeof p!=='object')return '';
 const id=numId(p.id); if(id===null)return '';
 const nm=(typeof p.name==='string'&&p.name.trim())?p.name.trim():'Ẩn danh';
 const likes=Number(p.likes)||0, regs=Array.isArray(p.regs)?p.regs:[];
+const iso=Number.isFinite(Number(p.ts))?new Date(Number(p.ts)).toISOString():'';
 return `<article class="card">
 <div class="meta"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div>
-<div class="who"><b>${esc(nm)}</b><small>${ago(p.ts)}</small></div>
+<div class="who"><b>${esc(nm)}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
 <span class="tag">${esc(p.skill||'Chung')}</span>
 <span class="price">${esc(p.price||'Miễn phí')}</span></div>
-<h3 class="post-title">${esc(p.title)}</h3>
+<h2 class="post-title">${esc(p.title)}</h2>
 ${p.body?`<p class="post-body">${esc(p.body)}</p>`:''}
+${p.contact?`<p class="hint">Liên hệ: ${esc(p.contact)}</p>`:''}
 ${media(p)}${p.type==='poll'?pollHtml(p,id):''}
 <div class="actions">
-<button class="btn like ${p.liked?'liked':''}" onclick="like(${id})" aria-pressed="${p.liked?'true':'false'}" aria-label="Thích bài viết (hiện có ${likes} lượt)">❤ ${likes}</button>
-<button class="btn" onclick="reg(${id})" aria-label="Đăng ký học (hiện có ${regs.length} người)">📝 Đăng ký (${regs.length})</button>
-<button class="btn like iconbtn" onclick="share(${id})" aria-label="Chia sẻ bài viết">↗</button>
-${p.mine?`<button class="btn like iconbtn" onclick="edit(${id})" aria-label="Sửa bài viết">✏️</button><button class="btn like iconbtn" onclick="del(${id})" aria-label="Xóa bài viết">🗑</button>`:''}
+<button class="btn like ${p.liked?'liked':''}" id="like-${id}" onclick="like(${id})" aria-pressed="${p.liked?'true':'false'}" aria-label="Thích bài viết (hiện có ${likes} lượt)">❤ ${likes}</button>
+<button class="btn" id="reg-${id}" onclick="reg(${id})" aria-label="Đăng ký học (hiện có ${regs.length} người)">📝 Đăng ký (${regs.length})</button>
+<button class="btn like iconbtn" id="share-${id}" onclick="share(${id})" aria-label="Chia sẻ bài viết">↗</button>
+${p.mine?`<button class="btn like iconbtn" id="edit-${id}" onclick="edit(${id})" aria-label="Sửa bài viết">✏️</button><button class="btn like iconbtn" id="del-${id}" onclick="del(${id})" aria-label="Xóa bài viết">🗑</button>`:''}
 ${p.mine&&regs.length?`<p class="hint">👥 Đã đăng ký: ${esc(regs.join(', '))}</p>`:''}
 </div>${cmtHtml(p,id,nm)}</article>`;
 }
 function render(){
 try{
+const act=document.activeElement&&document.activeElement.id?document.activeElement.id:null;
 const kw=($('q').value||'').toLowerCase().trim();
-const byDate=(a,b)=>b.id-a.id, byLike=(a,b)=>(Number(b.likes)||0)-(Number(a.likes)||0), byRegs=(a,b)=>((Array.isArray(b.regs)?b.regs.length:0))-((Array.isArray(a.regs)?a.regs.length:0));
+const byDate=(a,b)=>(Number(b.ts)||0)-(Number(a.ts)||0)||((Number(b.id)||0)-(Number(a.id)||0)), byLike=(a,b)=>(Number(b.likes)||0)-(Number(a.likes)||0), byRegs=(a,b)=>((Array.isArray(b.regs)?b.regs.length:0))-((Array.isArray(a.regs)?a.regs.length:0));
 const mode=$('sort').value;
 const seen=new Set();
 const me=($('f-name').value||'').trim()||'Khách';
@@ -201,29 +211,32 @@ if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.ran
 const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.name).filter(Boolean)).size, regs=ok.reduce((a,p)=>a+(Array.isArray(p.regs)?p.regs.length:0),0);
 const st=$('stats');if(st)st.textContent=`📚 ${ok.length} lớp · 👩‍🏫 ${teachers} người dạy · 📝 ${regs} lượt đăng ký`;
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
+if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
 }catch(e){$('feed').innerHTML='<div class="card">Có lỗi hiển thị feed. Thử tải lại trang.</div>';}
 }
-$('q').oninput=render; $('sort').onchange=render;
-window.like=id=>{const p=findPost(id);if(!p)return;p.liked=!p.liked;p.likes=(Number(p.likes)||0)+(p.liked?1:-1);if(p.likes<0)p.likes=0;if(!save(posts))return;render()};
-window.vote=(id,i)=>{i=Number(i);const p=findPost(id);if(!p||!Array.isArray(p.options)||!Number.isInteger(i)||i<0||i>=p.options.length||!p.options[i])return;const nid=numId(id);const v=voted();const prev=v[nid];if(prev===i+1)return;if(prev&&p.options[prev-1])p.options[prev-1].v=Math.max(0,(Number(p.options[prev-1].v)||0)-1);v[nid]=i+1;try{localStorage.setItem(VOTED,JSON.stringify(v))}catch(e){toast('Không lưu được vote (bộ nhớ đầy)');return}p.options[i].v=(Number(p.options[i].v)||0)+1;if(!save(posts))return;render();toast(prev?'Đã đổi lựa chọn!':'Đã ghi nhận vote!')};
-window.reg=id=>{const p=findPost(id);if(!p)return;const n=($('f-name').value||'').trim()||'Khách';p.regs=Array.isArray(p.regs)?p.regs:[];if(p.regs.includes(n)){p.regs=p.regs.filter(x=>x!==n);if(!save(posts))return;render();return toast('Đã hủy đăng ký')}p.regs.push(n);if(!save(posts))return;render();toast(p.contact?`Đã đăng ký! Liên hệ ${p.name}: ${p.contact}`:'Đã đăng ký! Chờ người dạy liên hệ lại')};
-window.share=id=>{const p=findPost(id);if(!p)return;const t=`${p.title||''} — ${p.name||'Ẩn danh'} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!')).catch(()=>toast(t))}else{toast(t)}};
-window.cmt=id=>{const nid=numId(id);if(nid===null)return;const inp=$('c-'+nid);if(!inp)return toast('Không tìm thấy ô bình luận');const t=(inp.value||'').trim();if(!t)return toast('Nhập bình luận đã');const n=($('f-name').value||'').trim()||'Khách';const p=findPost(id);if(!p)return;p.cmts=Array.isArray(p.cmts)?p.cmts:[];p.cmts.push({n,t});if(!save(posts))return;render();toast('Đã gửi bình luận!')};
-window.del=id=>{if(!confirm('Xóa bài này?'))return;posts=posts.filter(x=>!(x&&typeof x==='object'&&sameId(x.id,id)));if(!save(posts))return;render();toast('Đã xóa bài')};
-window.edit=id=>{const p=findPost(id);if(!p)return;editId=numId(id);$('f-name').value=typeof p.name==='string'?p.name:'';$('f-skill').value=p.skill||'';$('f-price').value=p.price||'';$('f-contact').value=p.contact||'';
-cur=p.type;document.querySelectorAll('.composer .tabs button').forEach(x=>{const on=x.dataset.t===cur;x.classList.toggle('on',on);x.setAttribute('aria-selected',on?'true':'false')});
+let _qt=null;$('q').oninput=()=>{clearTimeout(_qt);_qt=setTimeout(render,300)}; $('sort').onchange=render;
+window.like=id=>{const p=findPost(id);if(!p)return;const _liked=p.liked,_n=Number(p.likes)||0;p.liked=!p.liked;p.likes=_n+(p.liked?1:-1);if(p.likes<0)p.likes=0;if(!save(posts)){p.liked=_liked;p.likes=_n;return}render()};
+window.vote=(id,i)=>{i=Number(i);const p=findPost(id);if(!p||!Array.isArray(p.options)||!Number.isInteger(i)||i<0||i>=p.options.length||!p.options[i])return;const nid=numId(id);const v=voted();const prev=v[nid];if(prev===i+1)return;const _a=prev&&p.options[prev-1]?Number(p.options[prev-1].v)||0:null,_b=Number(p.options[i].v)||0;if(prev&&p.options[prev-1])p.options[prev-1].v=Math.max(0,(Number(p.options[prev-1].v)||0)-1);v[nid]=i+1;try{localStorage.setItem(VOTED,JSON.stringify(v))}catch(e){if(prev&&p.options[prev-1])p.options[prev-1].v=_a;toast('Không lưu được vote (bộ nhớ đầy)');return}p.options[i].v=_b+1;if(!save(posts)){p.options[i].v=_b;if(prev&&p.options[prev-1])p.options[prev-1].v=_a;try{const vv=voted();delete vv[nid];if(prev)vv[nid]=prev;localStorage.setItem(VOTED,JSON.stringify(vv))}catch(e){}return}render();toast(prev?'Đã đổi lựa chọn!':'Đã ghi nhận vote!')};
+window.reg=id=>{const p=findPost(id);if(!p)return;const n=($('f-name').value||'').trim()||'Khách';p.regs=Array.isArray(p.regs)?p.regs:[];if(p.regs.includes(n)){const _r=p.regs.slice();p.regs=p.regs.filter(x=>x!==n);if(!save(posts)){p.regs=_r;return}render();return toast('Đã hủy đăng ký')}p.regs.push(n);if(!save(posts)){p.regs.pop();return}render();toast('Đã đăng ký! Mở bài viết để xem liên hệ')};
+function markInvalid(el,on){if(!el)return;try{if(on){el.setAttribute('aria-invalid','true')}else if(el.removeAttribute){el.removeAttribute('aria-invalid')}}catch(e){}}
+window.share=id=>{const p=findPost(id);if(!p)return;const t=`${p.title||''} — ${p.name||'Ẩn danh'} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).then(()=>toast('Đã chia sẻ!')).catch(()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!')).catch(()=>toast(t));else toast(t)})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!')).catch(()=>toast(t))}else{toast(t)}};
+window.cmt=id=>{const nid=numId(id);if(nid===null)return;const inp=$('c-'+nid);if(!inp)return toast('Không tìm thấy ô bình luận');const t=(inp.value||'').trim().slice(0,1000);if(!t)return toast('Nhập bình luận đã');const n=(($('f-name').value||'').trim()||'Khách').slice(0,80);const p=findPost(id);if(!p)return;p.cmts=Array.isArray(p.cmts)?p.cmts:[];p.cmts.push({n,t});if(!save(posts)){p.cmts.pop();return}render();toast('Đã gửi bình luận!')};
+window.del=id=>{const p=findPost(id);if(!confirm(p&&p.title?('Xóa bài "'+String(p.title).slice(0,80)+'"?'):'Xóa bài này?'))return;const _all=posts.slice();posts=posts.filter(x=>!(x&&typeof x==='object'&&sameId(x.id,id)));if(!save(posts)){posts=_all;return}render();toast('Đã xóa bài')};
+window.edit=id=>{const p=findPost(id);if(!p){editId=null;return toast('Bài viết không còn tồn tại')};editId=numId(id);$('f-name').value=typeof p.name==='string'?p.name:'';$('f-skill').value=p.skill||'';$('f-price').value=p.price||'';$('f-contact').value=p.contact||'';
+cur=['video','image','text','poll'].includes(p.type)?p.type:'video';document.querySelectorAll('.composer .tabs button').forEach(x=>{const on=x.dataset.t===cur;x.classList.toggle('on',on);x.setAttribute('aria-selected',on?'true':'false')});
 ['video','image','text','poll'].forEach(t=>$('pane-'+t).hidden=t!==cur);
 if(p.type==='video'){$('f-vtitle').value=p.title||'';$('f-vdesc').value=p.body||'';$('f-vurl').value=p.media||''}
 if(p.type==='image'){$('f-ititle').value=p.title||'';$('f-idesc').value=p.body||'';$('f-iurl').value=p.media||''}
 if(p.type==='text'){$('f-ttitle').value=p.title||'';$('f-tbody').value=p.body||''}
 if(p.type==='poll'){$('f-q').value=p.title||'';const opts=Array.isArray(p.options)?p.options:[];$('poll-opts').innerHTML=opts.map(o=>`<input value="${esc(typeof o?.t==='string'?o.t:'')}" aria-label="Lựa chọn khảo sát" style="margin-bottom:8px">`).join('')||'<input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">'}
-$('publish').textContent='Lưu thay đổi';$('cancel-edit').hidden=false;window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi')};
+$('publish').textContent='Lưu thay đổi';$('cancel-edit').hidden=false;window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi');try{const f=cur==='video'?$('f-vtitle'):cur==='image'?$('f-ititle'):cur==='text'?$('f-ttitle'):$('f-q');if(f&&f.focus)f.focus({preventScroll:true})}catch(e){}};
 function resetForm(){editId=null;$('publish').textContent='Đăng bài';$('cancel-edit').hidden=true;['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-skill','f-price','f-contact','f-vfile','f-ifile'].forEach(k=>{const el=$(k);if(el)el.value=''});try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">'};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
-document.querySelectorAll('.composer .tabs button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-selected','false')});
-b.classList.add('on');b.setAttribute('aria-selected','true');cur=b.dataset.t;
+document.querySelectorAll('.composer .tabs button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-selected','false');x.tabIndex=-1});
+b.classList.add('on');b.setAttribute('aria-selected','true');b.tabIndex=0;cur=b.dataset.t;
 ['video','image','text','poll'].forEach(t=>$('pane-'+t).hidden=t!==cur);
 });
+(function(){const tb=[...document.querySelectorAll('.composer .tabs button')];tb.forEach((b,i)=>{b.tabIndex=b.classList.contains('on')?0:-1;if(!b.addEventListener)return;b.addEventListener('keydown',e=>{let j=null;if(e.key==='ArrowRight')j=(i+1)%tb.length;else if(e.key==='ArrowLeft')j=(i-1+tb.length)%tb.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=tb.length-1;if(j!==null&&j!==undefined){e.preventDefault();tb[j].focus();tb[j].click()}})})})();
 $('add-opt').onclick=()=>{const n=$('poll-opts').children.length+1;const i=document.createElement('input');i.placeholder='Lựa chọn '+n;i.setAttribute('aria-label','Lựa chọn '+n);i.style.marginBottom='8px';$('poll-opts').appendChild(i)};
 document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('#filters button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});
@@ -232,20 +245,21 @@ b.classList.add('on');b.setAttribute('aria-pressed','true');filter=b.dataset.f;r
 function files(){return{video:($('f-vfile')||{}).files?.[0]||null,image:($('f-ifile')||{}).files?.[0]||null}}
 function readFile(f,maxMB){return new Promise((res,rej)=>{if(!f)return res(null);if(f.size>maxMB*1048576)return rej('File quá lớn (tối đa '+maxMB+'MB)');const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej('Không đọc được file');r.readAsDataURL(f)})}
 $('publish').onclick=async()=>{
-const name=$('f-name').value.trim();
-if(!name)return toast('Nhập tên bạn đã');
-const skill=$('f-skill').value.trim(), price=$('f-price').value.trim(), contact=$('f-contact').value.trim();
+const nameEl=$('f-name');const name=nameEl.value.trim();
+markInvalid(nameEl,!name);if(!name)return toast('Nhập tên bạn đã');
+const skill=$('f-skill').value.trim().slice(0,80), price=$('f-price').value.trim().slice(0,80), contact=$('f-contact').value.trim().slice(0,200);
+const allowed=['video','image','text','poll'];if(!allowed.includes(cur))cur='video';
 const id=posts.reduce((m,x)=>{if(!x||typeof x!=='object')return m;const n=Number(x.id);return Number.isFinite(n)&&n>m?n:m},0)+1, base={id,name,skill,price,contact,mine:1,likes:0,ts:Date.now()};
 let p=null;
-if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập tên khóa học');let up=null;try{up=await readFile(files().video,8)}catch(e){return toast(e)};p={...base,type:'video',title:t,body:$('f-vdesc').value.trim(),media:up||$('f-vurl').value.trim()||'https://www.w3schools.com/html/mov_bbb.mp4'}}
-if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');let up=null;try{up=await readFile(files().image,3)}catch(e){return toast(e)};p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:up||$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
-if(cur==='text'){const t=$('f-ttitle').value.trim(),b=$('f-tbody').value.trim();if(!t||!b)return toast('Nhập tiêu đề + nội dung');p={...base,type:'text',title:t,body:b}}
-if(cur==='poll'){const q=$('f-q').value.trim();const opts=[...$('poll-opts').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);if(!q||opts.length<2)return toast('Cần câu hỏi + ít nhất 2 lựa chọn');p={...base,type:'poll',title:q,options:opts.map(t=>({t,v:0}))}}
-if(editId!==null&&editId!==undefined){const old=findPost(editId);if(old){if(p.type==='poll'&&old.type==='poll'&&Array.isArray(old.options)){const vm={};old.options.forEach(o=>{if(o&&typeof o.t==='string')vm[o.t]=Number(o.v)||0});p.options.forEach(o=>o.v=vm[o.t]||0)}
-Object.assign(old,{name,skill,price,contact,type:p.type,title:p.title,body:p.body||'',media:p.media||'',options:p.options||old.options});if(!save(posts))return;try{localStorage.setItem(ME,name)}catch(e){}resetForm();
+if(cur==='video'){const t=$('f-vtitle').value.trim().slice(0,200);markInvalid($('f-vtitle'),!t);if(!t)return toast('Nhập tên khóa học');let up=null;try{up=await readFile(files().video,8)}catch(e){return toast(e)};const raw=(up||$('f-vurl').value.trim()).slice(0,300000);const murl=up||safeUrl(raw)||'https://www.w3schools.com/html/mov_bbb.mp4';p={...base,type:'video',title:t,body:$('f-vdesc').value.trim().slice(0,5000),media:murl}}
+if(cur==='image'){const t=$('f-ititle').value.trim().slice(0,200);markInvalid($('f-ititle'),!t);if(!t)return toast('Nhập tiêu đề');let up=null;try{up=await readFile(files().image,3)}catch(e){return toast(e)};const raw=(up||$('f-iurl').value.trim()).slice(0,300000);const murl=up||safeUrl(raw)||('https://picsum.photos/seed/learn'+id+'/640/360');p={...base,type:'image',title:t,body:$('f-idesc').value.trim().slice(0,5000),media:murl}}
+if(cur==='text'){const t=$('f-ttitle').value.trim().slice(0,200),b=$('f-tbody').value.trim().slice(0,5000);markInvalid($('f-ttitle'),!t);markInvalid($('f-tbody'),!b);if(!t||!b)return toast('Nhập tiêu đề + nội dung');p={...base,type:'text',title:t,body:b}}
+if(cur==='poll'){const q=$('f-q').value.trim().slice(0,200);const opts=[...$('poll-opts').querySelectorAll('input')].map(i=>i.value.trim().slice(0,120)).filter(Boolean).slice(0,10);markInvalid($('f-q'),!q||opts.length<2);if(!q||opts.length<2)return toast('Cần câu hỏi + ít nhất 2 lựa chọn');p={...base,type:'poll',title:q,options:opts.map(t=>({t,v:0}))}}
+if(!p)return toast('Loại bài không hợp lệ');
+if(editId!==null&&editId!==undefined){const old=findPost(editId);if(old){const merged={name,skill,price,contact,type:p.type,title:p.title,body:p.body||'',media:p.type==='video'||p.type==='image'?(p.media||''):'',options:p.type==='poll'?(Array.isArray(old.options)&&old.type==='poll'?(()=>{const vm={};old.options.forEach(o=>{if(o&&typeof o.t==='string')vm[o.t]=Number(o.v)||0});return p.options.map(o=>({t:o.t,v:vm[o.t]||0}))})():p.options):[]};Object.assign(old,merged);if(!save(posts))return;try{localStorage.setItem(ME,name)}catch(e){toast('Không lưu được tên (bộ nhớ đầy), bài vẫn đã lưu')}resetForm();
 filter='all';document.querySelectorAll('#filters button').forEach(x=>{const on=x.dataset.f==='all';x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});
 render();toast('Đã lưu thay đổi!');return}editId=null}
-posts.push(p);if(!save(posts))return;try{localStorage.setItem(ME,name)}catch(e){}
+const before=posts.length;posts.push(p);try{localStorage.setItem(ME,name)}catch(e){toast('Không lưu được tên (bộ nhớ đầy), bài vẫn đã lưu')}if(!save(posts)){posts.length=before;return}try{localStorage.setItem(ME,name)}catch(e){}
 resetForm();
 filter='all';document.querySelectorAll('#filters button').forEach(x=>{const on=x.dataset.f==='all';x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});
 render();toast('Đăng bài thành công!');
@@ -253,7 +267,7 @@ render();toast('Đăng bài thành công!');
 $('cancel-edit').onclick=()=>{resetForm();toast('Đã hủy sửa')};
 $('export').onclick=()=>{try{const blob=new Blob([JSON.stringify(posts)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='learn-online-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Đã tải file sao lưu')}catch(e){toast('Không xuất được file')}};
 $('import-btn').onclick=()=>$('import').click();
-$('import').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const v=JSON.parse(r.result);if(!Array.isArray(v))return toast('File không hợp lệ');posts=v;if(!save(posts))return;render();toast('Đã khôi phục '+v.length+' bài!')}catch(err){toast('File không hợp lệ')}};r.onerror=()=>toast('Không đọc được file');r.readAsText(f);e.target.value=''};
+$('import').onchange=e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>1048576)return toast('File quá lớn (tối đa 1MB)');const r=new FileReader();r.onload=()=>{try{const v=JSON.parse(r.result);if(!Array.isArray(v))return toast('File không hợp lệ');if(v.length>1000)return toast('File quá nhiều bài (tối đa 1000)');const clean=v.map(cleanPost).filter(Boolean);const seen=new Set();posts=clean.filter(p=>{if(seen.has(p.id))return false;seen.add(p.id);return true});if(!save(posts)){posts=load()||[];render();return toast('Không lưu được (bộ nhớ đầy)')}render();toast('Đã khôi phục '+posts.length+' bài!')}catch(err){toast('File không hợp lệ')}};r.onerror=()=>toast('Không đọc được file');r.readAsText(f);e.target.value=''};
 try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}
 render();
 </script>
