@@ -122,6 +122,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 </nav>
 </div>
 <section id="feed" aria-label="Danh sách bài viết"></section>
+<p class="hint" style="text-align:center;margin:16px 0 4px"><button class="btn ghost" id="export" type="button" aria-label="Tải bản sao lưu dữ liệu">⬇ Sao lưu</button> <button class="btn ghost" id="import-btn" type="button" aria-label="Khôi phục dữ liệu từ file sao lưu">⬆ Khôi phục</button><input type="file" id="import" accept="application/json" hidden aria-label="Chọn file sao lưu JSON"></p>
 </main>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -244,6 +245,9 @@ filter='all';document.querySelectorAll('#filters button').forEach(x=>{const on=x
 render();toast('Đăng bài thành công!');
 };
 $('cancel-edit').onclick=()=>{resetForm();toast('Đã hủy sửa')};
+$('export').onclick=()=>{try{const blob=new Blob([JSON.stringify(posts)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='learn-online-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Đã tải file sao lưu')}catch(e){toast('Không xuất được file')}};
+$('import-btn').onclick=()=>$('import').click();
+$('import').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const v=JSON.parse(r.result);if(!Array.isArray(v))return toast('File không hợp lệ');posts=v;if(!save(posts))return;render();toast('Đã khôi phục '+v.length+' bài!')}catch(err){toast('File không hợp lệ')}};r.onerror=()=>toast('Không đọc được file');r.readAsText(f);e.target.value=''};
 try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}
 render();
 </script>
