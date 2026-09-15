@@ -24,3 +24,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | site-architecture | cross-link 2 chiều course↔mentor trên trang tĩnh | 96 |
 | emails | capture email + xuất CSV (nền cho sequence khi có backend) | 97 |
 | lead-magnets | checklist đăng lớp tải ngay sau đăng ký email | 98 |
+| cro | CTA value-copy + microcopy cạnh nút đăng bài | 99 |

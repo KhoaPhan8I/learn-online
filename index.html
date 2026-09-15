@@ -195,7 +195,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <h2>Dạy điều bạn giỏi,<br><span class="grad">học phí do bạn tự đặt</span></h2>
 <p>Đăng lớp video, bài viết, text hoặc poll — xong trong 1 phút. Không cần vốn, không chạy quảng cáo.</p>
 <div class="row-btn">
-<button class="btn-primary" id="cta-hero" type="button">🚀 Tạo lớp đầu tiên của bạn</button>
+<button class="btn-primary" id="cta-hero" type="button">🚀 Đăng lớp miễn phí — 1 phút xong</button>
 <button class="btn-quiet" id="cta-explore" type="button">Xem lớp đang có ↓</button>
 </div>
 <div class="ticker" aria-hidden="true"><span class="track" id="ticker-track"></span></div>
@@ -244,6 +244,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <button class="btn half" id="publish">Đăng bài</button>
 <button class="btn ghost half" id="cancel-edit" hidden>Hủy</button>
 </div>
+<p class="hint" id="publish-note">Miễn phí · xong trong 1 phút · học phí do bạn tự đặt</p>
 <p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được. Video tải lên tối đa 8MB, ảnh tối đa 3MB; link media chỉ nhận https:// hoặc file vừa chọn.</p>
 <div class="row" style="margin-top:8px;align-items:center"><input type="checkbox" id="f-boost" style="width:auto;min-height:24px" aria-label="Ghim Nổi Bật 7 ngày"><label for="f-boost" style="font-size:13px;color:var(--mut)">📌 Ghim Nổi Bật 7 ngày cho lớp này <b style="color:var(--gold)">29k</b> — thanh toán chuyển khoản, admin duyệt trong 24h. <button type="button" class="btn ghost" style="padding:4px 10px;min-height:32px;font-size:12px" onclick="boostInfo()" aria-label="Xem chi tiết gói Ghim Nổi Bật">Chi tiết</button></label></div>
 </div>
@@ -920,7 +921,7 @@ T('claimRef bad',claimRef()==='');
 T('seo head tags',(()=>{try{const c=document.querySelector('link[rel="canonical"]');const r=document.querySelector('meta[name="robots"]');const l=document.querySelector('meta[property="og:locale"]');const j=document.querySelector('script[type="application/ld+json"]');return !!c&&/learn-online/.test(c.href)&&!!r&&/index/.test(r.content)&&!!l&&l.content==='vi_VN'&&!!j&&/WebSite/.test(j.textContent)}catch(e){return false}})());
 T('share adds rep',(()=>{try{localStorage.removeItem(REP);addRep('ShareMe',4);const before=repOf('ShareMe');addRep('ShareMe',1);const ok=repOf('ShareMe')===before+1;localStorage.removeItem(REP);render();return ok}catch(e){return false}})());
 T('og meta present',(()=>{try{const o=document.querySelector('meta[property="og:image"]');const t=document.querySelector('meta[name="twitter:image"]');const c=document.querySelector('meta[name="twitter:card"]');return !!o&&/og-cover\.png/.test(o.content)&&!!t&&/og-cover\.png/.test(t.content)&&!!c&&c.content==='summary_large_image'}catch(e){return false}})());
-T('hero action copy',(()=>{try{const h=document.querySelector('.hero h2').textContent;const b=document.querySelector('#cta-hero').textContent;return /Dạy điều bạn giỏi/.test(h)&&/học phí do bạn/.test(h)&&/Tạo lớp/.test(b)&&!/Đăng lớp ngay/.test(b)}catch(e){return false}})());
+T('hero action copy',(()=>{try{const h=document.querySelector('.hero h2').textContent;const b=document.querySelector('#cta-hero').textContent;return /Dạy điều bạn giỏi/.test(h)&&/học phí do bạn/.test(h)&&/Đăng lớp miễn phí/.test(b)&&/1 phút/.test(b)}catch(e){return false}})());
 T('refMilestone first only',(()=>{try{const keep=JSON.parse(JSON.stringify(posts));const keepLS=localStorage.getItem(LS);posts=[];posts.push({id:1201,type:'text',name:'RmMe',title:'T',body:'b',regs:[],cmts:[],mine:1,ts:Date.now()});const a=refMilestone('RmMe');posts.push({id:1202,type:'text',name:'RmMe',title:'T2',body:'b',regs:[],cmts:[],mine:1,ts:Date.now()});const b=refMilestone('RmMe');posts.length=0;JSON.parse(JSON.stringify(keep)).forEach(x=>posts.push(x));try{if(keepLS===null)localStorage.removeItem(LS);else localStorage.setItem(LS,keepLS)}catch(e){}render();return /ref=RmMe/.test(a)&&/utm_source=ref/.test(a)&&b===''&&refMilestone('')==='' }catch(e){return false}})());
 T('abVar sticky',(()=>{try{localStorage.setItem(ABK,'b');const a=abVar();localStorage.setItem(ABK,'a');const b=abVar();return a==='b'&&b==='a'}catch(e){return false}})());
 T('abTrack stores',(()=>{try{localStorage.removeItem('learn-online-events-v1');abTrack('view','a');abTrack('cta','a');const e=abEvents();localStorage.removeItem('learn-online-events-v1');return e.length===2&&e[0].ev==='view'&&typeof e[0].ts==='number'}catch(e){return false}})());
@@ -966,6 +967,7 @@ T('subscribeMail valid',(()=>{try{localStorage.removeItem(MAILS);$('f-mail').val
 T('subscribeMail invalid+dup',(()=>{try{localStorage.removeItem(MAILS);$('f-mail').value='sai';subscribeMail();const bad=getMails().length===0;$('f-mail').value='a@b.com';subscribeMail();subscribeMail.call(null);$('f-mail').value='a@b.com';subscribeMail();const dup=getMails().length===1;localStorage.removeItem(MAILS);renderMailCount();return bad&&dup}catch(e){return false}})());
 T('exportMails fns',typeof window.exportMails==='function'&&typeof renderMailCount==='function');
 T('checklist 7 steps',(()=>{try{const t=checklistText();const n=(t.match(/\[ \]/g)||[]).length;return n===7&&/streak/.test(t)}catch(e){return false}})());
+T('cro cta value',(()=>{try{const b=$('cta-hero').textContent;const n=($('publish-note')||{}).textContent||'';return /Đăng lớp miễn phí/.test(b)&&/1 phút/.test(b)&&/Miễn phí/.test(n)&&/học phí do bạn/.test(n)}catch(e){return false}})());
 }catch(e){R.push('FAIL exception '+e.message)}
 try{posts.length=0;JSON.parse(_snapPosts||'[]').forEach(x=>posts.push(x));backupKeys().forEach(k=>{if(_snapLS[k]===null||_snapLS[k]===undefined){try{localStorage.removeItem(k)}catch(e){}}else{try{localStorage.setItem(k,_snapLS[k])}catch(e){}}});render()}catch(e){}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
