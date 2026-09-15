@@ -81,11 +81,13 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <div id="pane-video" role="tabpanel">
 <input id="f-vtitle" placeholder="Tên khóa học / kỹ năng muốn dạy *" aria-label="Tên khóa học (bắt buộc)" style="margin-bottom:8px">
 <input id="f-vurl" placeholder="Link video mp4 (để trống = video demo)" aria-label="Link video mp4" style="margin-bottom:8px">
+<input type="file" id="f-vfile" accept="video/*" aria-label="Chọn video từ máy (tối đa 8MB)" style="margin-bottom:8px">
 <textarea id="f-vdesc" placeholder="Mô tả ngắn: học được gì, lịch rảnh khi nào..." aria-label="Mô tả khóa học"></textarea>
 </div>
 <div id="pane-image" role="tabpanel" hidden>
 <input id="f-ititle" placeholder="Tiêu đề bài viết *" aria-label="Tiêu đề bài viết (bắt buộc)" style="margin-bottom:8px">
 <input id="f-iurl" placeholder="Link ảnh (để trống = ảnh mẫu)" aria-label="Link ảnh minh họa" style="margin-bottom:8px">
+<input type="file" id="f-ifile" accept="image/*" aria-label="Chọn ảnh từ máy (tối đa 3MB)" style="margin-bottom:8px">
 <textarea id="f-idesc" placeholder="Nội dung chia sẻ..." aria-label="Nội dung bài viết"></textarea>
 </div>
 <div id="pane-text" role="tabpanel" hidden>
@@ -209,7 +211,7 @@ if(p.type==='image'){$('f-ititle').value=p.title||'';$('f-idesc').value=p.body||
 if(p.type==='text'){$('f-ttitle').value=p.title||'';$('f-tbody').value=p.body||''}
 if(p.type==='poll'){$('f-q').value=p.title||'';const opts=Array.isArray(p.options)?p.options:[];$('poll-opts').innerHTML=opts.map(o=>`<input value="${esc(typeof o?.t==='string'?o.t:'')}" aria-label="Lựa chọn khảo sát" style="margin-bottom:8px">`).join('')||'<input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">'}
 $('publish').textContent='Lưu thay đổi';$('cancel-edit').hidden=false;window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi')};
-function resetForm(){editId=null;$('publish').textContent='Đăng bài';$('cancel-edit').hidden=true;['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-skill','f-price','f-contact'].forEach(k=>$(k).value='');try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">'};
+function resetForm(){editId=null;$('publish').textContent='Đăng bài';$('cancel-edit').hidden=true;['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-skill','f-price','f-contact','f-vfile','f-ifile'].forEach(k=>{const el=$(k);if(el)el.value=''});try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">'};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-selected','false')});
 b.classList.add('on');b.setAttribute('aria-selected','true');cur=b.dataset.t;
@@ -220,14 +222,16 @@ document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('#filters button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});
 b.classList.add('on');b.setAttribute('aria-pressed','true');filter=b.dataset.f;render();
 });
-$('publish').onclick=()=>{
+function files(){return{video:($('f-vfile')||{}).files?.[0]||null,image:($('f-ifile')||{}).files?.[0]||null}}
+function readFile(f,maxMB){return new Promise((res,rej)=>{if(!f)return res(null);if(f.size>maxMB*1048576)return rej('File quá lớn (tối đa '+maxMB+'MB)');const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej('Không đọc được file');r.readAsDataURL(f)})}
+$('publish').onclick=async()=>{
 const name=$('f-name').value.trim();
 if(!name)return toast('Nhập tên bạn đã');
 const skill=$('f-skill').value.trim(), price=$('f-price').value.trim(), contact=$('f-contact').value.trim();
 const id=posts.reduce((m,x)=>{if(!x||typeof x!=='object')return m;const n=Number(x.id);return Number.isFinite(n)&&n>m?n:m},0)+1, base={id,name,skill,price,contact,mine:1,likes:0,ts:Date.now()};
 let p=null;
-if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập tên khóa học');p={...base,type:'video',title:t,body:$('f-vdesc').value.trim(),media:$('f-vurl').value.trim()||'https://www.w3schools.com/html/mov_bbb.mp4'}}
-if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
+if(cur==='video'){const t=$('f-vtitle').value.trim();if(!t)return toast('Nhập tên khóa học');let up=null;try{up=await readFile(files().video,8)}catch(e){return toast(e)};p={...base,type:'video',title:t,body:$('f-vdesc').value.trim(),media:up||$('f-vurl').value.trim()||'https://www.w3schools.com/html/mov_bbb.mp4'}}
+if(cur==='image'){const t=$('f-ititle').value.trim();if(!t)return toast('Nhập tiêu đề');let up=null;try{up=await readFile(files().image,3)}catch(e){return toast(e)};p={...base,type:'image',title:t,body:$('f-idesc').value.trim(),media:up||$('f-iurl').value.trim()||'https://picsum.photos/seed/learn'+id+'/640/360'}}
 if(cur==='text'){const t=$('f-ttitle').value.trim(),b=$('f-tbody').value.trim();if(!t||!b)return toast('Nhập tiêu đề + nội dung');p={...base,type:'text',title:t,body:b}}
 if(cur==='poll'){const q=$('f-q').value.trim();const opts=[...$('poll-opts').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);if(!q||opts.length<2)return toast('Cần câu hỏi + ít nhất 2 lựa chọn');p={...base,type:'poll',title:q,options:opts.map(t=>({t,v:0}))}}
 if(editId!==null&&editId!==undefined){const old=findPost(editId);if(old){if(p.type==='poll'&&old.type==='poll'&&Array.isArray(old.options)){const vm={};old.options.forEach(o=>{if(o&&typeof o.t==='string')vm[o.t]=Number(o.v)||0});p.options.forEach(o=>o.v=vm[o.t]||0)}
