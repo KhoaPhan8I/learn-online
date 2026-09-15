@@ -66,3 +66,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | homepage-v2 | ticker kể chuyện số thật tuần + doanh thu Ghim | 138 |
 | cold-email-v2 | 1️⃣2️⃣ nhắc đúng tên người chờ xác nhận + đếm còn lại | 139 |
 | marketing-plan-v3 | 🩺 chấm lại audit: 58→61 sau vòng 2 đợt 2 | 140 |
+| customer-research-v3 | 💬 VOC nguyên văn 1 câu + research 4→5 (62) | 141 |
