@@ -45,3 +45,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | events | ngày khai giảng + đếm ngược trên card (hosting) | 117 |
 | prospecting | Nên-mời-ai-dạy: top tương tác chưa mở lớp + copy tin mời | 118 |
 | product-marketing | khối positioning công khai: là-gì + 3 persona + giá Ghim | 119 |
+| marketing-ideas | 🎁 Tổng kết của tôi: số thật + copy khoe (year-wrap/viral) | 120 |
