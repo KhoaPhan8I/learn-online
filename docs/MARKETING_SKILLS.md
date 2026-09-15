@@ -28,3 +28,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-psychology | social proof thật: ẩn số 0, empty-state mời lớp đầu tiên | 100 |
 | paywalls | upsell Ghim sau bài đăng thứ 2, cooldown 1/ngày | 101 |
 | directory-submissions | FAQPage JSON-LD 3 câu (điểm AI citation) | 102 |
+| competitors | trang so-sanh/trung-tam trung thực + cross-link | 103 |

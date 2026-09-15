@@ -139,6 +139,42 @@ def render_mentor(mentor, all_skills):
         url=url, site=SITE, slug=slug, related=related_links(rel))
 
 
+COMPARE_TMPL = """<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} | Learn Online</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{title} | Learn Online">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{site}/og-cover.png">
+</head>
+<body>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / So sánh</nav>
+<h1>{title}</h1>
+<p>{desc}</p>
+<table>
+<tr><th>Tiêu chí</th><th>Trung tâm truyền thống</th><th>Learn Online</th></tr>
+<tr><td>Chi phí mở lớp</td><td>Thuê mặt bằng, in tài liệu</td><td>Miễn phí đăng bài</td></tr>
+<tr><td>Học phí</td><td>Trung tâm ấn định</td><td>Mentor tự đặt</td></tr>
+<tr><td>Ai dạy được</td><td>Giáo viên hợp đồng</td><td>Bất cứ ai có kỹ năng</td></tr>
+<tr><td>Tìm học viên</td><td>Chạy quảng cáo, phát tờ rơi</td><td>Chia sẻ link, streak, Ghim 29k/7 ngày</td></tr>
+</table>
+<p>Trung tâm phù hợp khi bạn cần phòng học vật lý và giáo trình chuẩn. Learn Online phù hợp khi bạn có kỹ năng và muốn dạy ngay, không vốn.</p>
+<p><a href="{site}/?utm_source=seo&utm_medium=compare&utm_campaign=trung-tam">Đăng lớp đầu tiên trên Learn Online</a></p>
+<h2>Khóa học khác</h2>
+<ul>
+{related}
+</ul>
+</body>
+</html>
+"""
+
+
 def render_hub(path, title, desc, crumb, items):
     links = "\n".join(f'<li><a href="{u}">{html.escape(t)}</a></li>' for t, u in items)
     return path, HUB_TMPL.format(title=html.escape(title), desc=html.escape(desc),
@@ -165,6 +201,12 @@ def build():
                       "Danh sách mentor trên Learn Online — xem hồ sơ, kỹ năng và liên hệ.",
                       "Mentor", mentor_items)
     pages[p] = h
+    rel = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
+           for s in seed["skills"]][:3]
+    pages["so-sanh/trung-tam/index.html"] = COMPARE_TMPL.format(
+        title="Học ở trung tâm hay dạy trên Learn Online?",
+        desc="So sánh trung thực: trung tâm truyền thống vs nền tảng chia sẻ khóa học Learn Online — chi phí, học phí, ai dạy được.",
+        url=f"{SITE}/so-sanh/trung-tam/", site=SITE, related=related_links(rel))
     return pages
 
 
