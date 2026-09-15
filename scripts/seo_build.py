@@ -122,7 +122,8 @@ def render_course(skill, all_skills):
               for s in all_skills if slugify(s["slug"]) != slug][:3]
     return f"khoa-hoc/{slug}/index.html", COURSE_TMPL.format(
         title=html.escape(title), desc=html.escape(desc),
-        url=url, site=SITE, slug=slug, related=related_links(others))
+        url=url, site=SITE, slug=slug, related=related_links(others)).replace(
+        f"{SITE}/og-cover.png", f"{SITE}/og-{slug}.png")
 
 
 def render_mentor(mentor, all_skills):
@@ -266,6 +267,28 @@ def write_llms(seed):
     return "\n".join(lines) + "\n"
 
 
+def write_og_covers(seed):
+    """Sinh og-cover riêng từng kỹ năng (PIL). Trả về {slug: filename}."""
+    from PIL import Image, ImageDraw
+    out = {}
+    for s in seed["skills"]:
+        slug = slugify(s["slug"])
+        fn = f"og-{slug}.png"
+        dest = ROOT / fn
+        if dest.is_file():
+            out[slug] = fn
+            continue
+        im = Image.new("RGB", (1200, 630), (15, 15, 20))
+        d = ImageDraw.Draw(im)
+        d.rectangle([0, 560, 1200, 630], fill=(254, 44, 85))
+        d.rectangle([90, 140, 110, 420], fill=(251, 191, 36))
+        d.text((140, 200), f"Hoc {s['name']} online", fill=(244, 244, 246))
+        d.text((140, 300), "Learn Online — ai cung day duoc", fill=(167, 167, 184))
+        im.save(dest)
+        out[slug] = fn
+    return out
+
+
 def write_sitemap(pages):
     urls = [f"{SITE}/"] + sorted(f"{SITE}/{p.replace('index.html', '')}" for p in pages)
     body = "\n".join(
@@ -286,9 +309,12 @@ def main():
         llms_ok = llms.is_file() and all(
             slugify(s["slug"]) in llms.read_text(encoding="utf-8")
             for s in load_seed()["skills"])
-        if bad or missing or not llms_ok:
+        covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
+                        for s in load_seed()["skills"])
+        if bad or missing or not llms_ok or not covers_ok:
             print("STALE:", len(bad), "files missing,", len(missing), "urls missing from sitemap,",
-                  "llms.txt missing" if not llms_ok else "llms.txt ok")
+                  "llms.txt missing" if not llms_ok else "llms.txt ok,",
+                  "og covers missing" if not covers_ok else "og covers ok")
             return 1
         print(f"SEO_CHECK_OK ({len(pages)} pages in sync)")
         return 0
@@ -298,7 +324,8 @@ def main():
         dest.write_text(h, encoding="utf-8")
     (ROOT / "sitemap.xml").write_text(write_sitemap(pages), encoding="utf-8")
     (ROOT / "llms.txt").write_text(write_llms(load_seed()), encoding="utf-8")
-    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt)")
+    covers = write_og_covers(load_seed())
+    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt + {len(covers)} og covers)")
 
 
 if __name__ == "__main__":
