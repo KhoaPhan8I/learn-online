@@ -33,3 +33,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops | pipeline đơn Ghim chờ→chạy→hết hạn + xuất CSV | 105 |
 | sales-enablement | nút 📣 copy lời chào bán + xử lý từ chối cho mentor | 106 |
 | copy-editing | clarity sweep: lỗi đăng bài nói rõ ô nào + vì sao | 107 |
+| customer-research | survey persona 1 chạm + tổng hợp + xuất CSV | 108 |
