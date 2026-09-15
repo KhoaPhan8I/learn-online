@@ -60,6 +60,7 @@ header p{font-size:12px;color:var(--mut)}
 .feed-head h2{font-size:17px;font-weight:800;letter-spacing:-.01em}
 .feed-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 .feed-head small{color:var(--mut);font-size:12px}
+.fresh{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;color:#0b0b10;background:linear-gradient(90deg,var(--acc2),#a5fcff);border-radius:6px;padding:3px 8px;margin-right:6px;vertical-align:2px;box-shadow:0 0 12px rgba(37,244,238,.5)}
 .composer-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .composer-head .grow{flex:1}
 .composer-head h2{font-size:15px;font-weight:700}
@@ -249,12 +250,13 @@ const id=numId(p.id); if(id===null)return '';
 const nm=(typeof p.name==='string'&&p.name.trim())?p.name.trim():'Ẩn danh';
 const likes=Number(p.likes)||0, regs=Array.isArray(p.regs)?p.regs:[];
 const iso=Number.isFinite(Number(p.ts))?new Date(Number(p.ts)).toISOString():'';
+const isFresh=Number.isFinite(Number(p.ts))&&(Date.now()-Number(p.ts))<24*3600e3;
 return `<article class="card">
 <div class="meta"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div>
 <div class="who"><b>${esc(nm)}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
 <span class="tag">${esc(p.skill||'Chung')}</span>
 <span class="price${p.price?'':' free'}">${esc(p.price||'🆓 Miễn phí')}</span></div>
-<h2 class="post-title">${esc(p.title)}</h2>
+<h2 class="post-title">${isFresh?'<span class="fresh">MỚI</span>':''}${esc(p.title)}</h2>
 ${p.body?`<p class="post-body">${esc(p.body)}</p>`:''}
 ${p.contact?`<p class="hint">Liên hệ: ${esc(p.contact)}</p>`:''}
 ${media(p)}${p.type==='poll'?pollHtml(p,id):''}
@@ -282,6 +284,8 @@ if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.ran
 const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.name).filter(Boolean)).size, regs=ok.reduce((a,p)=>a+(Array.isArray(p.regs)?p.regs.length:0),0);
 const st=$('stats');if(st)st.innerHTML=`<span class="pill">📚 <b>${ok.length}</b> lớp</span><span class="pill">👩‍🏫 <b>${teachers}</b> người dạy</span><span class="pill">📝 <b>${regs}</b> đăng ký</span>`;
 const fc=$('feed-count');if(fc)fc.textContent=list.length?list.length+' bài':'';
+function liveTicker(){const t=$('ticker-track');if(!t)return;const items=posts.filter(p=>p&&typeof p==='object').slice(0,12).map(p=>{const s=(p.skill||p.title||'').trim().slice(0,24);return s?`Học <b>${esc(s)}</b> hôm nay ✦`:''}).filter(Boolean);t.innerHTML=items.length?(items.join(' ')+' '+items.join(' ')):'Đăng lớp đầu tiên để hiện ở đây ✦ Đăng lớp đầu tiên để hiện ở đây ✦'}
+liveTicker();
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):(posts.length?'<div class="card">Không tìm thấy bài nào.</div>':'<div class="card"><h2 class="post-title">Chợ còn trống 🎉</h2><p class="post-body">Chưa có ai đăng lớp. Hãy là người đầu tiên chia sẻ kỹ năng của bạn ở form phía trên!</p></div>');
 if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
 }catch(e){$('feed').innerHTML='<div class="card">Có lỗi hiển thị feed. Thử tải lại trang.</div>';}
@@ -345,7 +349,6 @@ try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}
 function openComposer(){try{const b=$('composer-body');b.classList.remove('collapsed');const t=$('composer-toggle');t.textContent='Thu gọn';t.setAttribute('aria-expanded','true')}catch(e){}$('publish').scrollIntoView({behavior:'smooth',block:'center'});try{const nm=$('f-name');if(nm&&!nm.value)nm.focus({preventScroll:true})}catch(e){}}
 $('cta-share').onclick=openComposer;$('cta-hero').onclick=openComposer;
 $('cta-explore').onclick=()=>{const f=$('feed-count');(f||$('feed')).scrollIntoView({behavior:'smooth',block:'start'})};
-(function(){const skills=['Guitar','Tiếng Anh','Nấu ăn','Excel','Yoga','Piano','Marketing','Vẽ','Code','Nhiếp ảnh','Bơi','Makeup'];const t=$('ticker-track');if(!t)return;const half=skills.map(s=>`Học <b>${s}</b> hôm nay ✦`).join(' ');t.innerHTML=half+' '+half;})();
 render();
 </script>
 </body>
