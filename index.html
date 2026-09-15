@@ -247,6 +247,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <button data-f="poll" aria-pressed="false">📊 Poll</button>
 <button data-f="mine" aria-pressed="false">👤 Bài của tôi</button>
 <button data-f="free" aria-pressed="false">🆓 Miễn phí</button>
+<button data-f="cheap" aria-pressed="false">💸 Dưới 100k</button>
 <button data-f="joined" aria-pressed="false">✅ Đã đăng ký</button>
 <button data-f="mentor" aria-pressed="false">★ Mentor</button>
 </nav>
@@ -356,7 +357,9 @@ function remind(){try{if(!('Notification' in window)||Notification.permission!==
 function cmpDate(a,b){return(Number(b.ts)||0)-(Number(a.ts)||0)||((Number(b.id)||0)-(Number(a.id)||0))}
 function cmpLike(a,b){return(Number(b.likes)||0)-(Number(a.likes)||0)}
 function cmpRegs(a,b){return regCount(b.regs)-regCount(a.regs)}
-function matchPost(p,f,kw,me){if(!p||typeof p!=='object')return false;const okF=(f==='all'||(f==='mine'?!!p.mine:f==='free'?!String(p.price||'').trim():f==='mentor'?!!mentorBadge(p.name||''):f==='joined'?regHas(p.regs,me):p.type===f));if(!okF)return false;if(!kw)return true;return((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)}
+function priceVnd(price){const s=String(price||'').trim().toLowerCase();if(!s)return 0;const num=parseFloat(s.replace(/[^0-9.]/g,''));if(!Number.isFinite(num))return NaN;if(s.includes('tr')||s.includes('m'))return num*1000000;if(s.includes('k'))return num*1000;return num}
+function matchFilter(p,f,me){if(!p||typeof p!=='object')return false;if(f==='all')return true;if(f==='mine')return!!p.mine;if(f==='free')return!String(p.price||'').trim();if(f==='cheap'){const v=priceVnd(p.price);return Number.isFinite(v)&&v>0&&v<100000}if(f==='mentor')return!!mentorBadge(p.name||'');if(f==='joined')return regHas(p.regs,me);return p.type===f}
+function matchPost(p,f,kw,me){if(!matchFilter(p,f,me))return false;if(!kw)return true;return((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)}
 function shuffleIds(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function queryFeed(f,kw,mode,me){const seen=new Set();const list=posts.filter(p=>matchPost(p,f,kw,me)).filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true});if(mode==='liked')list.sort(cmpLike);else if(mode==='regs')list.sort(cmpRegs);else if(mode!=='random')list.sort(cmpDate);return list}
 function filterCounts(kw,me){const c={};document.querySelectorAll('#filters button').forEach(b=>{const f=b.dataset.f;c[f]=posts.filter(p=>matchPost(p,f,kw,me)).length});return c}
@@ -701,6 +704,11 @@ T('hero sub specifics',(()=>{const p=document.querySelector('.hero p');return /1
 T('suggestPicks array',(()=>{const s=suggestPicks();return Array.isArray(s)&&s.length<=6&&new Set(s).size===s.length})());
 T('suggestPicks skills',(()=>{try{const keep=posts.slice();posts.push(cleanPost({id:901,type:'text',name:'An',skill:'Guitar Pro',title:'T',body:'b',regs:[],cmts:[]}));const s=suggestPicks();posts.length=0;keep.forEach(x=>posts.push(x));return s.includes('Guitar Pro')}catch(e){return false}})());
 T('datalist options',(()=>{try{renderChips();const dl=$('q-history');return !!dl&&dl.querySelectorAll('option').length<=6}catch(e){return false}})());
+T('priceVnd parse',priceVnd('')===0&&priceVnd('50k')===50000&&priceVnd('1.5tr')===1500000&&priceVnd('200000')===200000);
+T('priceVnd abc nan',Number.isNaN(priceVnd('abc')));
+T('matchFilter cheap',matchFilter({price:'50k'},'cheap')===true&&matchFilter({price:'200k'},'cheap')===false&&matchFilter({price:''},'cheap')===false&&matchFilter(null,'cheap')===false);
+T('matchFilter keeps',matchFilter({mine:1},'mine')===true&&matchFilter({price:''},'free')===true&&matchFilter(null,'all')===false);
+T('cheap btn exists',(()=>{const b=document.querySelector('#filters button[data-f="cheap"]');return !!b&&/100k/.test(b.textContent)})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
