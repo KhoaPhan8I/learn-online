@@ -55,3 +55,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-plan | 🩺 audit 17 mục rubric: 54/85 + shape mạnh/yếu | 127 |
 | competitor-profiling | profiles Unica/Edumall/Kyna + bảng so-sanh mở rộng | 128 |
 | marketing-council | council 129: KHÔNG thu phí đăng — miễn phí vĩnh viễn | 129 |
+| content-v2 | 📰 Chợ tuần: bản tin tự sinh từ số thật + copy share | 130 |
