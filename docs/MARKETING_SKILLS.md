@@ -86,3 +86,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | site-arch-v2 | Footer nav: moi trang tinh co loi vao tu trang chu | 158 |
 | reviews-v1 | Hoi review 1 cau sau hoc xong + treo tren card | 159 |
 | reviews-v2 | Fix cleanPost giu reviews qua reload (whitelist) | 160 |
+| reviews-v3 | CSV bai viet them cot danh_gia (data khong ket) | 161 |
