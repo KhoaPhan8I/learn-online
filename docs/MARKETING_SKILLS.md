@@ -53,3 +53,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | analytics | 📊 dashboard 3 câu hỏi: tới? bấm? đăng bài? + việc cần làm | 125 |
 | aso | PWA installable: manifest + icon + nút cài app | 126 |
 | marketing-plan | 🩺 audit 17 mục rubric: 54/85 + shape mạnh/yếu | 127 |
+| competitor-profiling | profiles Unica/Edumall/Kyna + bảng so-sanh mở rộng | 128 |

@@ -166,6 +166,14 @@ COMPARE_TMPL = """<!DOCTYPE html>
 <tr><td>Tìm học viên</td><td>Chạy quảng cáo, phát tờ rơi</td><td>Chia sẻ link, streak, Ghim 29k/7 ngày</td></tr>
 </table>
 <p>Trung tâm phù hợp khi bạn cần phòng học vật lý và giáo trình chuẩn. Learn Online phù hợp khi bạn có kỹ năng và muốn dạy ngay, không vốn.</p>
+<h2>Nền tảng khóa học đóng gói thì sao?</h2>
+<table>
+<tr><th>Tiêu chí</th><th>Unica / Edumall / Kyna</th><th>Learn Online</th></tr>
+<tr><td>Dạng học</td><td>Video thu sẵn, tự học</td><td>Lớp kèm trực tiếp, hỏi trước khi đăng ký</td></tr>
+<tr><td>Ai dạy được</td><td>Qua kiểm duyệt / tuyển chọn</td><td>Bất cứ ai, mở lớp trong 1 phút</td></tr>
+<tr><td>Học phí</td><td>Nền tảng định giá</td><td>Mentor tự đặt</td></tr>
+</table>
+<p>Chi tiết trung thực từng nhà (snapshot 2026-09-16, chưa crawl verify): Unica giỏi thư viện khóa rẻ; Edumall mạnh combo; Kyna mạnh lộ trình cam kết. Khe của Learn Online là lớp kèm trực tiếp cho mentor cá nhân — điều cả ba chưa làm.</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=compare&utm_campaign=trung-tam">Đăng lớp đầu tiên trên Learn Online</a></p>
 <h2>Khóa học khác</h2>
 <ul>
