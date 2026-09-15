@@ -270,6 +270,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <div class="topsec" id="leadersec" hidden><h2>🌟 Mentor nổi bật</h2><div class="toprow" id="leaderrow"></div><p class="hint" style="margin-top:8px"><button class="btn ghost" type="button" onclick="exportLeaders()">⬇ Xuất bảng xếp hạng (.csv)</button></p></div>
 <div class="topsec" id="mysched" hidden><h2>🗓️ Lớp bạn đã đăng ký</h2><div class="toprow" id="schedrow"></div><p class="hint" style="margin-top:8px"><button class="btn ghost" type="button" onclick="exportICS()">📅 Xuất lịch (.ics)</button></p></div>
 <div class="hotweek" id="hotweek" hidden><h2>🔥 Kỹ năng hot tuần này</h2><div class="chips" id="hotchips"></div></div>
+<div class="topsec" id="whatsnew" hidden><h2>✨ Có gì mới</h2><div class="toprow" id="whatsnewrow"></div></div>
 <div class="feed-head"><h2>🔥 Lớp mới nhất</h2><span class="line"></span><small id="feed-count"></small></div>
 <section id="feed" aria-label="Danh sách bài viết"></section>
 <p class="hint" style="text-align:center;margin:16px 0 4px"><button class="btn ghost" id="export" type="button" aria-label="Tải bản sao lưu dữ liệu">⬇ Sao lưu</button> <button class="btn ghost" id="import-btn" type="button" aria-label="Khôi phục dữ liệu từ file sao lưu">⬆ Khôi phục</button> <button class="btn ghost" type="button" onclick="exportPosts()" aria-label="Xuất toàn bộ bài viết CSV">📄 Bài viết</button> <button class="btn ghost" type="button" onclick="exportPolls()" aria-label="Xuất kết quả poll CSV">📊 Poll</button> <button class="btn ghost" type="button" onclick="exportContacts()" aria-label="Xuất danh bạ liên hệ mentor CSV">📇 Liên hệ</button> <button class="btn ghost" type="button" onclick="exportAb()" aria-label="Xuất funnel A/B CSV">🧪 A/B</button><input type="file" id="import" accept="application/json" hidden aria-label="Chọn file sao lưu JSON"></p>
@@ -417,7 +418,7 @@ const list=queryFeed(filter,kw,mode,me);
 if(mode==='random'){const sh=shuffleIds(list.map(p=>numId(p.id)));const byId={};list.forEach(p=>byId[numId(p.id)]=p);list.length=0;sh.forEach(n=>{if(byId[n])list.push(byId[n])})}else list.sort(mode==='liked'?cmpLike:mode==='regs'?cmpRegs:cmpDate);
 const st=$('stats');if(st)st.innerHTML=statsHtml();
 const fc=$('feed-count');if(fc){const total=posts.filter(p=>p&&typeof p==='object').length;const pc=total?Math.round(list.length/total*100):0;fc.textContent=list.length?list.length+' bài · '+pc+'% chợ':''};
-liveTicker();renderChips();renderBoost();renderTop();renderLeaders();renderSched();renderHot();renderFilterCounts();renderSortCounts();renderTypeCounts();renderFavBtn();renderOnboard();remind();
+liveTicker();renderChips();renderBoost();renderTop();renderLeaders();renderSched();renderHot();renderWhatsnew();renderFilterCounts();renderSortCounts();renderTypeCounts();renderFavBtn();renderOnboard();remind();
 function renderEmptyInto(){return emptyHtml((($('q')||{}).value||'').trim())}
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):emptyHtml(kw);
 if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
@@ -623,6 +624,12 @@ if(top.length<2){sec.hidden=true;row.innerHTML='';return}
 sec.hidden=false;const pcts=hotPct(top);
 row.innerHTML=pcts.map(([s,pc],i)=>`<button type="button" data-k="${esc(s)}" aria-label="Tìm ${esc(s)}">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'⭐'} ${esc(s)} · ${pc}%</button>`).join('');
 row.querySelectorAll('button').forEach(b=>b.onclick=()=>{const q=$('q');q.value=b.dataset.k||'';render();q.focus()})}
+const WHATSNEW=[{r:88,t:'Có gì mới + funnel A/B',d:'Xem verdict test hero ngay trong nút 🧪 A/B'},{r:87,t:'Verdict A/B + CSV funnel',d:'Biết bản hero nào thắng, không đoán mò'},{r:86,t:'Onboarding 1 chạm',d:'Nút Làm ngay đưa bạn tới hành động'},{r:85,t:'Ghim Nổi Bật có mã đơn',d:'CK đúng mã LO-XXXXXX, admin kích hoạt 7 ngày'},{r:84,t:'Rails kiếm tiền Ghim 29k',d:'Kệ ⭐ + Offer schema cho AI đọc giá'},{r:83,t:'Trang SEO tĩnh',d:'khoa-hoc/ + giao-vien/ cho Google index'}];
+const SEENK='learn-online-seen-v1';
+function seenRound(){try{return Number(localStorage.getItem(SEENK)||0)}catch(e){return 99}}
+function markSeen(){try{localStorage.setItem(SEENK,String(WHATSNEW[0].r))}catch(e){}}
+function renderWhatsnew(){const sec=$('whatsnew'),row=$('whatsnewrow');if(!sec||!row)return;const fresh=WHATSNEW.filter(x=>x.r>seenRound()).slice(0,4);if(!fresh.length){sec.hidden=true;row.innerHTML='';return}sec.hidden=false;row.innerHTML=fresh.map(x=>`<div class="topcard" style="cursor:default"><div class="rank">✨ ROUND ${x.r}</div><b>${esc(x.t)}</b><small>${esc(x.d)}</small></div>`).join('')+`<button type="button" class="btn ghost" onclick="dismissWhatsnew()">Đã rõ ✓</button>`}
+window.dismissWhatsnew=()=>{markSeen();renderWhatsnew()};
 function deepLink(){try{const h=location.hash||'';let m=h.match(/^#bai-(\d+)/);if(m){const id=Number(m[1]);const p=findPost(id);if(!p)return;filter='all';const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{const el=$('post-'+id);if(el){smoothScroll(el);el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),2200)}});return}m=h.match(/^#giao-vien-(.+)/);if(m){const nm=decodeURIComponent(m[1]);if(nm)profile(nm)}}catch(e){}}
 window.addEventListener('hashchange',deepLink);
 function openComposer(){try{const b=$('composer-body');b.classList.remove('collapsed');const t=$('composer-toggle');t.textContent='Thu gọn';t.setAttribute('aria-expanded','true')}catch(e){}smoothScroll($('publish'));try{const nm=$('f-name');if(nm&&!nm.value)nm.focus({preventScroll:true})}catch(e){}}
@@ -905,6 +912,9 @@ T('abRates math',(()=>{try{localStorage.removeItem('learn-online-events-v1');for
 T('abVerdict needs sample',(()=>{try{localStorage.removeItem('learn-online-events-v1');abTrack('view','a');const v=abVerdict();localStorage.removeItem('learn-online-events-v1');return /chưa đủ mẫu/.test(v)&&/không kết luận sớm/.test(v)}catch(e){return false}})());
 T('abVerdict picks winner',(()=>{try{localStorage.removeItem('learn-online-events-v1');for(let i=0;i<20;i++)abTrack('view','a');for(let i=0;i<20;i++)abTrack('view','b');for(let i=0;i<10;i++)abTrack('cta','b');const v=abVerdict();localStorage.removeItem('learn-online-events-v1');return /B thắng/.test(v)}catch(e){return false}})());
 T('abCsv header',(()=>{try{localStorage.removeItem('learn-online-events-v1');abTrack('view','a');const c=abCsv().replace(/^﻿/,'');localStorage.removeItem('learn-online-events-v1');return c.split('\n')[0]==='variant,view,cta,publish,ctr_pct,ptr_pct'&&/^a,1,0,0/.test(c.split('\n')[1])}catch(e){return false}})());
+T('whatsnew shows new',(()=>{try{localStorage.setItem(SEENK,'80');renderWhatsnew();const h=$('whatsnewrow').innerHTML;const vis=!$('whatsnew').hidden;dismissWhatsnew();const hid=$('whatsnew').hidden;return /ROUND 88/.test(h)&&vis&&hid&&seenRound()===88}catch(e){return false}})());
+T('whatsnew hides seen',(()=>{try{localStorage.setItem(SEENK,'88');renderWhatsnew();const hid=$('whatsnew').hidden;localStorage.removeItem(SEENK);renderWhatsnew();return hid===true}catch(e){return false}})());
+T('dismissWhatsnew fn',typeof window.dismissWhatsnew==='function');
 }catch(e){R.push('FAIL exception '+e.message)}
 try{posts.length=0;JSON.parse(_snapPosts||'[]').forEach(x=>posts.push(x));backupKeys().forEach(k=>{if(_snapLS[k]===null||_snapLS[k]===undefined){try{localStorage.removeItem(k)}catch(e){}}else{try{localStorage.setItem(k,_snapLS[k])}catch(e){}}});render()}catch(e){}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
