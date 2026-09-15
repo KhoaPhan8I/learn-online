@@ -68,3 +68,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-plan-v3 | 🩺 chấm lại audit: 58→61 sau vòng 2 đợt 2 | 140 |
 | customer-research-v3 | 💬 VOC nguyên văn 1 câu + research 4→5 (62) | 141 |
 | launch-v3 | 🚀 launch kit 6 bước cho mentor + launch 4→5 (63) | 142 |
+| sales-v3 | 🛡️ xử lý từ chối 4 mẫu + sales 4→5 (64) | 143 |
