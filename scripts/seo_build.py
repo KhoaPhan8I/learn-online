@@ -210,6 +210,46 @@ USECASE_TMPL = """<!DOCTYPE html>
 
 
 
+PRESS_TMPL = """<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Press kit — Learn Online | Learn Online</title>
+<meta name="description" content="Press kit Learn Online: cau chuyen, so lieu, logo va anh. Nen tang chia se khoa hoc — ai cung day duoc.">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{site}/og-cover.png">
+</head>
+<body>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Bao chi</nav>
+<h1>Press kit — Learn Online</h1>
+<p>Learn Online la cho ky nang sharing online: ai cung day duoc, ai cung hoc duoc. Dang bai mien phi, hoc phi do mentor tu dat.</p>
+<h2>Cau chuyen (1 doan)</h2>
+<p>Hoc them ky nang moi o Viet Nam van dong nghia voi dong hoc phi cao cho trung tam. Learn Online dao nguoc mo hinh: bat cu ai gioi mot ky nang deu mo lop trong 1 phut, tu dat hoc phi, tu tim hoc vien bang link chia se. Hien co {nskills} nhom ky nang va {nmentors} mentor khoi dau.</p>
+<h2>So lieu nhanh</h2>
+<ul>
+<li>{nskills} nhom ky nang</li>
+<li>{nmentors} mentor</li>
+<li>Dang bai mien phi; Ghim Noi Bat 29.000d / 7 ngay</li>
+</ul>
+<h2>Asset</h2>
+<ul>
+<li><a href="{site}/og-cover.png">Logo/cover 1200x630 (PNG)</a></li>
+<li><a href="{site}/sitemap.xml">Sitemap day du</a></li>
+<li><a href="{site}/llms.txt">Tom tat AI-readable (llms.txt)</a></li>
+</ul>
+<p>Lien he bao chi: xem thong tin tren trang chu {site}/</p>
+<h2>Khoa hoc</h2>
+<ul>
+{related}
+</ul>
+</body>
+</html>
+"""
+
+
 def render_hub(path, title, desc, crumb, items):
     links = "\n".join(f'<li><a href="{u}">{html.escape(t)}</a></li>' for t, u in items)
     return path, HUB_TMPL.format(title=html.escape(title), desc=html.escape(desc),
@@ -247,6 +287,12 @@ def build():
     pages["cho-nguoi-moi-day/index.html"] = USECASE_TMPL.format(
         site=SITE, url=f"{SITE}/cho-nguoi-moi-day/",
         related=related_links(usecase))
+    press_rel = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
+                 for s in seed["skills"]][:3]
+    pages["bao-chi/index.html"] = PRESS_TMPL.format(
+        site=SITE, url=f"{SITE}/bao-chi/",
+        nskills=len(seed["skills"]), nmentors=len(seed["mentors"]),
+        related=related_links(press_rel))
     return pages
 
 
