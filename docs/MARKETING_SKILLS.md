@@ -65,3 +65,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v2 | 🚀 checklist ra lớp 6 bước trong composer | 137 |
 | homepage-v2 | ticker kể chuyện số thật tuần + doanh thu Ghim | 138 |
 | cold-email-v2 | 1️⃣2️⃣ nhắc đúng tên người chờ xác nhận + đếm còn lại | 139 |
+| marketing-plan-v3 | 🩺 chấm lại audit: 58→61 sau vòng 2 đợt 2 | 140 |
