@@ -218,6 +218,37 @@ PRICE_TMPL = """<!DOCTYPE html>
 """
 
 
+LEARNER_TMPL = """<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muon hoc ky nang? Tim lop kem truc tiep 3 buoc | Learn Online</title>
+<meta name="description" content="Muon hoc them ky nang? 3 buoc tim lop kem truc tiep: go ky nang, hoi mentor truoc, dang ky giu cho — mien phi tim kiem.">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{site}/og-cover.png">
+</head>
+<body>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Cho nguoi muon hoc</nav>
+<h1>Muon hoc ky nang? Tim lop kem 3 buoc</h1>
+<ol>
+<li>Go ky nang vao o tim kiem (VD: guitar, tieng Anh, nau an)</li>
+<li>Bam hoi mentor truoc khi dang ky — hoi hoc phi, lich, trinh do</li>
+<li>Dang ky giu cho + de lai gio hoc mong muon de mentor xac nhan</li>
+</ol>
+<p>Khac video thu san: lop kem truc tiep, di theo toc do cua ban.</p>
+<p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-muon-hoc">Tim lop ngay</a></p>
+<h2>Khoa hoc goi y</h2>
+<ul>
+{related}
+</ul>
+</body>
+</html>
+"""
+
+
 USECASE_TMPL = """<!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -329,6 +360,9 @@ def build():
     pages["gia/index.html"] = PRICE_TMPL.format(
         site=SITE, url=f"{SITE}/gia/",
         related=related_links(rel))
+    pages["cho-nguoi-hoc/index.html"] = LEARNER_TMPL.format(
+        site=SITE, url=f"{SITE}/cho-nguoi-hoc/",
+        related=related_links(usecase))
     pages["cho-nguoi-moi-day/index.html"] = USECASE_TMPL.format(
         site=SITE, url=f"{SITE}/cho-nguoi-moi-day/",
         related=related_links(usecase))
