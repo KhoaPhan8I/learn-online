@@ -190,6 +190,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 </div>
 <div class="ticker" aria-hidden="true"><span class="track" id="ticker-track"></span></div>
 </section>
+<section class="card" id="onboard" hidden style="border-color:rgba(251,191,36,.4)" aria-label="Hướng dẫn bắt đầu"></section>
 <section class="card composer">
 <div class="composer-head"><div class="grow"><h2>Chia sẻ kỹ năng của bạn</h2><p>Video, bài viết, text hoặc poll — mất chưa tới 1 phút</p></div><button class="btn ghost" id="composer-toggle" type="button" aria-expanded="true" aria-controls="composer-body" aria-label="Thu gọn form đăng bài">Thu gọn</button></div>
 <div id="composer-body">
@@ -265,7 +266,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Hồ sơ người dạy"><div class="sheet" id="sheet"></div></div>
 <script src="qrcode.min.js"></script>
 <script>
-const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2', HIST='learn-online-search-v2', FAVF='learn-online-favfilter-v2', FOLLOW='learn-online-follow-v2';
+const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2', HIST='learn-online-search-v2', FAVF='learn-online-favfilter-v2', FOLLOW='learn-online-follow-v2', ONB='learn-online-onboard-v2';
 let cur='video', filter='all', editId=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -336,6 +337,11 @@ ${media(p)}${p.type==='poll'?pollHtml(p,id):''}
 ${postActions(p,id)}${cmtHtml(p,id,nm)}</article>`;
 }
 function myRegs(me){return posts.filter(p=>p&&typeof p==='object'&&regHas(p.regs,me)).map(p=>{const r=(Array.isArray(p.regs)?p.regs:[]).find(x=>x===me||(x&&x.n===me));return{p,r:r&&typeof r==='object'?r:{n:me},ts:r&&typeof r==='object'?Number(r.ts)||0:0}})}
+function onboardDone(){try{return localStorage.getItem(ONB)==='1'}catch(e){return true}}
+function dismissOnboard(){try{localStorage.setItem(ONB,'1')}catch(e){}renderOnboard()}
+function onboardSteps(me){const named=me&&me!=='Khách';const regs=myRegs(me).length;return[{t:'Tìm lớp',d:'Gõ kỹ năng vào ô tìm kiếm, dùng gợi ý có sẵn',done:true},{t:'Hỏi + Đăng ký',d:'Bấm 💬 hỏi mentor, rồi 📝 đăng ký kèm giờ học',done:regs>0},{t:'Chia sẻ',d:'Bấm Đăng lớp ngay để dạy điều bạn giỏi',done:named&&posts.some(p=>p&&typeof p==='object'&&p.mine)}]}
+function renderOnboard(){try{const sec=$('onboard');if(!sec)return;if(onboardDone()){sec.hidden=true;sec.innerHTML='';return}const me=(($('f-name')||{}).value||'').trim()||'Khách';const steps=onboardSteps(me);const doneN=steps.filter(s=>s.done).length;sec.hidden=false;sec.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>👋 Bắt đầu trong 1 phút (${doneN}/3)</b><button class="btn ghost" onclick="dismissOnboard()" aria-label="Ẩn hướng dẫn">✕</button></div><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">${steps.map((s,i)=>`<div style="flex:1 1 140px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:10px 12px"><b>${s.done?'✅':'⬜'} ${i+1}. ${esc(s.t)}</b><p class="hint" style="margin:6px 0 0">${esc(s.d)}</p></div>`).join('')}</div>`}catch(e){}}
+window.dismissOnboard=dismissOnboard;
 function tickerItem(p,tc,total){if(!p||typeof p!=='object')return'';const s=(p.skill||p.title||'').trim().slice(0,24);if(!s)return'';const icons={video:'🎬',image:'🖼️',text:'✍️',poll:'📊'};const n=tc[p.type]||0;const pc=total&&n?Math.round(n/total*100):0;const likes=Number(p.likes)||0,regs=regCount(p.regs);const fw=isFollow((p.name||'').trim())?' ★ theo dõi':'';return`${icons[p.type]||'📌'} Học <b>${esc(s)}</b>${pc?` · ${pc}% cùng loại`:''}${likes?` · ❤${likes}`:''}${regs?` · 📝${regs}`:''}${fw} ✦`}
 function liveTicker(){const t=$('ticker-track');if(!t)return;const items=posts.filter(p=>p&&typeof p==='object').slice(0,12);const tc=typeCounts();const total=Object.values(tc).reduce((a,b)=>a+b,0)||0;const list=items.map(p=>tickerItem(p,tc,total)).filter(Boolean);t.innerHTML=list.length?(list.join(' ')+' '+list.join(' ')):'Đăng lớp đầu tiên để hiện ở đây ✦ Đăng lớp đầu tiên để hiện ở đây ✦'}
 function leaderRows(){const stQ=mentorStats(null,90),stY=mentorStats(null,365);const names=[...new Set([...Object.keys(stQ),...Object.keys(stY)])];return names.map(nm=>{const q=stQ[nm]||{posts:0,regs:0},y=stY[nm]||{posts:0,regs:0};return{nm,q,y,score:q.regs*3+q.posts+(y.regs*2+y.posts*0.5)}}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score)}
@@ -379,7 +385,7 @@ const list=queryFeed(filter,kw,mode,me);
 if(mode==='random'){const sh=shuffleIds(list.map(p=>numId(p.id)));const byId={};list.forEach(p=>byId[numId(p.id)]=p);list.length=0;sh.forEach(n=>{if(byId[n])list.push(byId[n])})}else list.sort(mode==='liked'?cmpLike:mode==='regs'?cmpRegs:cmpDate);
 const st=$('stats');if(st)st.innerHTML=statsHtml();
 const fc=$('feed-count');if(fc){const total=posts.filter(p=>p&&typeof p==='object').length;const pc=total?Math.round(list.length/total*100):0;fc.textContent=list.length?list.length+' bài · '+pc+'% chợ':''};
-liveTicker();renderChips();renderTop();renderLeaders();renderSched();renderHot();renderFilterCounts();renderSortCounts();renderTypeCounts();renderFavBtn();remind();
+liveTicker();renderChips();renderTop();renderLeaders();renderSched();renderHot();renderFilterCounts();renderSortCounts();renderTypeCounts();renderFavBtn();renderOnboard();remind();
 function renderEmptyInto(){return emptyHtml((($('q')||{}).value||'').trim())}
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):emptyHtml(kw);
 if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
@@ -747,6 +753,9 @@ T('cleanPost reg note+ok',(()=>{const c=cleanPost({id:963,type:'text',name:'t',r
 T('confirm btn owner',(()=>{try{const h=postActions({likes:0,regs:[{n:'A',ts:1}],mine:1},963);return /confirm-963/.test(h)}catch(e){return false}})());
 T('myRegs has reg',(()=>{try{const keep=posts.slice();posts=[];const p={id:981,regs:[]};posts.push(p);toggleReg(p,'U9','note X');const m=myRegs('U9');posts.length=0;keep.forEach(x=>posts.push(x));return m.length===1&&m[0].r&&m[0].r.note==='note X'}catch(e){return false}})());
 T('remindBody confirmed',(()=>{try{const keep=posts.slice();posts=[];const p={id:982,type:'text',name:'An',title:'Lop XN',body:'b',regs:[],cmts:[]};posts.push(p);toggleReg(p,'__probe2__','chieu T7');confirmReg(p,'__probe2__');const b=remindBody('__probe2__');posts.length=0;keep.forEach(x=>posts.push(x));return /đã xác nhận lịch/.test(b)&&/chieu T7/.test(b)}catch(e){return false}})());
+T('onboardSteps count',(()=>{const s=onboardSteps('Khách');return s.length===3&&s[0].done===true&&s[1].done===false})());
+T('onboardSteps progress',(()=>{try{const keep=posts.slice();posts=[];const p={id:991,type:'text',name:'Me',title:'T',body:'b',regs:[{n:'Me',ts:1}],cmts:[],mine:1};posts.push(p);const s=onboardSteps('Me');posts.length=0;keep.forEach(x=>posts.push(x));return s[1].done===true&&s[2].done===true}catch(e){return false}})());
+T('dismissOnboard hides',(()=>{try{try{localStorage.removeItem(ONB)}catch(e){}renderOnboard();const vis=!$('onboard').hidden;dismissOnboard();const hid=$('onboard').hidden;try{localStorage.removeItem(ONB)}catch(e){}renderOnboard();return vis&&hid}catch(e){return false}})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
