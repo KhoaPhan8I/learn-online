@@ -37,3 +37,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | image | og-cover riêng từng kỹ năng (PIL) + check guard | 109 |
 | public-relations | trang press kit bao-chi/ (story + số liệu + asset) | 110 |
 | community-marketing | huy hiệu Mentor tuần cho top 1 bảng xếp hạng | 111 |
+| sms | opt-in SĐT + cam kết tần suất + xuất CSV (chờ gateway) | 112 |
