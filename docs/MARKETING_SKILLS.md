@@ -73,3 +73,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops-v3 | 🛡️ confirm kích hoạt Ghim + ngày kích hoạt trong CSV | 145 |
 | content-v3 | 📖 trang cho-nguoi-hoc/ + content 3→4 (65) | 146 |
 | revops-v4 | 💰 breakdown doanh thu Ghim theo tháng | 147 |
+| churn-v2 | ✍️ nháp composer tự lưu + hỏi khôi phục | 148 |
