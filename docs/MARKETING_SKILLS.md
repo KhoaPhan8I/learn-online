@@ -14,3 +14,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | offers, pricing | Ghim Nổi Bật 29k/7d: intent, mã đơn, Offer schema, không scarcity giả | 84 |
 | onboarding | onboardSteps hành động thật + nút Làm ngay 1 chạm | 86 |
 | launch | banner Có gì mới theo round + seen-state | 88 |
+| churn-prevention | xóa bài → toast Hoàn tác + khôi phục 1 chạm, nudge sau 3d | 89 |
