@@ -76,6 +76,9 @@ header p{font-size:12px;color:var(--mut)}
 .topcard small{font-size:12px;color:var(--mut)}
 .empty-try{margin-top:10px}
 .empty-try p{font-size:13px;color:var(--mut);margin-bottom:8px}
+.mentor{display:inline-block;font-size:10px;font-weight:800;color:#0b0b10;background:linear-gradient(90deg,var(--gold),#fde68a);border-radius:6px;padding:2px 7px;margin-left:6px;vertical-align:2px;box-shadow:0 0 10px rgba(251,191,36,.45)}
+.hotweek{margin:14px 2px 4px}
+.hotweek h2{font-size:17px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px}
 .fresh{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;color:#0b0b10;background:linear-gradient(90deg,var(--acc2),#a5fcff);border-radius:6px;padding:3px 8px;margin-right:6px;vertical-align:2px;box-shadow:0 0 12px rgba(37,244,238,.5)}
 .composer-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .composer-head .grow{flex:1}
@@ -221,6 +224,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 </nav>
 </div>
 <div class="topsec" id="topsec" hidden><h2>🏆 Được quan tâm nhất</h2><div class="toprow" id="toprow"></div></div>
+<div class="hotweek" id="hotweek" hidden><h2>🔥 Kỹ năng hot tuần này</h2><div class="chips" id="hotchips"></div></div>
 <div class="feed-head"><h2>🔥 Lớp mới nhất</h2><span class="line"></span><small id="feed-count"></small></div>
 <section id="feed" aria-label="Danh sách bài viết"></section>
 <p class="hint" style="text-align:center;margin:16px 0 4px"><button class="btn ghost" id="export" type="button" aria-label="Tải bản sao lưu dữ liệu">⬇ Sao lưu</button> <button class="btn ghost" id="import-btn" type="button" aria-label="Khôi phục dữ liệu từ file sao lưu">⬆ Khôi phục</button><input type="file" id="import" accept="application/json" hidden aria-label="Chọn file sao lưu JSON"></p>
@@ -269,9 +273,10 @@ const nm=(typeof p.name==='string'&&p.name.trim())?p.name.trim():'Ẩn danh';
 const likes=Number(p.likes)||0, regs=Array.isArray(p.regs)?p.regs:[];
 const iso=Number.isFinite(Number(p.ts))?new Date(Number(p.ts)).toISOString():'';
 const isFresh=Number.isFinite(Number(p.ts))&&(Date.now()-Number(p.ts))<24*3600e3;
-return `<article class="card">
+const badge=mentorBadge(nm);
+return `<article class="card" id="post-${id}">
 <div class="meta"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div>
-<div class="who"><b>${esc(nm)}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
+<div class="who"><b>${esc(nm)}${badge?`<span class="mentor" title="${esc(badge)}">★ MENTOR</span>`:''}</b><small>${iso?`<time datetime="${iso}">${ago(p.ts)}</time>`:ago(p.ts)}</small></div>
 <span class="tag">${esc(p.skill||'Chung')}</span>
 <span class="price${p.price?'':' free'}">${esc(p.price||'🆓 Miễn phí')}</span></div>
 <h2 class="post-title">${isFresh?'<span class="fresh">MỚI</span>':''}${esc(p.title)}</h2>
@@ -303,7 +308,7 @@ const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.n
 const st=$('stats');if(st)st.innerHTML=`<span class="pill">📚 <b>${ok.length}</b> lớp</span><span class="pill">👩‍🏫 <b>${teachers}</b> người dạy</span><span class="pill">📝 <b>${regs}</b> đăng ký</span>`;
 const fc=$('feed-count');if(fc)fc.textContent=list.length?list.length+' bài':'';
 function liveTicker(){const t=$('ticker-track');if(!t)return;const items=posts.filter(p=>p&&typeof p==='object').slice(0,12).map(p=>{const s=(p.skill||p.title||'').trim().slice(0,24);return s?`Học <b>${esc(s)}</b> hôm nay ✦`:''}).filter(Boolean);t.innerHTML=items.length?(items.join(' ')+' '+items.join(' ')):'Đăng lớp đầu tiên để hiện ở đây ✦ Đăng lớp đầu tiên để hiện ở đây ✦'}
-liveTicker();renderChips();renderTop();
+liveTicker();renderChips();renderTop();renderHot();
 function emptyHtml(kw){if(!posts.length)return '<div class="card"><h2 class="post-title">Chợ còn trống 🎉</h2><p class="post-body">Chưa có ai đăng lớp. Hãy là người đầu tiên chia sẻ kỹ năng của bạn ở form phía trên!</p></div>';
 const sug=posts.filter(p=>p&&typeof p==='object').sort((a,b)=>(Number(b.ts)||0)-(Number(a.ts)||0)).slice(0,3);
 return `<div class="card"><h2 class="post-title">Không tìm thấy${kw?` “${esc(kw)}”`:''} 😅</h2><div class="empty-try"><p>Thử lớp mới nhất:</p><div style="display:flex;gap:6px;flex-wrap:wrap">${sug.map(p=>`<button type="button" class="btn ghost" onclick="jumpTop(${numId(p.id)})">${esc((p.skill||p.title||'').slice(0,24))}</button>`).join('')}</div></div></div>`}
@@ -330,7 +335,7 @@ const ranked=posts.filter(p=>p&&typeof p==='object').map(p=>({p,s:(Number(p.like
 if(ranked.length<2||filter!=='all'||(($('q')||{}).value||'').trim()){sec.hidden=true;row.innerHTML='';return}
 sec.hidden=false;const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
 row.innerHTML=ranked.map((x,i)=>`<button type="button" class="topcard" onclick="jumpTop(${numId(x.p.id)})" aria-label="Xem lớp ${esc(x.p.title||'')}"><div class="rank">${medals[i]||'⭐'} TOP ${i+1}</div><b>${esc(x.p.title||'(không tiêu đề)')}</b><small>❤ ${Number(x.p.likes)||0} · 📝 ${Array.isArray(x.p.regs)?x.p.regs.length:0} · 💬 ${Array.isArray(x.p.cmts)?x.p.cmts.length:0}</small></button>`).join('')}
-window.share=id=>{const p=findPost(id);if(!p)return;const t=`${p.title||''} — ${p.name||'Ẩn danh'} (${p.price||'Miễn phí'})`;if(navigator.share){navigator.share({title:'Learn Online',text:t}).then(()=>toast('Đã chia sẻ!')).catch(()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!')).catch(()=>toast(t));else toast(t)})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('Đã copy nội dung bài!')).catch(()=>toast(t))}else{toast(t)}};
+window.share=id=>{const p=findPost(id);if(!p)return;const url=location.origin+location.pathname+'#bai-'+numId(id);const t=`${p.title||''} — ${p.name||'Ẩn danh'} (${p.price||'Miễn phí'}) ${url}`;const done=()=>toast('Đã copy link bài!');if(navigator.share){navigator.share({title:'Learn Online',text:p.title||'Learn Online',url}).then(()=>toast('Đã chia sẻ!')).catch(()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done).catch(()=>toast(t));else toast(t)})}else if(navigator.clipboard){navigator.clipboard.writeText(t).then(done).catch(()=>toast(t))}else{toast(t)}};
 window.cmt=id=>{const nid=numId(id);if(nid===null)return;const inp=$('c-'+nid);if(!inp)return toast('Không tìm thấy ô bình luận');const t=(inp.value||'').trim().slice(0,1000);if(!t)return toast('Nhập bình luận đã');const n=(($('f-name').value||'').trim()||'Khách').slice(0,80);const p=findPost(id);if(!p)return;p.cmts=Array.isArray(p.cmts)?p.cmts:[];p.cmts.push({n,t});if(!save(posts)){p.cmts.pop();return}render();toast('Đã gửi bình luận!')};
 window.del=id=>{const p=findPost(id);if(!confirm(p&&p.title?('Xóa bài "'+String(p.title).slice(0,80)+'"?'):'Xóa bài này?'))return;const _all=posts.slice();posts=posts.filter(x=>!(x&&typeof x==='object'&&sameId(x.id,id)));if(!save(posts)){posts=_all;return}if(editId!==null&&sameId(editId,id)){resetForm()}render();toast('Đã xóa bài')};
 window.edit=id=>{const p=findPost(id);if(!p){editId=null;return toast('Bài viết không còn tồn tại')};editId=numId(id);$('f-name').value=typeof p.name==='string'?p.name:'';$('f-skill').value=p.skill||'';$('f-price').value=p.price||'';$('f-contact').value=p.contact||'';
@@ -381,10 +386,20 @@ $('export').onclick=()=>{try{const data={app:'learn-online',v:2,exportedAt:new D
 $('import-btn').onclick=()=>$('import').click();
 $('import').onchange=e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>1048576)return toast('File quá lớn (tối đa 1MB)');const r=new FileReader();r.onload=()=>{try{const raw=JSON.parse(r.result);const v=Array.isArray(raw)?raw:(raw&&Array.isArray(raw.posts)?raw.posts:null);if(!v)return toast('File không hợp lệ');if(v.length>1000)return toast('File quá nhiều bài (tối đa 1000)');const clean=v.map(cleanPost).filter(Boolean);if(posts.length&&clean.length&&!confirm('Khôi phục sẽ THAY THẾ '+posts.length+' bài hiện tại bằng '+clean.length+' bài từ file. Tiếp tục?'))return;const seen=new Set();posts=clean.filter(p=>{if(seen.has(p.id))return false;seen.add(p.id);return true});if(raw&&!Array.isArray(raw)&&raw.voted&&typeof raw.voted==='object'&&!Array.isArray(raw.voted)){try{localStorage.setItem(VOTED,JSON.stringify(raw.voted))}catch(err){}}if(!save(posts)){posts=load()||[];render();return toast('Không lưu được (bộ nhớ đầy)')}editId=null;resetForm();render();toast('Đã khôi phục '+posts.length+' bài!')}catch(err){toast('File không hợp lệ')}};r.onerror=()=>toast('Không đọc được file');r.readAsText(f);e.target.value=''};
 try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}
+function mentorStats(){const m={};posts.forEach(p=>{if(!p||typeof p!=='object')return;const n=(p.name||'').trim();if(!n)return;m[n]=m[n]||{posts:0,regs:0};m[n].posts++;m[n].regs+=Array.isArray(p.regs)?p.regs.length:0});return m}
+function mentorBadge(nm){const s=mentorStats()[nm];if(!s)return'';if(s.posts>=3&&s.regs>=5)return s.posts+' lớp · '+s.regs+' đăng ký';if(s.posts>=3)return s.posts+' lớp';return''}
+function renderHot(){const sec=$('hotweek'),row=$('hotchips');if(!sec||!row)return;const week=Date.now()-7*24*3600e3;const m={};posts.forEach(p=>{if(!p||typeof p!=='object')return;if(Number(p.ts)<week)return;const s=(p.skill||'').trim();if(!s)return;m[s]=(m[s]||0)+1+(Number(p.likes)||0)*0.5+(Array.isArray(p.regs)?p.regs.length:0)});
+const top=Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,5);
+if(top.length<2){sec.hidden=true;row.innerHTML='';return}
+sec.hidden=false;
+row.innerHTML=top.map(([s],i)=>`<button type="button" data-k="${esc(s)}" aria-label="Tìm ${esc(s)}">${['🥇','🥈','🥉','4️⃣','5️⃣'][i]||'⭐'} ${esc(s)}</button>`).join('');
+row.querySelectorAll('button').forEach(b=>b.onclick=()=>{const q=$('q');q.value=b.dataset.k||'';render();q.focus()})}
+function deepLink(){try{const m=(location.hash||'').match(/^#bai-(\d+)/);if(!m)return;const id=Number(m[1]);const p=findPost(id);if(!p)return;filter='all';const q=$('q');if(q)q.value='';render();requestAnimationFrame(()=>{const el=$('post-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'})})}catch(e){}}
+window.addEventListener('hashchange',deepLink);
 function openComposer(){try{const b=$('composer-body');b.classList.remove('collapsed');const t=$('composer-toggle');t.textContent='Thu gọn';t.setAttribute('aria-expanded','true')}catch(e){}$('publish').scrollIntoView({behavior:'smooth',block:'center'});try{const nm=$('f-name');if(nm&&!nm.value)nm.focus({preventScroll:true})}catch(e){}}
 $('cta-share').onclick=openComposer;$('cta-hero').onclick=openComposer;
 $('cta-explore').onclick=()=>{const f=$('feed-count');(f||$('feed')).scrollIntoView({behavior:'smooth',block:'start'})};
-render();
+render();deepLink();
 </script>
 </body>
 </html>
