@@ -330,7 +330,8 @@ ${p.mine&&regs.length?`<p class="hint">👥 Đã đăng ký: ${esc(regs.join(', 
 </div>${cmtHtml(p,id,nm)}</article>`;
 }
 function myRegs(me){return posts.filter(p=>p&&typeof p==='object'&&regHas(p.regs,me)).map(p=>{const r=(Array.isArray(p.regs)?p.regs:[]).find(x=>x===me||(x&&x.n===me));return{p,ts:r&&typeof r==='object'?Number(r.ts)||0:0}})}
-function liveTicker(){const t=$('ticker-track');if(!t)return;const items=posts.filter(p=>p&&typeof p==='object').slice(0,12);const tc=typeCounts();const total=Object.values(tc).reduce((a,b)=>a+b,0)||0;const icons={video:'🎬',image:'🖼️',text:'✍️',poll:'📊'};const list=items.map(p=>{const s=(p.skill||p.title||'').trim().slice(0,24);if(!s)return'';const n=tc[p.type]||0;const pc=total&&n?Math.round(n/total*100):0;const likes=Number(p.likes)||0,regs=regCount(p.regs);return`${icons[p.type]||'📌'} Học <b>${esc(s)}</b>${pc?` · ${pc}% cùng loại`:''}${likes?` · ❤${likes}`:''}${regs?` · 📝${regs}`:''} ✦`}).filter(Boolean);t.innerHTML=list.length?(list.join(' ')+' '+list.join(' ')):'Đăng lớp đầu tiên để hiện ở đây ✦ Đăng lớp đầu tiên để hiện ở đây ✦'}
+function tickerItem(p,tc,total){if(!p||typeof p!=='object')return'';const s=(p.skill||p.title||'').trim().slice(0,24);if(!s)return'';const icons={video:'🎬',image:'🖼️',text:'✍️',poll:'📊'};const n=tc[p.type]||0;const pc=total&&n?Math.round(n/total*100):0;const likes=Number(p.likes)||0,regs=regCount(p.regs);return`${icons[p.type]||'📌'} Học <b>${esc(s)}</b>${pc?` · ${pc}% cùng loại`:''}${likes?` · ❤${likes}`:''}${regs?` · 📝${regs}`:''} ✦`}
+function liveTicker(){const t=$('ticker-track');if(!t)return;const items=posts.filter(p=>p&&typeof p==='object').slice(0,12);const tc=typeCounts();const total=Object.values(tc).reduce((a,b)=>a+b,0)||0;const list=items.map(p=>tickerItem(p,tc,total)).filter(Boolean);t.innerHTML=list.length?(list.join(' ')+' '+list.join(' ')):'Đăng lớp đầu tiên để hiện ở đây ✦ Đăng lớp đầu tiên để hiện ở đây ✦'}
 function leaderRows(){const stQ=mentorStats(null,90),stY=mentorStats(null,365);const names=[...new Set([...Object.keys(stQ),...Object.keys(stY)])];return names.map(nm=>{const q=stQ[nm]||{posts:0,regs:0},y=stY[nm]||{posts:0,regs:0};return{nm,q,y,score:q.regs*3+q.posts+(y.regs*2+y.posts*0.5)}}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score)}
 function renderLeaders(){const sec=$('leadersec'),row=$('leaderrow');if(!sec||!row)return;
 const ranked=leaderRows().slice(0,5);
@@ -346,7 +347,7 @@ const note=freshN&&oldN?`🆕 ${freshN} lớp mới · ⏳ ${oldN} lớp lâu ch
 row.innerHTML=`<div class="card" style="flex:1 1 100%;margin-bottom:10px;padding:12px 14px" role="note"><p class="hint" style="margin:0">${esc(note)}</p></div>`+mine.map(({p,ts})=>`<button type="button" class="topcard" onclick="jumpTop(${numId(p.id)})" aria-label="Mở lớp ${esc(p.title||'')}"><div class="rank">🗓️ ${ts?ago(ts):'Đã đăng ký'}</div><b>${esc(p.title||'(không tiêu đề)')}</b><small>👩‍🏫 ${esc(p.name||'Ẩn danh')} · 📞 ${esc((p.contact||'xem trong bài').slice(0,28))}</small></button>`).join('')}
 function schedNote(me){const mine=myRegs(me);if(!mine.length)return'';const freshN=mine.filter(x=>Date.now()-x.ts<3*24*3600e3).length;return freshN?`🆕 ${freshN}/${mine.length} lớp mới`:`⏳ ${mine.length} lớp lâu chưa mở`}
 function remindBody(me){const mine=myRegs(me);if(!mine.length)return'';const sorted=mine.slice().sort((a,b)=>{const pa=(a.p&&Number(a.p.ts))||0,pb=(b.p&&Number(b.p.ts))||0;return pb-pa});return`Bạn có ${mine.length} lớp đã đăng ký — mới nhất: ${sorted[0]?sorted[0].p.title||'':''}. Chi tiết trong mục “Lớp bạn đã đăng ký”.`}
-function remind(){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const me=(($('f-name')||{}).value||'').trim()||'Khách';const body=remindBody(me);if(!body)return;const last=Number(localStorage.getItem('learn-online-remind-v2')||0);if(Date.now()-last<24*3600e3)return;try{localStorage.setItem('learn-online-remind-v2',String(Date.now()))}catch(e){}try{new Notification('Learn Online 🗓️',{body})}catch(e){}}catch(e){}}
+function remind(){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const me=(($('f-name')||{}).value||'').trim()||'Khách';const body=remindBody(me);if(!body)return;const last=Number(localStorage.getItem('learn-online-remind-v2')||0);if(Date.now()-last<REMIND_MS)return;try{localStorage.setItem('learn-online-remind-v2',String(Date.now()))}catch(e){}try{new Notification('Learn Online 🗓️',{body})}catch(e){}}catch(e){}}
 function cmpDate(a,b){return(Number(b.ts)||0)-(Number(a.ts)||0)||((Number(b.id)||0)-(Number(a.id)||0))}
 function cmpLike(a,b){return(Number(b.likes)||0)-(Number(a.likes)||0)}
 function cmpRegs(a,b){return regCount(b.regs)-regCount(a.regs)}
@@ -418,6 +419,7 @@ function buildICS(me){const mine=posts.filter(p=>p&&typeof p==='object'&&regHas(
 window.exportICS=()=>{try{const me=(($('f-name')||{}).value||'').trim()||'Khách';const ics=buildICS(me);if(!ics)return toast('Bạn chưa đăng ký lớp nào');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='lop-da-dang-ky.ics';a.click();URL.revokeObjectURL(a.href);toast('Đã tải lịch!')}catch(e){toast('Không xuất được lịch')}};
 try{$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()})}catch(e){}
 const GOAL=10;
+const REMIND_MS=24*3600e3;
 function marketProgress(){const n=posts.filter(p=>p&&typeof p==="object").length;return{n,goal:GOAL,pc:Math.min(100,Math.round(n/GOAL*100))}}
 function renderHeroPct(){try{const h=document.querySelector(".hero p");if(!h)return;if(!h.dataset.base)h.dataset.base=h.textContent;const m=marketProgress();h.innerHTML=esc(h.dataset.base)+"<br>🎯 <b>"+m.pc+"%</b> mục tiêu "+m.goal+" bài đầu ("+m.n+"/"+m.goal+")"}catch(e){}}
 function trapTab(e){try{if(e.key!=='Tab')return;const m=$('modal');if(!m||!m.classList.contains('open'))return;const f=[...m.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled&&el.offsetParent!==null);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}catch(err){}}
@@ -461,7 +463,8 @@ document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('#filters button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});
 b.classList.add('on');b.setAttribute('aria-pressed','true');filter=b.dataset.f;render();
 });
-function renderFilterCounts(){try{const kw=(($('q')||{}).value||'').toLowerCase().trim();const me=(($('f-name')||{}).value||'').trim()||'Khách';const c=filterCounts(kw,me);const total=c.all||0;document.querySelectorAll('#filters button').forEach(b=>{if(!b.dataset.base)b.dataset.base=b.textContent.trim();const f=b.dataset.f;const n=c[f]||0;const pc=total&&f!=='all'?Math.round(n/total*100):null;b.textContent=b.dataset.base+(f==='all'?'':` ${n}`)+(pc!==null?` · ${pc}%`:'')})}catch(e){}}
+function filterLabel(base,f,n,total){if(f==='all')return base;const pc=total?Math.round(n/total*100):0;return base+' '+n+' · '+pc+'%'}
+function renderFilterCounts(){try{const kw=(($('q')||{}).value||'').toLowerCase().trim();const me=(($('f-name')||{}).value||'').trim()||'Khách';const c=filterCounts(kw,me);const total=c.all||0;document.querySelectorAll('#filters button').forEach(b=>{if(!b.dataset.base)b.dataset.base=b.textContent.trim();b.textContent=filterLabel(b.dataset.base,b.dataset.f,c[b.dataset.f]||0,total)})}catch(e){}}
 function sortPct(total,n,skip){if(skip)return null;if(!total)return 0;return Math.round(n/total*100)}
 function sortLabel(base,n,pc,skip){return base+(skip?'':' '+n)+(pc!==null?' · '+pc+'%':'')}
 function renderSortCounts(){try{const kw=(($('q')||{}).value||'').toLowerCase().trim();const me=(($('f-name')||{}).value||'').trim()||'Khách';const total=queryFeed(filter,kw,'new',me).length;const sel=$('sort');if(!sel)return;[...sel.options].forEach(o=>{if(!o.dataset.base)o.dataset.base=o.textContent.trim();const skip=o.value==='random';const n=queryFeed(filter,kw,skip?'new':o.value,me).length;o.textContent=sortLabel(o.dataset.base,n,sortPct(total,n,skip),skip)})}catch(e){}}
@@ -661,6 +664,11 @@ T('emptyHtml goal text',(()=>{try{const keep=posts.slice();posts.length=0;const 
 T('smoothScroll fn',(()=>{try{const d=document.createElement('div');document.body.appendChild(d);const ok=smoothScroll(d)===true&&smoothScroll(null)===false;d.remove();return ok}catch(e){return false}})());
 T('sortPct math',sortPct(10,5,false)===50&&sortPct(0,0,false)===0&&sortPct(10,5,true)===null);
 T('sortLabel text',sortLabel('Mới',7,70,false)==='Mới 7 · 70%'&&sortLabel('Ngẫu nhiên',7,null,true)==='Ngẫu nhiên');
+T('REMIND_MS day',REMIND_MS===24*3600e3);
+T('filterLabel pct',filterLabel('Video','video',3,10)==='Video 3 · 30%'&&filterLabel('Tất cả','all',10,10)==='Tất cả');
+T('filterLabel zero',filterLabel('Video','video',0,0)==='Video 0 · 0%');
+T('tickerItem detail',(()=>{const h=tickerItem({type:'text',skill:'Guitar',title:'T',likes:2,regs:[{n:'A',ts:1}]},{text:5},5);return /Guitar/.test(h)&&/100% cùng loại/.test(h)&&/❤2/.test(h)&&/📝1/.test(h)})());
+T('tickerItem empty',tickerItem({type:'text',skill:'',title:''},{},0)===''&&tickerItem(null,{},0)==='');
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
