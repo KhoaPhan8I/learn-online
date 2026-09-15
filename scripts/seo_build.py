@@ -38,6 +38,10 @@ COURSE_TMPL = """<!DOCTYPE html>
 <h1>{title}</h1>
 <p>{desc}</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=course&utm_campaign={slug}">Mở lớp học trên Learn Online</a></p>
+<h2>Khóa học khác</h2>
+<ul>
+{related}
+</ul>
 </body>
 </html>
 """
@@ -66,6 +70,10 @@ MENTOR_TMPL = """<!DOCTYPE html>
 <p>Dạy: {skills}</p>
 <p>Liên hệ: {contact}</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=mentor&utm_campaign={slug}#giao-vien-{slug}">Xem hồ sơ {name} trên Learn Online</a></p>
+<h2>Mentor dạy cùng kỹ năng</h2>
+<ul>
+{related}
+</ul>
 </body>
 </html>
 """
@@ -100,25 +108,35 @@ def load_seed():
     return seed
 
 
-def render_course(skill):
+def related_links(items):
+    return "\n".join(
+        f'<li><a href="{u}">{html.escape(t)}</a></li>' for t, u in items) or "<li>Đang cập nhật.</li>"
+
+
+def render_course(skill, all_skills):
     slug = slugify(skill["slug"])
     title = f"Học {skill['name']} online"
     desc = f"Các lớp {skill['name']} trên Learn Online — {skill['blurb']} Đăng miễn phí, học phí do mentor tự đặt."
     url = f"{SITE}/khoa-hoc/{slug}/"
+    others = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
+              for s in all_skills if slugify(s["slug"]) != slug][:3]
     return f"khoa-hoc/{slug}/index.html", COURSE_TMPL.format(
         title=html.escape(title), desc=html.escape(desc),
-        url=url, site=SITE, slug=slug)
+        url=url, site=SITE, slug=slug, related=related_links(others))
 
 
-def render_mentor(mentor):
+def render_mentor(mentor, all_skills):
     slug = slugify(mentor["name"])
     skills = " · ".join(mentor.get("skills", [])[:3]) or "đa kỹ năng"
     desc = f"{mentor['name']} — mentor {skills} trên Learn Online. {mentor.get('bio', '')}".strip()
     url = f"{SITE}/giao-vien/{slug}/"
+    mine = {s.strip().lower() for s in mentor.get("skills", [])}
+    rel = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
+           for s in all_skills if s["name"].strip().lower() in mine][:3]
     return f"giao-vien/{slug}/index.html", MENTOR_TMPL.format(
         name=html.escape(mentor["name"]), skills=html.escape(skills),
         desc=html.escape(desc), contact=html.escape(mentor.get("contact", "xem trong bài")),
-        url=url, site=SITE, slug=slug)
+        url=url, site=SITE, slug=slug, related=related_links(rel))
 
 
 def render_hub(path, title, desc, crumb, items):
@@ -132,10 +150,10 @@ def build():
     seed = load_seed()
     pages = {}
     for skill in seed["skills"]:
-        p, h = render_course(skill)
+        p, h = render_course(skill, seed["skills"])
         pages[p] = h
     for mentor in seed["mentors"]:
-        p, h = render_mentor(mentor)
+        p, h = render_mentor(mentor, seed["skills"])
         pages[p] = h
     course_items = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/") for s in seed["skills"]]
     mentor_items = [(m["name"], f"{SITE}/giao-vien/{slugify(m['name'])}/") for m in seed["mentors"]]
