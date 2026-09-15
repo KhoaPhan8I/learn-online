@@ -345,23 +345,24 @@ const note=freshN&&oldN?`🆕 ${freshN} lớp mới · ⏳ ${oldN} lớp lâu ch
 row.innerHTML=`<div class="card" style="flex:1 1 100%;margin-bottom:10px;padding:12px 14px" role="note"><p class="hint" style="margin:0">${esc(note)}</p></div>`+mine.map(({p,ts})=>`<button type="button" class="topcard" onclick="jumpTop(${numId(p.id)})" aria-label="Mở lớp ${esc(p.title||'')}"><div class="rank">🗓️ ${ts?ago(ts):'Đã đăng ký'}</div><b>${esc(p.title||'(không tiêu đề)')}</b><small>👩‍🏫 ${esc(p.name||'Ẩn danh')} · 📞 ${esc((p.contact||'xem trong bài').slice(0,28))}</small></button>`).join('')}
 function schedNote(me){const mine=myRegs(me);if(!mine.length)return'';const freshN=mine.filter(x=>Date.now()-x.ts<3*24*3600e3).length;return freshN?`🆕 ${freshN}/${mine.length} lớp mới`:`⏳ ${mine.length} lớp lâu chưa mở`}
 function remind(){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const me=(($('f-name')||{}).value||'').trim()||'Khách';const mine=myRegs(me);if(!mine.length)return;const last=Number(localStorage.getItem('learn-online-remind-v2')||0);if(Date.now()-last<24*3600e3)return;try{localStorage.setItem('learn-online-remind-v2',String(Date.now()))}catch(e){}const sorted=mine.slice().sort((a,b)=>{const pa=(a.p&&Number(a.p.ts))||0,pb=(b.p&&Number(b.p.ts))||0;return pb-pa});try{new Notification('Learn Online 🗓️',{body:`Bạn có ${mine.length} lớp đã đăng ký — mới nhất: ${sorted[0]?sorted[0].p.title||'':''}. Chi tiết trong mục “Lớp bạn đã đăng ký”.`})}catch(e){}}catch(e){}}
+function cmpDate(a,b){return(Number(b.ts)||0)-(Number(a.ts)||0)||((Number(b.id)||0)-(Number(a.id)||0))}
+function cmpLike(a,b){return(Number(b.likes)||0)-(Number(a.likes)||0)}
+function cmpRegs(a,b){return regCount(b.regs)-regCount(a.regs)}
+function matchPost(p,f,kw,me){if(!p||typeof p!=='object')return false;const okF=(f==='all'||(f==='mine'?!!p.mine:f==='free'?!String(p.price||'').trim():f==='mentor'?!!mentorBadge(p.name||''):f==='joined'?regHas(p.regs,me):p.type===f));if(!okF)return false;if(!kw)return true;return((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)}
+function queryFeed(f,kw,mode,me){const seen=new Set();const list=posts.filter(p=>matchPost(p,f,kw,me)).filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true});if(mode!=='random')list.sort(mode==='liked'?cmpLike:mode==='regs'?cmpRegs:cmpDate);return list}
+function filterCounts(kw,me){const c={};document.querySelectorAll('#filters button').forEach(b=>{const f=b.dataset.f;c[f]=posts.filter(p=>matchPost(p,f,kw,me)).length});return c}
 function render(){
 try{
 const act=document.activeElement&&document.activeElement.id?document.activeElement.id:null;
 const kw=($('q').value||'').toLowerCase().trim();
-const byDate=(a,b)=>(Number(b.ts)||0)-(Number(a.ts)||0)||((Number(b.id)||0)-(Number(a.id)||0)), byLike=(a,b)=>(Number(b.likes)||0)-(Number(a.likes)||0), byRegs=(a,b)=>regCount(b.regs)-regCount(a.regs);
 const mode=$('sort').value;
-const seen=new Set();
 const me=($('f-name').value||'').trim()||'Khách';
-const list=posts
-.filter(p=>p&&typeof p==='object')
-.filter(p=>(filter==='all'||(filter==='mine'?!!p.mine:filter==='free'?!String(p.price||'').trim():filter==='mentor'?!!mentorBadge(p.name||''):filter==='joined'?regHas(p.regs,me):p.type===filter))&&(!kw||((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)))
-.filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true});
-if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}}else list.sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
+const list=queryFeed(filter,kw,mode,me);
+if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}}else list.sort(mode==='liked'?cmpLike:mode==='regs'?cmpRegs:cmpDate);
 const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.name).filter(Boolean)).size, regs=ok.reduce((a,p)=>a+regCount(p.regs),0);
 const st=$('stats');if(st)st.innerHTML=`<span class="pill">📚 <b>${ok.length}</b> lớp</span><span class="pill">👩‍🏫 <b>${teachers}</b> người dạy</span><span class="pill">📝 <b>${regs}</b> đăng ký</span>`;
 const fc=$('feed-count');if(fc)fc.textContent=list.length?list.length+' bài':'';
-liveTicker();renderChips();renderTop();renderLeaders();renderSched();renderHot();remind();
+liveTicker();renderChips();renderTop();renderLeaders();renderSched();renderHot();renderFilterCounts();remind();
 function emptyHtml(kw){if(!posts.length)return '<div class="card"><h2 class="post-title">Chợ còn trống 🎉</h2><p class="post-body">Chưa có ai đăng lớp. Hãy là người đầu tiên chia sẻ kỹ năng của bạn ở form phía trên!</p></div>';
 const sug=posts.filter(p=>p&&typeof p==='object').sort((a,b)=>(Number(b.ts)||0)-(Number(a.ts)||0)).slice(0,3);
 return `<div class="card"><h2 class="post-title">Không tìm thấy${kw?` “${esc(kw)}”`:''} 😅</h2><div class="empty-try"><p>Thử lớp mới nhất:</p><div style="display:flex;gap:6px;flex-wrap:wrap">${sug.map(p=>`<button type="button" class="btn ghost" onclick="jumpTop(${numId(p.id)})">${esc((p.skill||p.title||'').slice(0,24))}</button>`).join('')}</div></div></div>`}
@@ -393,6 +394,8 @@ function mentorPct(nm){const q=mentorStats(nm,90)||{posts:0,regs:0},y=mentorStat
 function mentorSkillsCsv(nm){return mentorSkills(nm).join(' · ')}
 function mentorContact(nm){const cs=posts.filter(p=>p&&typeof p==='object'&&(p.name||'')===nm).map(p=>p.contact||'').filter(Boolean);const f={};let best='',bn=0;cs.forEach(c=>{f[c]=(f[c]||0)+1;if(f[c]>bn){bn=f[c];best=c}});return best}
 window.exportLeaders=()=>{try{const stQ=mentorStats(null,90),stY=mentorStats(null,365);const names=[...new Set([...Object.keys(stQ),...Object.keys(stY)])];const rows=names.map(nm=>{const q=stQ[nm]||{posts:0,regs:0},y=stY[nm]||{posts:0,regs:0};return{nm,q,y,score:q.regs*3+q.posts+(y.regs*2+y.posts*0.5)}}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);if(!rows.length)return toast('Chưa có mentor nào');const out=[['xuat_luc','hang','ten','ky_nang','lop_quy','dangky_quy','lop_nam','dangky_nam','diem','lien_he'],...rows.map((x,i)=>[new Date().toISOString(),i+1,'"'+x.nm.replace(/"/g,'""')+'"','"'+mentorSkillsCsv(x.nm).replace(/"/g,'""')+'"',x.q.posts,x.q.regs,x.y.posts,x.y.regs,x.score,'"'+mentorContact(x.nm).replace(/"/g,'""')+'"'])];const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+out.map(r=>r.join(',')).join('\n')],{type:'text/csv'}));a.download='mentor-leaderboard.csv';a.click();URL.revokeObjectURL(a.href);toast('Đã tải bảng xếp hạng '+rows.length+' mentor!')}catch(e){toast('Không xuất được file')}};
+function pollCsv(){const polls=posts.filter(p=>p&&typeof p==='object'&&p.type==='poll'&&Array.isArray(p.options)&&p.options.length);if(!polls.length)return'';const out=[['bai_id','cau_hoi','lua_chon','vote','ty_le']];polls.forEach(p=>{const tot=p.options.reduce((a,o)=>a+(Number(o&&o.v)||0),0)||1;p.options.forEach(o=>{const v=Number(o&&o.v)||0;out.push([p.id,'"'+String(p.title||'').replace(/"/g,'""')+'"','"'+String((o&&o.t)||'').replace(/"/g,'""')+'"',v,Math.round(v/tot*100)+'%'])})});return'﻿'+out.map(r=>r.join(',')).join('\n')}
+window.exportPolls=()=>{try{const csv=pollCsv();if(!csv)return toast('Chưa có poll nào');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='poll-ket-qua.csv';a.click();URL.revokeObjectURL(a.href);toast('Đã tải kết quả poll!')}catch(e){toast('Không xuất được file')}};
 function buildICS(me){const mine=posts.filter(p=>p&&typeof p==='object'&&regHas(p.regs,me));if(!mine.length)return'';const dt=d=>new Date(d).toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';const ev=mine.map(p=>['BEGIN:VEVENT','UID:learn-'+p.id+'-'+me+'@learn-online','DTSTAMP:'+dt(Date.now()),'DTSTART:'+dt(Date.now()+864e5),'SUMMARY:'+String(p.title||'Lớp học').replace(/[,;\\]/g,' '),'DESCRIPTION:Học với '+String(p.name||'').replace(/[,;\\]/g,' ')+' — '+(location.origin+location.pathname+'#bai-'+p.id),'END:VEVENT'].join('\r\n')).join('\r\n');return['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Learn Online//classes//vi',ev,'END:VCALENDAR'].join('\r\n')}
 window.exportICS=()=>{try{const me=(($('f-name')||{}).value||'').trim()||'Khách';const ics=buildICS(me);if(!ics)return toast('Bạn chưa đăng ký lớp nào');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='lop-da-dang-ky.ics';a.click();URL.revokeObjectURL(a.href);toast('Đã tải lịch!')}catch(e){toast('Không xuất được lịch')}};
 try{$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()})}catch(e){}
@@ -428,6 +431,7 @@ document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('#filters button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});
 b.classList.add('on');b.setAttribute('aria-pressed','true');filter=b.dataset.f;render();
 });
+function renderFilterCounts(){try{const kw=(($('q')||{}).value||'').toLowerCase().trim();const me=(($('f-name')||{}).value||'').trim()||'Khách';const c=filterCounts(kw,me);const total=c.all||0;document.querySelectorAll('#filters button').forEach(b=>{if(!b.dataset.base)b.dataset.base=b.textContent.trim();const f=b.dataset.f;const n=c[f]||0;const pc=total&&f!=='all'?Math.round(n/total*100):null;b.textContent=b.dataset.base+(f==='all'?'':` ${n}`)+(pc!==null?` · ${pc}%`:'')})}catch(e){}}
 function files(){return{video:($('f-vfile')||{}).files?.[0]||null,image:($('f-ifile')||{}).files?.[0]||null}}
 function readFile(f,maxMB){return new Promise((res,rej)=>{if(!f)return res(null);if(f.size>maxMB*1048576)return rej('File quá lớn (tối đa '+maxMB+'MB)');const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej('Không đọc được file');r.readAsDataURL(f)})}
 $('publish').onclick=async()=>{
@@ -496,6 +500,12 @@ T('pollHtml voted bars',(()=>{try{const vv=voted();vv[987654]=1;try{localStorage
 T('pollHtml empty',/chưa có lựa chọn/.test(pollHtml({options:[]},-987654)));
 T('cmtHtml esc+input',(()=>{const h=cmtHtml({cmts:[{n:'<b>X',t:'a&b'}]},-987654,'Nm');return /&lt;b&gt;X/.test(h)&&/a&amp;b/.test(h)&&/id="c--987654"/.test(h)})());
 T('hotRows sorted',(()=>{const r=hotRows();return Array.isArray(r)&&(r.length<2||r[0][1]>=r[1][1])})());
+T('queryFeed sort liked',(()=>{const l=queryFeed('all','', 'liked','__nobody__');return l.length<2||Number(l[0].likes||0)>=Number(l[1].likes||0)})());
+T('queryFeed filter video',(()=>{const l=queryFeed('video','', 'new','__nobody__');return l.every(p=>p.type==='video')})());
+T('queryFeed kw',(()=>{const l=queryFeed('all','zz-no-such-kw-zzz','new','__nobody__');return Array.isArray(l)&&l.length===0})());
+T('matchPost mentor gate',(()=>{const p=posts.find(x=>x&&typeof x==='object');if(!p)return true;return matchPost(p,'all','', 'X')===true&&matchPost(null,'all','','X')===false})());
+T('filterCounts sum',(()=>{const c=filterCounts('','__nobody__');return c.all>=0&&typeof c.video==='number'})());
+T('pollCsv header/rows',(()=>{const csv=pollCsv();if(!posts.some(p=>p&&p.type==='poll'))return csv==='';return csv.includes('bai_id,cau_hoi')})());
 T('parseLeadersCsv accept',(()=>{const r=parseLeadersCsv('hang,ten,lop_quy,dangky_quy,lop_nam,dangky_nam,diem\n1,"An",1,30,1,30,151.5');return r&&Array.isArray(r.rows)&&r.rows.length===1&&r.rows[0].ten==='An'&&r.rows[0].diem===151.5})());
 T('buildICS empty',buildICS('__nobody__')==='');
 T('buildICS vevent',(()=>{const me=Object.keys(mentorStats())[0];if(!me)return true;const mine=posts.filter(p=>p&&typeof p==='object'&&regHas(p.regs,me));if(!mine.length)return true;const ics=buildICS(me);return ics.includes('BEGIN:VEVENT')&&ics.includes('#bai-')})());
