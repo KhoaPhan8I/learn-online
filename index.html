@@ -339,13 +339,14 @@ const ranked=leaderRows().slice(0,5);
 if(ranked.length<2||filter!=='all'||(($('q')||{}).value||'').trim()){sec.hidden=true;row.innerHTML='';return}
 sec.hidden=false;
 row.innerHTML=ranked.map((x,i)=>leaderCard(x,i)).join('')}
+function freshNote(freshN,oldN){if(freshN&&oldN)return`🆕 ${freshN} lớp mới · ⏳ ${oldN} lớp lâu chưa mở`;if(freshN)return`🆕 ${freshN} lớp mới đăng ký — mở xem liên hệ nhé!`;return`⏳ ${oldN} lớp đăng ký đã lâu — quay lại học tiếp nhé!`}
+function schedCard(entry){if(!entry||typeof entry!=='object'||!entry.p)return'';const{p,ts}=entry;return`<button type="button" class="topcard" onclick="jumpTop(${numId(p.id)})" aria-label="Mở lớp ${esc(p.title||'')}"><div class="rank">🗓️ ${ts?ago(ts):'Đã đăng ký'}</div><b>${esc(p.title||'(không tiêu đề)')}</b><small>👩‍🏫 ${esc(p.name||'Ẩn danh')} · 📞 ${esc((p.contact||'xem trong bài').slice(0,28))}</small></button>`}
 function renderSched(){const sec=$('mysched'),row=$('schedrow');if(!sec||!row)return;const me=(($('f-name')||{}).value||'').trim()||'Khách';
 const mine=myRegs(me).sort((a,b)=>b.ts-a.ts).slice(0,5);
 if(!mine.length){sec.hidden=true;row.innerHTML='';return}
 sec.hidden=false;
 const freshN=mine.filter(x=>Date.now()-x.ts<3*24*3600e3).length, oldN=mine.length-freshN;
-const note=freshN&&oldN?`🆕 ${freshN} lớp mới · ⏳ ${oldN} lớp lâu chưa mở`:freshN?`🆕 ${freshN} lớp mới đăng ký — mở xem liên hệ nhé!`:`⏳ ${oldN} lớp đăng ký đã lâu — quay lại học tiếp nhé!`;
-row.innerHTML=`<div class="card" style="flex:1 1 100%;margin-bottom:10px;padding:12px 14px" role="note"><p class="hint" style="margin:0">${esc(note)}</p></div>`+mine.map(({p,ts})=>`<button type="button" class="topcard" onclick="jumpTop(${numId(p.id)})" aria-label="Mở lớp ${esc(p.title||'')}"><div class="rank">🗓️ ${ts?ago(ts):'Đã đăng ký'}</div><b>${esc(p.title||'(không tiêu đề)')}</b><small>👩‍🏫 ${esc(p.name||'Ẩn danh')} · 📞 ${esc((p.contact||'xem trong bài').slice(0,28))}</small></button>`).join('')}
+row.innerHTML=`<div class="card" style="flex:1 1 100%;margin-bottom:10px;padding:12px 14px" role="note"><p class="hint" style="margin:0">${esc(freshNote(freshN,oldN))}</p></div>`+mine.map(x=>schedCard(x)).join('')}
 function schedNote(me){const mine=myRegs(me);if(!mine.length)return'';const freshN=mine.filter(x=>Date.now()-x.ts<3*24*3600e3).length;return freshN?`🆕 ${freshN}/${mine.length} lớp mới`:`⏳ ${mine.length} lớp lâu chưa mở`}
 function remindBody(me){const mine=myRegs(me);if(!mine.length)return'';const sorted=mine.slice().sort((a,b)=>{const pa=(a.p&&Number(a.p.ts))||0,pb=(b.p&&Number(b.p.ts))||0;return pb-pa});return`Bạn có ${mine.length} lớp đã đăng ký — mới nhất: ${sorted[0]?sorted[0].p.title||'':''}. Chi tiết trong mục “Lớp bạn đã đăng ký”.`}
 function remind(){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const me=(($('f-name')||{}).value||'').trim()||'Khách';const body=remindBody(me);if(!body)return;const last=Number(localStorage.getItem('learn-online-remind-v2')||0);if(Date.now()-last<REMIND_MS)return;try{localStorage.setItem('learn-online-remind-v2',String(Date.now()))}catch(e){}try{new Notification('Learn Online 🗓️',{body})}catch(e){}}catch(e){}}
@@ -391,8 +392,9 @@ function castVote(p,i){i=Number(i);if(!p||typeof p!=='object'||!Array.isArray(p.
 window.vote=(id,i)=>{const p=findPost(id);if(!p)return;const r=castVote(p,i);if(r==='noop'||r==='same')return;render();toast(r==='changed'?'Đã đổi lựa chọn!':'Đã ghi nhận vote!')};
 window.reg=id=>{const p=findPost(id);if(!p)return;const n=($('f-name').value||'').trim()||'Khách';p.regs=Array.isArray(p.regs)?p.regs:[];if(regHas(p.regs,n)){const _r=p.regs.slice();p.regs=p.regs.filter(x=>!(x===n||(x&&x.n===n)));if(!save(posts)){p.regs=_r;return}render();return toast('Đã hủy đăng ký')}const first=!posts.some(q=>q&&typeof q==='object'&&regHas(q.regs,n));p.regs.push({n:n.slice(0,80),ts:Date.now()});if(!save(posts)){p.regs.pop();return}render();toast('Đã đăng ký! Mở bài viết để xem liên hệ');if(first&&'Notification' in window&&Notification.permission==='default'){try{Notification.requestPermission()}catch(e){}}};
 function markInvalid(el,on){if(!el)return;try{if(on){el.setAttribute('aria-invalid','true')}else if(el.removeAttribute){el.removeAttribute('aria-invalid')}}catch(e){}}
-function hist(){try{const v=JSON.parse(localStorage.getItem(HIST));return Array.isArray(v)?v.filter(x=>typeof x==='string').slice(0,8):[]}catch(e){return[]}}
-function pushHist(kw){kw=(kw||'').trim().slice(0,60);if(kw.length<2)return;try{let h=hist().filter(x=>x.toLowerCase()!==kw.toLowerCase());h.unshift(kw);localStorage.setItem(HIST,JSON.stringify(h.slice(0,8)))}catch(e){}}
+const HIST_N=8;
+function hist(){try{const v=JSON.parse(localStorage.getItem(HIST));return Array.isArray(v)?v.filter(x=>typeof x==='string').slice(0,HIST_N):[]}catch(e){return[]}}
+function pushHist(kw){kw=(kw||'').trim().slice(0,60);if(kw.length<2)return;try{let h=hist().filter(x=>x.toLowerCase()!==kw.toLowerCase());h.unshift(kw);localStorage.setItem(HIST,JSON.stringify(h.slice(0,HIST_N)))}catch(e){}}
 function skillFreqMap(){const m={};posts.forEach(p=>{if(!p||typeof p!=='object')return;const s=(p.skill||'').trim();if(s)m[s]=(m[s]||0)+1});return m}
 function skillFreq(){return Object.entries(skillFreqMap()).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0])}
 function renderChips(){const c=$('chips');if(!c)return;const h=hist(), fr=skillFreq();const picks=[...new Set([...h,...fr])].slice(0,6);
@@ -676,6 +678,10 @@ T('SEARCH_MS num',SEARCH_MS===400&&typeof queueSearch==='function');
 T('leaderCard html',(()=>{const h=leaderCard({nm:'An',q:{posts:2,regs:3},y:{posts:5,regs:9}},0);return /MENTOR 1/.test(h)&&/An/.test(h)&&/%/.test(h)&&leaderCard(null,0)===''})());
 T('statsData math',(()=>{const d=statsData();return d.n===posts.filter(p=>p&&typeof p==='object').length&&d.fpc>=0&&d.fpc<=100&&d.free+d.paid===d.n})());
 T('statsHtml pills',(()=>{const h=statsHtml();return /lớp/.test(h)&&/người dạy/.test(h)&&/đăng ký/.test(h)})());
+T('HIST_N cap',HIST_N===8&&hist().length<=HIST_N);
+T('freshNote branches',/lớp mới/.test(freshNote(2,1))&&/mở xem liên hệ/.test(freshNote(1,0))&&/quay lại học/.test(freshNote(0,3)));
+T('schedCard html',(()=>{const h=schedCard({p:{id:7,title:'Lop hay',name:'An',contact:'0901'},ts:Date.now()});return /Lop hay/.test(h)&&/0901/.test(h)&&schedCard(null)===''&&schedCard({})===''})());
+T('schedCard no ts',(()=>{const h=schedCard({p:{id:7,title:'T',name:'N'},ts:0});return /Đã đăng ký/.test(h)})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
