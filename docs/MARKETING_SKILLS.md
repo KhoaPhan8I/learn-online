@@ -57,3 +57,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-council | council 129: KHÔNG thu phí đăng — miễn phí vĩnh viễn | 129 |
 | content-v2 | 📰 Chợ tuần: bản tin tự sinh từ số thật + copy share | 130 |
 | emails-v2 | ✉️ sequence 4 email: welcome/onboard/win-back/Ghim + copy | 131 |
+| sales-pages-v2 | 📄 trang gia/ tĩnh: tiers + Offer schema AI-readable | 132 |

@@ -184,6 +184,40 @@ COMPARE_TMPL = """<!DOCTYPE html>
 """
 
 
+PRICE_TMPL = """<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bang gia — Dang mien phi, Ghim 29k/7 ngay | Learn Online</title>
+<meta name="description" content="Bang gia Learn Online: dang lop mien phi vinh vien. Ghim Noi Bat 29.000d/7 ngay: ke Noi Bat + badge + dung dau tim kiem.">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{site}/og-cover.png">
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"Product","name":"Ghim Noi Bat — Learn Online","description":"Ghim lop len ke Noi Bat 7 ngay kem badge. Thanh toan chuyen khoan, admin duyet trong 24h, khong duyet hoan tien.","offers":{{"@type":"Offer","price":"29000","priceCurrency":"VND","availability":"https://schema.org/InStock","url":"{url}"}}}}
+</script>
+</head>
+<body>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Bang gia</nav>
+<h1>Bang gia: dang mien phi vinh vien</h1>
+<p>Quy&#7871;t &#273;&#7883;nh h&#7897;i &#273;&#7891;ng 129: <b>kh&#244;ng bao gi&#7901; thu ph&#237; &#273;&#259;ng b&#224;i</b>. Thu nh&#7853;p c&#7911;a b&#7841;n do b&#7841;n t&#7921; &#273;&#7863;t h&#7885;c ph&#237;.</p>
+<table>
+<tr><th>Goi</th><th>Gia</th><th>Duoc gi</th></tr>
+<tr><td>Mien phi</td><td>0d, vinh vien</td><td>Dang lop khong gioi han, tu dat hoc phi, hoi/dang ky/binh luan, streak + referral, len ke theo thoi gian</td></tr>
+<tr><td>Ghim Noi Bat</td><td>29.000d / 7 ngay</td><td>Moi thu cua Mien phi + ke Noi Bat + badge + dung dau tim kiem. Duyet 24h, khong duyet hoan tien</td></tr>
+</table>
+<p><a href="{site}/?utm_source=seo&utm_medium=pricing&utm_campaign=gia">Mo lop dau tien mien phi</a></p>
+<h2>Khoa hoc khac</h2>
+<ul>
+{related}
+</ul>
+</body>
+</html>
+"""
+
+
 USECASE_TMPL = """<!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -292,6 +326,9 @@ def build():
         url=f"{SITE}/so-sanh/trung-tam/", site=SITE, related=related_links(rel))
     usecase = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
                for s in seed["skills"]][:3]
+    pages["gia/index.html"] = PRICE_TMPL.format(
+        site=SITE, url=f"{SITE}/gia/",
+        related=related_links(rel))
     pages["cho-nguoi-moi-day/index.html"] = USECASE_TMPL.format(
         site=SITE, url=f"{SITE}/cho-nguoi-moi-day/",
         related=related_links(usecase))
