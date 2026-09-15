@@ -250,6 +250,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <button data-f="cheap" aria-pressed="false">💸 Dưới 100k</button>
 <button data-f="joined" aria-pressed="false">✅ Đã đăng ký</button>
 <button data-f="mentor" aria-pressed="false">★ Mentor</button>
+<button data-f="__fav" aria-pressed="false" id="fav-btn" title="Bộ lọc yêu thích đã lưu">☆ Yêu thích</button>
 </nav>
 </div>
 <div class="topsec" id="topsec" hidden><h2>🏆 Được quan tâm nhất</h2><div class="toprow" id="toprow"></div></div>
@@ -264,7 +265,7 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Hồ sơ người dạy"><div class="sheet" id="sheet"></div></div>
 <script src="qrcode.min.js"></script>
 <script>
-const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2', HIST='learn-online-search-v2';
+const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2', HIST='learn-online-search-v2', FAVF='learn-online-favfilter-v2';
 let cur='video', filter='all', editId=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -362,7 +363,7 @@ function matchFilter(p,f,me){if(!p||typeof p!=='object')return false;if(f==='all
 function matchPost(p,f,kw,me){if(!matchFilter(p,f,me))return false;if(!kw)return true;return((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)}
 function shuffleIds(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function queryFeed(f,kw,mode,me){const seen=new Set();const list=posts.filter(p=>matchPost(p,f,kw,me)).filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true});if(mode==='liked')list.sort(cmpLike);else if(mode==='regs')list.sort(cmpRegs);else if(mode!=='random')list.sort(cmpDate);return list}
-function filterCounts(kw,me){const c={};document.querySelectorAll('#filters button').forEach(b=>{const f=b.dataset.f;c[f]=posts.filter(p=>matchPost(p,f,kw,me)).length});return c}
+function filterCounts(kw,me){const c={};document.querySelectorAll('#filters button').forEach(b=>{const f=b.dataset.f;if(f==='__fav')return;c[f]=posts.filter(p=>matchPost(p,f,kw,me)).length});return c}
 function emptyHtml(kw){const n=posts.filter(p=>p&&typeof p==='object').length;if(!n){return '<div class="card"><h2 class="post-title">Chợ còn trống 🎉</h2><p class="post-body">Chưa có ai đăng lớp. Hãy là người đầu tiên chia sẻ kỹ năng của bạn ở form phía trên!</p><div class="ptrack" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Tiến trình chợ 0 phần trăm" style="height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:10px"><div class="pfill" style="width:0%"></div></div><p class="hint">🎯 Mục tiêu '+GOAL+' bài đầu tiên: 0% — bài của bạn là viên gạch đầu tiên!</p></div>'};
 const sug=posts.filter(p=>p&&typeof p==='object').sort((a,b)=>(Number(b.ts)||0)-(Number(a.ts)||0)).slice(0,3);
 const best=sug.length?sug.reduce((m,p)=>{const s=(Number(p.likes)||0)+regCount(p.regs)*2;return s>m?s:m},0):0;
@@ -377,7 +378,7 @@ const list=queryFeed(filter,kw,mode,me);
 if(mode==='random'){const sh=shuffleIds(list.map(p=>numId(p.id)));const byId={};list.forEach(p=>byId[numId(p.id)]=p);list.length=0;sh.forEach(n=>{if(byId[n])list.push(byId[n])})}else list.sort(mode==='liked'?cmpLike:mode==='regs'?cmpRegs:cmpDate);
 const st=$('stats');if(st)st.innerHTML=statsHtml();
 const fc=$('feed-count');if(fc){const total=posts.filter(p=>p&&typeof p==='object').length;const pc=total?Math.round(list.length/total*100):0;fc.textContent=list.length?list.length+' bài · '+pc+'% chợ':''};
-liveTicker();renderChips();renderTop();renderLeaders();renderSched();renderHot();renderFilterCounts();renderSortCounts();renderTypeCounts();remind();
+liveTicker();renderChips();renderTop();renderLeaders();renderSched();renderHot();renderFilterCounts();renderSortCounts();renderTypeCounts();renderFavBtn();remind();
 function renderEmptyInto(){return emptyHtml((($('q')||{}).value||'').trim())}
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):emptyHtml(kw);
 if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
@@ -471,12 +472,18 @@ b.classList.add('on');b.setAttribute('aria-selected','true');b.tabIndex=0;cur=b.
 });
 (function(){const tb=[...document.querySelectorAll('.composer .tabs button')];tb.forEach((b,i)=>{b.tabIndex=b.classList.contains('on')?0:-1;if(!b.addEventListener)return;b.addEventListener('keydown',e=>{let j=null;if(e.key==='ArrowRight')j=(i+1)%tb.length;else if(e.key==='ArrowLeft')j=(i-1+tb.length)%tb.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=tb.length-1;if(j!==null&&j!==undefined){e.preventDefault();tb[j].focus();tb[j].click()}})})})();
 $('add-opt').onclick=()=>{const n=$('poll-opts').children.length+1;const i=document.createElement('input');i.placeholder='Lựa chọn '+n;i.setAttribute('aria-label','Lựa chọn '+n);i.style.marginBottom='8px';$('poll-opts').appendChild(i)};
+function getFav(){try{const v=JSON.parse(localStorage.getItem(FAVF));return v&&typeof v==='object'&&typeof v.f==='string'?v:null}catch(e){return null}}
+function saveFav(){const v={f:filter,kw:(($('q')||{}).value||'').trim().slice(0,60),sort:(($('sort')||{}).value||'new')};try{localStorage.setItem(FAVF,JSON.stringify(v))}catch(e){return false}renderFavBtn();return true}
+function applyFav(){const v=getFav();if(!v)return false;filter=v.f||'all';document.querySelectorAll('#filters button').forEach(x=>{const on=x.dataset.f===filter||(filter!=='__fav'&&x.dataset.f===filter);x.classList.toggle('on',x.dataset.f===filter);x.setAttribute('aria-pressed',x.dataset.f===filter?'true':'false')});const q=$('q');if(q)q.value=v.kw||'';const s=$('sort');if(s&&v.sort)s.value=v.sort;render();return true}
+function renderFavBtn(){try{const b=$('fav-btn');if(!b)return;const v=getFav();if(!b.dataset.base)b.dataset.base='☆ Yêu thích';b.textContent=v?('★ '+(v.kw||v.f||'Đã lưu')):b.dataset.base;b.title=v?('Yêu thích: '+(v.kw||v.f)+' · '+v.sort+' — bấm ☆ khác để ghi đè'):'Bộ lọc yêu thích đã lưu'}catch(e){}}
 document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{
+if(b.dataset.f==='__fav'){const v=getFav();if(!v)toast('Chưa có bộ lọc yêu thích — bấm giữ nút ☆ để lưu');else applyFav();return}
 document.querySelectorAll('#filters button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});
 b.classList.add('on');b.setAttribute('aria-pressed','true');filter=b.dataset.f;render();
 });
+try{const fb=$('fav-btn');if(fb){let _t=null;fb.addEventListener('pointerdown',()=>{_t=setTimeout(()=>{if(saveFav())toast('Đã lưu bộ lọc yêu thích!')},600)});['pointerup','pointerleave','pointercancel'].forEach(ev=>fb.addEventListener(ev,()=>clearTimeout(_t)))}}catch(e){}
 function filterLabel(base,f,n,total){if(f==='all')return base;const pc=total?Math.round(n/total*100):0;return base+' '+n+' · '+pc+'%'}
-function renderFilterCounts(){try{const kw=(($('q')||{}).value||'').toLowerCase().trim();const me=(($('f-name')||{}).value||'').trim()||'Khách';const c=filterCounts(kw,me);const total=c.all||0;document.querySelectorAll('#filters button').forEach(b=>{if(!b.dataset.base)b.dataset.base=b.textContent.trim();b.textContent=filterLabel(b.dataset.base,b.dataset.f,c[b.dataset.f]||0,total)})}catch(e){}}
+function renderFilterCounts(){try{const kw=(($('q')||{}).value||'').toLowerCase().trim();const me=(($('f-name')||{}).value||'').trim()||'Khách';const c=filterCounts(kw,me);const total=c.all||0;document.querySelectorAll('#filters button').forEach(b=>{if(b.dataset.f==='__fav')return;if(!b.dataset.base)b.dataset.base=b.textContent.trim();b.textContent=filterLabel(b.dataset.base,b.dataset.f,c[b.dataset.f]||0,total)})}catch(e){}}
 function sortPct(total,n,skip){if(skip)return null;if(!total)return 0;return Math.round(n/total*100)}
 function sortLabel(base,n,pc,skip){return base+(skip?'':' '+n)+(pc!==null?' · '+pc+'%':'')}
 function renderSortCounts(){try{const kw=(($('q')||{}).value||'').toLowerCase().trim();const me=(($('f-name')||{}).value||'').trim()||'Khách';const total=queryFeed(filter,kw,'new',me).length;const sel=$('sort');if(!sel)return;[...sel.options].forEach(o=>{if(!o.dataset.base)o.dataset.base=o.textContent.trim();const skip=o.value==='random';const n=queryFeed(filter,kw,skip?'new':o.value,me).length;o.textContent=sortLabel(o.dataset.base,n,sortPct(total,n,skip),skip)})}catch(e){}}
@@ -709,6 +716,11 @@ T('priceVnd abc nan',Number.isNaN(priceVnd('abc')));
 T('matchFilter cheap',matchFilter({price:'50k'},'cheap')===true&&matchFilter({price:'200k'},'cheap')===false&&matchFilter({price:''},'cheap')===false&&matchFilter(null,'cheap')===false);
 T('matchFilter keeps',matchFilter({mine:1},'mine')===true&&matchFilter({price:''},'free')===true&&matchFilter(null,'all')===false);
 T('cheap btn exists',(()=>{const b=document.querySelector('#filters button[data-f="cheap"]');return !!b&&/100k/.test(b.textContent)})());
+T('getFav null',getFav()===null||typeof getFav()==='object');
+T('saveFav roundtrip',(()=>{try{filter='video';$('q').value='zz-fav-probe';$('sort').value='liked';const ok=saveFav();const v=getFav();const good=ok&&v&&v.f==='video'&&v.kw==='zz-fav-probe'&&v.sort==='liked';try{localStorage.removeItem(FAVF)}catch(e){}$('q').value='';$('sort').value='new';filter='all';renderFavBtn();return good}catch(e){return false}})());
+T('applyFav applies',(()=>{try{try{localStorage.setItem(FAVF,JSON.stringify({f:'free',kw:'',sort:'new'}))}catch(e){return false}const ok=applyFav();const good=ok&&filter==='free';try{localStorage.removeItem(FAVF)}catch(e){}filter='all';render();return good}catch(e){return false}})());
+T('favBtn renders',(()=>{try{renderFavBtn();const b=$('fav-btn');return !!b&&/Yêu thích/.test(b.textContent)}catch(e){return false}})());
+T('filterCounts skips fav',(()=>{try{const c=filterCounts('','Khach');return !('__fav' in c)&&typeof c.all==='number'}catch(e){return false}})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
