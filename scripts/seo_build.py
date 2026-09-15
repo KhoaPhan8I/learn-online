@@ -150,6 +150,23 @@ def build():
     return pages
 
 
+def write_llms(seed):
+    lines = ["# Learn Online", "",
+             "Nen tang chia se khoa hoc: ai cung day duoc, ai cung hoc duoc.",
+             "Hoc phi do mentor tu dat. Dang bai mien phi.", "",
+             "## Khoa hoc"]
+    for s in seed["skills"]:
+        lines.append(f"- [{s['name']}]({SITE}/khoa-hoc/{slugify(s['slug'])}/): {s['blurb']}")
+    lines += ["", "## Mentor"]
+    for m in seed["mentors"]:
+        lines.append(f"- [{m['name']}]({SITE}/giao-vien/{slugify(m['name'])}/): "
+                     f"{', '.join(m.get('skills', []))}. {m.get('bio', '')}".rstrip())
+    lines += ["", "## Chinh sach",
+              "- Ghim Noi Bat: 29.000 VND / 7 ngay, lien he admin kich hoat.",
+              f"- Sitemap day du: {SITE}/sitemap.xml"]
+    return "\n".join(lines) + "\n"
+
+
 def write_sitemap(pages):
     urls = [f"{SITE}/"] + sorted(f"{SITE}/{p.replace('index.html', '')}" for p in pages)
     body = "\n".join(
@@ -166,8 +183,13 @@ def main():
         bad = [p for p in pages if not (ROOT / p).is_file()]
         cur = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
         missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages] if u not in cur]
-        if bad or missing:
-            print("STALE:", len(bad), "files missing,", len(missing), "urls missing from sitemap")
+        llms = ROOT / "llms.txt"
+        llms_ok = llms.is_file() and all(
+            slugify(s["slug"]) in llms.read_text(encoding="utf-8")
+            for s in load_seed()["skills"])
+        if bad or missing or not llms_ok:
+            print("STALE:", len(bad), "files missing,", len(missing), "urls missing from sitemap,",
+                  "llms.txt missing" if not llms_ok else "llms.txt ok")
             return 1
         print(f"SEO_CHECK_OK ({len(pages)} pages in sync)")
         return 0
@@ -176,7 +198,8 @@ def main():
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(h, encoding="utf-8")
     (ROOT / "sitemap.xml").write_text(write_sitemap(pages), encoding="utf-8")
-    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap)")
+    (ROOT / "llms.txt").write_text(write_llms(load_seed()), encoding="utf-8")
+    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt)")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,17 @@
+# Learn Online
+
+Nen tang chia se khoa hoc: ai cung day duoc, ai cung hoc duoc.
+Hoc phi do mentor tu dat. Dang bai mien phi.
+
+## Khoa hoc
+- [Guitar](https://khoaphan8i.github.io/learn-online/khoa-hoc/guitar/): từ cơ bản tới nâng cao, học cùng mentor thật.
+- [Tiếng Anh](https://khoaphan8i.github.io/learn-online/khoa-hoc/tieng-anh/): giao tiếp, phát âm và từ vựng thực tế.
+- [Nấu ăn](https://khoaphan8i.github.io/learn-online/khoa-hoc/nau-an/): nấu món Việt ngon tại nhà.
+- [Lập trình](https://khoaphan8i.github.io/learn-online/khoa-hoc/lap-trinh/): lập trình web từ số 0.
+
+## Mentor
+- [Mentor Mẫu](https://khoaphan8i.github.io/learn-online/giao-vien/mentor-m-u/): Guitar, Tiếng Anh. Mentor mẫu — thay bằng hồ sơ thật từ app.
+
+## Chinh sach
+- Ghim Noi Bat: 29.000 VND / 7 ngay, lien he admin kich hoat.
+- Sitemap day du: https://khoaphan8i.github.io/learn-online/sitemap.xml
