@@ -40,3 +40,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | sms | opt-in SĐT + cam kết tần suất + xuất CSV (chờ gateway) | 112 |
 | influencer-marketing | link affiliate KOC + đếm lượt ref trong hồ sơ | 113 |
 | cold-email | tin nhắc 2 chạm cho mentor (nhắc + chào cuối) | 114 |
+| ad-creative | nút 📢 copy mẫu quảng cáo FB/Zalo cho bài của mình | 115 |
