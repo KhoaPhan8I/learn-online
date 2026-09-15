@@ -111,7 +111,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ.</p>
 </section>
 <div class="stickybar">
-<div class="row"><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..." aria-label="Tìm kiếm bài viết"><select id="sort" class="half" style="max-width:160px" aria-label="Sắp xếp bài viết"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option></select></div>
+<div class="row"><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..." aria-label="Tìm kiếm bài viết"><select id="sort" class="half" style="max-width:160px" aria-label="Sắp xếp bài viết"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option><option value="random">🎲 Ngẫu nhiên</option></select></div>
 <nav class="filters" id="filters" aria-label="Lọc bài viết theo loại">
 <button data-f="all" class="on" aria-pressed="true">Tất cả</button>
 <button data-f="video" aria-pressed="false">🎬 Video</button>
@@ -195,8 +195,8 @@ const me=($('f-name').value||'').trim()||'Khách';
 const list=posts
 .filter(p=>p&&typeof p==='object')
 .filter(p=>(filter==='all'||(filter==='mine'?!!p.mine:filter==='free'?!String(p.price||'').trim():filter==='joined'?Array.isArray(p.regs)&&p.regs.includes(me):p.type===filter))&&(!kw||((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)))
-.filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true})
-.sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
+.filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true});
+if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}}else list.sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
 }catch(e){$('feed').innerHTML='<div class="card">Có lỗi hiển thị feed. Thử tải lại trang.</div>';}
 }
