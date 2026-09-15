@@ -42,6 +42,7 @@ COURSE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
@@ -74,6 +75,7 @@ MENTOR_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
@@ -94,6 +96,7 @@ HUB_TMPL = """<!DOCTYPE html>
 <ul>
 {links}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
@@ -179,6 +182,7 @@ COMPARE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
@@ -213,6 +217,7 @@ PRICE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
@@ -244,6 +249,7 @@ LEARNER_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
@@ -276,6 +282,7 @@ USECASE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
@@ -318,6 +325,7 @@ PRESS_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
+<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
 </body>
 </html>
 """
