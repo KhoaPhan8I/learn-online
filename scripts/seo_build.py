@@ -175,6 +175,40 @@ COMPARE_TMPL = """<!DOCTYPE html>
 """
 
 
+USECASE_TMPL = """<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chua tung day ai? Bat dau voi lop dau tien | Learn Online</title>
+<meta name="description" content="Ban gioi mot ky nang nhung chua tung day? 5 buoc mo lop dau tien trong 1 phut — mien phi dang bai, hoc phi tu dat.">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{site}/og-cover.png">
+</head>
+<body>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Cho nguoi moi day</nav>
+<h1>Chua tung day ai? Bat dau voi lop dau tien</h1>
+<ol>
+<li>Chon 1 ky nang ban tu tin nhat</li>
+<li>Dat ten lop ro rang: ky nang + trinh do + doi tuong</li>
+<li>Dat hoc phi theo gia that tren trang, moi day lay gia giua</li>
+<li>De lai cach lien he de hoc vien nhan tin</li>
+<li>Bam dang bai, copy link chia se — moi nguoi mo link +2 diem</li>
+</ol>
+<p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day">Mo lop dau tien ngay</a></p>
+<h2>Khoa hoc goi y</h2>
+<ul>
+{related}
+</ul>
+</body>
+</html>
+"""
+
+
+
+
 def render_hub(path, title, desc, crumb, items):
     links = "\n".join(f'<li><a href="{u}">{html.escape(t)}</a></li>' for t, u in items)
     return path, HUB_TMPL.format(title=html.escape(title), desc=html.escape(desc),
@@ -207,6 +241,11 @@ def build():
         title="Học ở trung tâm hay dạy trên Learn Online?",
         desc="So sánh trung thực: trung tâm truyền thống vs nền tảng chia sẻ khóa học Learn Online — chi phí, học phí, ai dạy được.",
         url=f"{SITE}/so-sanh/trung-tam/", site=SITE, related=related_links(rel))
+    usecase = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
+               for s in seed["skills"]][:3]
+    pages["cho-nguoi-moi-day/index.html"] = USECASE_TMPL.format(
+        site=SITE, url=f"{SITE}/cho-nguoi-moi-day/",
+        related=related_links(usecase))
     return pages
 
 
