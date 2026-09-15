@@ -14,4 +14,11 @@ Hoc phi do mentor tu dat. Dang bai mien phi.
 
 ## Chinh sach
 - Ghim Noi Bat: 29.000 VND / 7 ngay, lien he admin kich hoat.
+
+## Trang
+- [Bang gia](https://khoaphan8i.github.io/learn-online/gia/): dang mien phi, Ghim 29k/7 ngay.
+- [Bao chi / Press kit](https://khoaphan8i.github.io/learn-online/bao-chi/): cau chuyen + so lieu.
+- [Cho nguoi moi day](https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/): 5 buoc mo lop dau.
+- [Cach tim lop](https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/): 3 buoc tim lop kem.
+- [So sanh trung tam](https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/): mo lop khong von.
 - Sitemap day du: https://khoaphan8i.github.io/learn-online/sitemap.xml

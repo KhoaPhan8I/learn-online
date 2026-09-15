@@ -396,6 +396,12 @@ def write_llms(seed):
                      f"{', '.join(m.get('skills', []))}. {m.get('bio', '')}".rstrip())
     lines += ["", "## Chinh sach",
               "- Ghim Noi Bat: 29.000 VND / 7 ngay, lien he admin kich hoat.",
+              "", "## Trang",
+              f"- [Bang gia]({SITE}/gia/): dang mien phi, Ghim 29k/7 ngay.",
+              f"- [Bao chi / Press kit]({SITE}/bao-chi/): cau chuyen + so lieu.",
+              f"- [Cho nguoi moi day]({SITE}/cho-nguoi-moi-day/): 5 buoc mo lop dau.",
+              f"- [Cach tim lop]({SITE}/cho-nguoi-hoc/): 3 buoc tim lop kem.",
+              f"- [So sanh trung tam]({SITE}/so-sanh/trung-tam/): mo lop khong von.",
               f"- Sitemap day du: {SITE}/sitemap.xml"]
     return "\n".join(lines) + "\n"
 

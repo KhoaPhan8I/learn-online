@@ -85,6 +85,7 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | events-v2 | Lich khai giang them vao Google Calendar 1 cham | 157 |
 | site-arch-v2 | Footer nav: moi trang tinh co loi vao tu trang chu | 158 |
 | site-arch-v3 | Footer mesh 8 template tinh: moi trang con link ve nha + anh em | 165 |
+| ai-seo-v2 | llms.txt them 5 trang tinh cho AI citation | 166 |
 | reviews-v1 | Hoi review 1 cau sau hoc xong + treo tren card | 159 |
 | reviews-v2 | Fix cleanPost giu reviews qua reload (whitelist) | 160 |
 | reviews-v3 | CSV bai viet them cot danh_gia (data khong ket) | 161 |
