@@ -36,3 +36,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | customer-research | survey persona 1 chạm + tổng hợp + xuất CSV | 108 |
 | image | og-cover riêng từng kỹ năng (PIL) + check guard | 109 |
 | public-relations | trang press kit bao-chi/ (story + số liệu + asset) | 110 |
+| community-marketing | huy hiệu Mentor tuần cho top 1 bảng xếp hạng | 111 |
