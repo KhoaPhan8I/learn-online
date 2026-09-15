@@ -11,6 +11,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Learn Online — Chợ kỹ năng</title>
+<meta name="description" content="Learn Online — chợ kỹ năng sharing online: ai cũng dạy được, ai cũng học được. Đăng video, bài viết, text hoặc poll.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Learn Online">
+<meta property="og:title" content="Learn Online — Chợ kỹ năng">
+<meta property="og:description" content="Ai cũng dạy được, ai cũng học được. Chia sẻ kỹ năng qua video, bài viết, text hoặc poll.">
+<meta property="og:url" content="https://khoaphan8i.github.io/learn-online/">
+<meta name="twitter:card" content="summary">
 <style>
 :root{--bg:#0f0f14;--bg2:#17171f;--surface:#1d1d27;--surface2:#24242f;--line:rgba(255,255,255,.08);--txt:#f4f4f6;--mut:#a7a7b8;--acc:#fe2c55;--acc2:#25f4ee;--gold:#fbbf24;--r:16px;--bar-top:70px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -21,8 +29,16 @@ button,input,textarea,select{touch-action:manipulation;font-family:inherit}
 header{position:sticky;top:0;z-index:10;background:rgba(15,15,20,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top))}
 header h1{font-size:18px;font-weight:800;letter-spacing:-.02em}
 header h1 .grad{background:linear-gradient(90deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hwrap{max-width:640px;margin:0 auto;display:flex;align-items:flex-start;gap:12px}
+.logo{width:42px;height:42px;flex:none;border-radius:13px;background:linear-gradient(135deg,var(--acc),#ff6b4a);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(254,44,85,.4)}
 header p{font-size:12px;color:var(--mut)}
 #stats{font-size:12px;color:var(--mut);margin-top:4px}
+#stats b{color:var(--gold)}
+.composer-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.composer-head .grow{flex:1}
+.composer-head h2{font-size:15px;font-weight:700}
+.composer-head p{font-size:12px;color:var(--mut)}
+#composer-body.collapsed{display:none}
 main{max-width:640px;margin:0 auto;padding:12px 12px 80px}
 .card{background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:0 8px 28px rgba(0,0,0,.35);animation:rise .45s cubic-bezier(.2,.8,.25,1) both}
 #feed .card:nth-child(2){animation-delay:.06s}#feed .card:nth-child(3){animation-delay:.12s}#feed .card:nth-child(4){animation-delay:.18s}#feed .card:nth-child(5){animation-delay:.24s}
@@ -89,6 +105,8 @@ video,img.media{width:100%;border-radius:14px;margin-bottom:10px;background:#000
 </header>
 <main>
 <section class="card composer">
+<div class="composer-head"><div class="grow"><h2>Chia sẻ kỹ năng của bạn</h2><p>Video, bài viết, text hoặc poll — mất chưa tới 1 phút</p></div><button class="btn ghost" id="composer-toggle" type="button" aria-expanded="true" aria-controls="composer-body" aria-label="Thu gọn form đăng bài">Thu gọn</button></div>
+<div id="composer-body">
 <div class="tabs" role="tablist" aria-label="Loại bài đăng">
 <button data-t="video" class="on" role="tab" aria-selected="true" aria-controls="pane-video">🎬 Video</button>
 <button data-t="image" role="tab" aria-selected="false" aria-controls="pane-image">🖼️ Bài viết</button>
@@ -101,13 +119,13 @@ video,img.media{width:100%;border-radius:14px;margin-bottom:10px;background:#000
 </div>
 <div id="pane-video" role="tabpanel">
 <label class="sr-only" for="f-vtitle">Tên khóa học (bắt buộc)</label><input id="f-vtitle" placeholder="Tên khóa học / kỹ năng muốn dạy *" aria-label="Tên khóa học (bắt buộc)" style="margin-bottom:8px">
-<label class="sr-only" for="f-vurl">Link video mp4</label><input id="f-vurl" placeholder="Link video mp4 (để trống = video demo)" aria-label="Link video mp4 (https, để trống = video demo)" style="margin-bottom:8px">
+<label class="sr-only" for="f-vurl">Link video mp4</label><input id="f-vurl" placeholder="Hoặc dán link video mp4 (https)" aria-label="Link video mp4 (https, tùy chọn)" style="margin-bottom:8px">
 <label class="sr-only" for="f-vfile">Chọn video từ máy (tối đa 8MB)</label><input type="file" id="f-vfile" accept="video/*" aria-label="Chọn video từ máy (tối đa 8MB)" style="margin-bottom:8px">
 <label class="sr-only" for="f-vdesc">Mô tả khóa học</label><textarea id="f-vdesc" placeholder="Mô tả ngắn: học được gì, lịch rảnh khi nào..." aria-label="Mô tả khóa học"></textarea>
 </div>
 <div id="pane-image" role="tabpanel" hidden>
 <label class="sr-only" for="f-ititle">Tiêu đề bài viết (bắt buộc)</label><input id="f-ititle" placeholder="Tiêu đề bài viết *" aria-label="Tiêu đề bài viết (bắt buộc)" style="margin-bottom:8px">
-<label class="sr-only" for="f-iurl">Link ảnh minh họa</label><input id="f-iurl" placeholder="Link ảnh (để trống = ảnh mẫu)" aria-label="Link ảnh minh họa (https, để trống = ảnh mẫu)" style="margin-bottom:8px">
+<label class="sr-only" for="f-iurl">Link ảnh minh họa</label><input id="f-iurl" placeholder="Hoặc dán link ảnh (https)" aria-label="Link ảnh minh họa (https, tùy chọn)" style="margin-bottom:8px">
 <label class="sr-only" for="f-ifile">Chọn ảnh từ máy (tối đa 3MB)</label><input type="file" id="f-ifile" accept="image/*" aria-label="Chọn ảnh từ máy (tối đa 3MB)" style="margin-bottom:8px">
 <label class="sr-only" for="f-idesc">Nội dung bài viết</label><textarea id="f-idesc" placeholder="Nội dung chia sẻ..." aria-label="Nội dung bài viết"></textarea>
 </div>
@@ -129,7 +147,8 @@ video,img.media{width:100%;border-radius:14px;margin-bottom:10px;background:#000
 <button class="btn half" id="publish">Đăng bài</button>
 <button class="btn ghost half" id="cancel-edit" hidden>Hủy</button>
 </div>
-<p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được — hạ rào cản chia sẻ. Video tải lên tối đa 8MB, ảnh tối đa 3MB; link media chỉ nhận https:// hoặc file vừa chọn.</p>
+<p class="hint">Ngại quay video? Đăng text hoặc poll vẫn được. Video tải lên tối đa 8MB, ảnh tối đa 3MB; link media chỉ nhận https:// hoặc file vừa chọn.</p>
+</div>
 </section>
 <div class="stickybar">
 <div class="row"><label class="sr-only" for="q">Tìm kiếm bài viết</label><input id="q" placeholder="🔍 Tìm kỹ năng, tên, tiêu đề..." aria-label="Tìm kiếm bài viết"><label class="sr-only" for="sort">Sắp xếp bài viết</label><select id="sort" class="half" style="max-width:160px" aria-label="Sắp xếp bài viết"><option value="new">Mới nhất</option><option value="liked">❤ Nhiều nhất</option><option value="regs">📝 Đăng ký nhiều</option><option value="random">🎲 Ngẫu nhiên</option></select></div>
@@ -241,7 +260,7 @@ if(p.type==='video'){$('f-vtitle').value=p.title||'';$('f-vdesc').value=p.body||
 if(p.type==='image'){$('f-ititle').value=p.title||'';$('f-idesc').value=p.body||'';$('f-iurl').value=p.media||''}
 if(p.type==='text'){$('f-ttitle').value=p.title||'';$('f-tbody').value=p.body||''}
 if(p.type==='poll'){$('f-q').value=p.title||'';const opts=Array.isArray(p.options)?p.options:[];$('poll-opts').innerHTML=opts.map(o=>`<input value="${esc(typeof o?.t==='string'?o.t:'')}" aria-label="Lựa chọn khảo sát" style="margin-bottom:8px">`).join('')||'<input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">'}
-$('publish').textContent='Lưu thay đổi';$('cancel-edit').hidden=false;window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi');try{const f=cur==='video'?$('f-vtitle'):cur==='image'?$('f-ititle'):cur==='text'?$('f-ttitle'):$('f-q');if(f&&f.focus)f.focus({preventScroll:true})}catch(e){}};
+$('publish').textContent='Lưu thay đổi';$('cancel-edit').hidden=false;try{$('composer-body').classList.remove('collapsed');$('composer-toggle').textContent='Thu gọn';$('composer-toggle').setAttribute('aria-expanded','true')}catch(e){}window.scrollTo({top:0,behavior:'smooth'});toast('Đang sửa bài — bấm Lưu thay đổi');try{const f=cur==='video'?$('f-vtitle'):cur==='image'?$('f-ititle'):cur==='text'?$('f-ttitle'):$('f-q');if(f&&f.focus)f.focus({preventScroll:true})}catch(e){}};
 function resetForm(){editId=null;$('publish').textContent='Đăng bài';$('cancel-edit').hidden=true;['f-vtitle','f-vurl','f-vdesc','f-ititle','f-iurl','f-idesc','f-ttitle','f-tbody','f-q','f-skill','f-price','f-contact','f-vfile','f-ifile'].forEach(k=>{const el=$(k);if(el)el.value=''});try{const me=localStorage.getItem(ME);if(me)$('f-name').value=me}catch(e){}$('poll-opts').innerHTML='<input placeholder="Lựa chọn 1" aria-label="Lựa chọn 1" style="margin-bottom:8px"><input placeholder="Lựa chọn 2" aria-label="Lựa chọn 2" style="margin-bottom:8px">'};
 document.querySelectorAll('.composer .tabs button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.composer .tabs button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-selected','false');x.tabIndex=-1});
@@ -277,6 +296,7 @@ filter='all';document.querySelectorAll('#filters button').forEach(x=>{const on=x
 render();toast('Đăng bài thành công!');
 };
 $('cancel-edit').onclick=()=>{resetForm();toast('Đã hủy sửa')};
+$('composer-toggle').onclick=()=>{const b=$('composer-body'),t=$('composer-toggle'),hide=b.classList.toggle('collapsed');t.textContent=hide?'Mở form':'Thu gọn';t.setAttribute('aria-expanded',hide?'false':'true');t.setAttribute('aria-label',hide?'Mở form đăng bài':'Thu gọn form đăng bài')};
 $('export').onclick=()=>{try{const blob=new Blob([JSON.stringify(posts)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='learn-online-backup.json';a.click();URL.revokeObjectURL(a.href);toast('Đã tải file sao lưu')}catch(e){toast('Không xuất được file')}};
 $('import-btn').onclick=()=>$('import').click();
 $('import').onchange=e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>1048576)return toast('File quá lớn (tối đa 1MB)');const r=new FileReader();r.onload=()=>{try{const v=JSON.parse(r.result);if(!Array.isArray(v))return toast('File không hợp lệ');if(v.length>1000)return toast('File quá nhiều bài (tối đa 1000)');const clean=v.map(cleanPost).filter(Boolean);const seen=new Set();posts=clean.filter(p=>{if(seen.has(p.id))return false;seen.add(p.id);return true});if(!save(posts)){posts=load()||[];render();return toast('Không lưu được (bộ nhớ đầy)')}render();toast('Đã khôi phục '+posts.length+' bài!')}catch(err){toast('File không hợp lệ')}};r.onerror=()=>toast('Không đọc được file');r.readAsText(f);e.target.value=''};
