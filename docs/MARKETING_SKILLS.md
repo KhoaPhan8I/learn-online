@@ -59,3 +59,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | emails-v2 | ✉️ sequence 4 email: welcome/onboard/win-back/Ghim + copy | 131 |
 | sales-pages-v2 | 📄 trang gia/ tĩnh: tiers + Offer schema AI-readable | 132 |
 | competitor-v2 | ✅ verify giá Unica 49k–999k; Kyna/Edumall ghi rõ chưa verify | 133 |
+| revops-v2 | 💰 doanh thu Ghim đã thu + chờ duyệt + dự báo trong dashboard | 134 |
