@@ -1,6 +1,6 @@
 # Competitor: Edumall (edumall.vn) — 2026-09-16
 
-> Snapshot định tính từ hiểu biết công khai. Chưa crawl verify — số liệu cụ thể cần check lại trước khi trích dẫn.
+> 2026-09-16: fetch edumall.vn timeout (curl 000, chặn bot) — giữ nguyên nhận định định tính, CHƯA verify giá.
 
 ## Họ là ai
 - Siêu thị khóa học online VN: mô hình marketplace khóa đóng gói tương tự Unica.

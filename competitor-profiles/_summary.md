@@ -7,6 +7,11 @@
 | Kyna | Khóa tổ chức, có lộ trình | Cao, theo khóa | Không (tuyển chọn) | Ai cũng dạy được, giá tự đặt |
 | Trung tâm truyền thống | Lớp vật lý | Cao + mặt bằng | Giáo viên hợp đồng | Không vốn, không mặt bằng (xem so-sanh/trung-tam/) |
 
+## Verify 2026-09-16
+- Unica: VERIFY giá 49k–999k/khóa từ homepage fetch.
+- Kyna: homepage SPA không trích được giá — chưa verify.
+- Edumall: chặn curl — chưa verify.
+
 ## Kết luận shape
 - Cả 3 đối thủ online đều bán **khóa đóng gói**, không ai làm **chợ lớp kèm trực tiếp cho mentor cá nhân** — đó là khe Learn Online đứng.
 - Rủi ro: nếu Unica/Edumall mở chiều "mentor tự mở lớp", khe hẹp lại → phải nhanh: SEO pSEO + referral + Ghim trước khi họ copy.

@@ -1,6 +1,6 @@
 # Competitor: Kyna (kyna.vn) — 2026-09-16
 
-> Snapshot định tính từ hiểu biết công khai. Chưa crawl verify — số liệu cụ thể cần check lại trước khi trích dẫn.
+> 2026-09-16: fetch kyna.vn + /khoa-hoc (HTTP 200 nhưng redirect về homepage SPA, không trích được giá) — giữ nguyên nhận định định tính, CHƯA verify giá.
 
 ## Họ là ai
 - Nền tảng học online VN (người đi làm + trẻ em: Kyna English...), khóa học do Kyna tổ chức/kiểm soát chất lượng.

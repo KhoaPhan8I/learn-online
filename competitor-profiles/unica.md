@@ -1,6 +1,6 @@
 # Competitor: Unica (unica.vn) — 2026-09-16
 
-> Snapshot định tính từ hiểu biết công khai. Chưa crawl verify — số liệu cụ thể cần check lại trước khi trích dẫn.
+> VERIFY 2026-09-16: fetch homepage unica.vn (HTTP 200, 448KB). Giá khóa niêm yết quan sát: 49.000đ–999.000đ/khóa (vd 199.000đ khóa AI văn phòng, 299–899k phổ biến, gạch giá gốc 500k–999k). Khuyến mãi sâu = neo giá rẻ đúng như nhận định.
 
 ## Họ là ai
 - Marketplace khóa học online VN: bán khóa học đóng gói (video thu sẵn) theo từng khóa, trả tiền từng khóa.
