@@ -65,6 +65,7 @@ video,img.media{width:100%;border-radius:8px;margin-bottom:8px;background:#000}
 <header>
 <h1>🎓 Learn Online</h1>
 <p>Chợ kỹ năng — ai cũng dạy được, ai cũng học được</p>
+<p id="stats" style="font-size:12px;opacity:.95;margin-top:4px" aria-live="polite"></p>
 </header>
 <main>
 <section class="card composer">
@@ -197,6 +198,8 @@ const list=posts
 .filter(p=>(filter==='all'||(filter==='mine'?!!p.mine:filter==='free'?!String(p.price||'').trim():filter==='joined'?Array.isArray(p.regs)&&p.regs.includes(me):p.type===filter))&&(!kw||((p.title||'')+' '+(p.body||'')+' '+(p.name||'')+' '+(p.skill||'')).toLowerCase().includes(kw)))
 .filter(p=>{const n=numId(p.id);if(n===null||seen.has(n))return false;seen.add(n);return true});
 if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}}else list.sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
+const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.name).filter(Boolean)).size, regs=ok.reduce((a,p)=>a+(Array.isArray(p.regs)?p.regs.length:0),0);
+const st=$('stats');if(st)st.textContent=`📚 ${ok.length} lớp · 👩‍🏫 ${teachers} người dạy · 📝 ${regs} lượt đăng ký`;
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
 }catch(e){$('feed').innerHTML='<div class="card">Có lỗi hiển thị feed. Thử tải lại trang.</div>';}
 }
