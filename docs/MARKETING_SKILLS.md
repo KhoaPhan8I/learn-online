@@ -60,3 +60,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | sales-pages-v2 | 📄 trang gia/ tĩnh: tiers + Offer schema AI-readable | 132 |
 | competitor-v2 | ✅ verify giá Unica 49k–999k; Kyna/Edumall ghi rõ chưa verify | 133 |
 | revops-v2 | 💰 doanh thu Ghim đã thu + chờ duyệt + dự báo trong dashboard | 134 |
+| marketing-plan-v2 | 🩺 chấm lại audit: 54→58 sau vòng 2 | 135 |
