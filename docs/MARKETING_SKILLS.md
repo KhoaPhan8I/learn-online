@@ -72,3 +72,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | paywalls-v2 | 📌 upsell Ghim theo ngữ cảnh: ế/hot/tốt | 144 |
 | revops-v3 | 🛡️ confirm kích hoạt Ghim + ngày kích hoạt trong CSV | 145 |
 | content-v3 | 📖 trang cho-nguoi-hoc/ + content 3→4 (65) | 146 |
+| revops-v4 | 💰 breakdown doanh thu Ghim theo tháng | 147 |
