@@ -81,3 +81,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | emails-v4 | 🔒 BCC ẩn danh sách + Email 3→4 (68) | 153 |
 | sms-v2 | 📱 nhắn SMS thật qua sms: URI (mirror mailto) | 154 |
 | content-v4 | Cho tuan share native (distribute moi piece) | 155 |
+| social-v2 | Chia se ho so mentor native (share sheet mobile) | 156 |
