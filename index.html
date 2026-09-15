@@ -289,17 +289,20 @@ if(kind==='video')return `<video controls playsinline preload="metadata" src="${
 if(kind==='image')return `<img class="media" src="${esc(s)}" loading="lazy" decoding="async" alt="${esc(p.title||'Ảnh minh họa bài viết')}">`;
 return '';
 }
+const FRESH_MS=24*3600e3;
+function pollBar(id,i,t,vv,total,mine){const pc=Math.round(vv/total*100);const mk=mine?' ✓':'';return `<button class="opt" id="vote-${id}-${i}" onclick="vote(${id},${i})" aria-label="Đổi sang ${esc(t)} (hiện ${pc}%)"><div class="bar" style="margin:0;border:0" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100" aria-label="${esc(t)}: ${pc} phần trăm"><i style="width:${pc}%"></i><span>${esc(t)}${mk} <b>${pc}%</b></span></div></button>`}
 function pollHtml(p,id){
 const opts=Array.isArray(p.options)?p.options:[];
 if(!opts.length)return '<p class="hint">Poll chưa có lựa chọn nào.</p>';
 const total=opts.reduce((a,o)=>a+(Number(o&&o.v)||0),0)||1;
 const v=voted();
-if(v[id])return opts.map((o,i)=>{const vv=Number(o&&o.v)||0,t=typeof o?.t==='string'?o.t:'';const pc=Math.round(vv/total*100);const mine=v[id]===i+1?' ✓':'';return `<button class="opt" id="vote-${id}-${i}" onclick="vote(${id},${i})" aria-label="Đổi sang ${esc(t)} (hiện ${pc}%)"><div class="bar" style="margin:0;border:0" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100" aria-label="${esc(t)}: ${pc} phần trăm"><i style="width:${pc}%"></i><span>${esc(t)}${mine} <b>${pc}%</b></span></div></button>`}).join('')+`<p class="hint">${total} lượt vote — bấm để đổi lựa chọn</p>`;
+if(v[id])return opts.map((o,i)=>{const vv=Number(o&&o.v)||0,t=typeof o?.t==='string'?o.t:'';return pollBar(id,i,t,vv,total,v[id]===i+1)}).join('')+`<p class="hint">${total} lượt vote — bấm để đổi lựa chọn</p>`;
 return opts.map((o,i)=>{const t=typeof o?.t==='string'?o.t:'';return `<button class="opt" id="vote-${id}-${i}" onclick="vote(${id},${i})" aria-label="Bình chọn ${esc(t)}">${esc(t)}</button>`}).join('');
 }
+function cmtRow(c){if(!c||typeof c!=='object')return'';return`<div class="cmt"><b>${esc(c.n)}</b> ${esc(c.t)}</div>`}
 function cmtHtml(p,id,nm){
 const list=Array.isArray(p.cmts)?p.cmts:[];
-const html=list.filter(c=>c&&typeof c==='object').map(c=>`<div class="cmt"><b>${esc(c.n)}</b> ${esc(c.t)}</div>`).join('');
+const html=list.map(c=>cmtRow(c)).join('');
 return `<div class="cmts">${html}<div class="cmt-row"><input id="c-${id}" placeholder="Hỏi ${esc(nm)} điều gì đó..." aria-label="Hỏi ${esc(nm)} điều gì đó" onkeydown="if(event.key==='Enter')cmt(${id})"><button class="btn" id="csend-${id}" onclick="cmt(${id})" aria-label="Gửi bình luận">Gửi</button></div></div>`;
 }
 function postHead(p,id,nm,badgeHtml){const iso=Number.isFinite(Number(p.ts))?new Date(Number(p.ts)).toISOString():'';return`<div class="meta"><div class="avatar" aria-hidden="true">${esc(nm.charAt(0)||'?')}</div>
@@ -317,7 +320,7 @@ function card(p){
 if(!p||typeof p!=='object')return '';
 const id=numId(p.id); if(id===null)return '';
 const nm=(typeof p.name==='string'&&p.name.trim())?p.name.trim():'Ẩn danh';
-const isFresh=Number.isFinite(Number(p.ts))&&(Date.now()-Number(p.ts))<24*3600e3;
+const isFresh=Number.isFinite(Number(p.ts))&&(Date.now()-Number(p.ts))<FRESH_MS;
 const badge=mentorBadge(nm);
 const pct=badge?mentorPct(nm):null;
 const badgeHtml=badge?`<span class="mentor" title="${esc(badge)}${pct?` — quý ${pct.pq}% · năm ${pct.py}%`:''}">★ MENTOR${pct?` ${Math.max(pct.pq,pct.py)}%`:''}</span>`:'';
@@ -687,6 +690,11 @@ T('postHead esc',(()=>{const h=postHead({skill:'<x>',price:'',ts:0},9,'<b>','');
 T('postActions counts',(()=>{const h=postActions({liked:true,likes:3,regs:[{n:'A',ts:1}],mine:0},9);return /❤ 3/.test(h)&&/Đăng ký \(1\)/.test(h)&&!/del-9/.test(h)})());
 T('postActions owner',(()=>{const h=postActions({likes:0,regs:['A'],mine:1},9);return /edit-9/.test(h)&&/del-9/.test(h)&&/Đã đăng ký/.test(h)})());
 T('postActions bad',postActions(null,null)===''&&postActions({},null)==='');
+T('FRESH_MS day',FRESH_MS===24*3600e3);
+T('pollBar pct',(()=>{const h=pollBar(5,0,'A',3,4,true);return /75%/.test(h)&&/✓/.test(h)&&/vote-5-0/.test(h)})());
+T('pollBar zero',(()=>{const h=pollBar(5,1,'B',0,1,false);return /0%/.test(h)&&!/✓/.test(h)})());
+T('cmtRow html',(()=>{const h=cmtRow({n:'An',t:'hay'});return /An/.test(h)&&/hay/.test(h)&&cmtRow(null)===''&&cmtRow(42)===''})());
+T('cmtRow esc',(()=>{const h=cmtRow({n:'<b>',t:'<i>'});return /&lt;b&gt;/.test(h)&&/&lt;i&gt;/.test(h)})());
 }catch(e){R.push('FAIL exception '+e.message)}
 const fails=R.filter(r=>r.startsWith('FAIL'));toast(fails.length?('TEST '+fails.length+' FAIL: '+fails.join(' | ').slice(0,200)):('TEST OK ('+R.length+' checks)'));console.log(R.join('\n'))},600)}
 </script>
