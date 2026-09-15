@@ -143,13 +143,7 @@ function cleanPost(p){if(!p||typeof p!=='object'||Array.isArray(p))return null;c
 function load(){try{const v=JSON.parse(localStorage.getItem(LS));return Array.isArray(v)?v:null}catch(e){return null}}
 function save(p){try{localStorage.setItem(LS,JSON.stringify(p));return true}catch(e){toast('Không lưu được (bộ nhớ đầy hoặc chế độ riêng tư)');return false}}
 function voted(){try{const v=JSON.parse(localStorage.getItem(VOTED));return (v&&typeof v==='object'&&!Array.isArray(v))?v:{}}catch(e){return{}}}
-function seed(){return[
-{id:1,type:'video',name:'Anh Tuấn',skill:'Guitar',price:'150k/buổi',title:'Guitar đệm hát cơ bản — buổi 1 miễn phí',body:'Đệm được 10 bài tủ sau 4 buổi. Tối 2-4-6 rảnh, học online qua call.',media:'https://www.w3schools.com/html/mov_bbb.mp4',regs:['Hương','Nam'],likes:24,ts:Date.now()-36e5},
-{id:2,type:'image',name:'Chị Lan',skill:'Excel',price:'',title:'Excel cho dân văn phòng: 5 hàm xử lý 80% việc',body:'VLOOKUP, XLOOKUP, SUMIFS, IF lồng, PivotTable. Kèm file thực hành, học 1-1 hoặc nhóm 3.',media:'https://picsum.photos/seed/excel/640/360',regs:['Bình','Hương','Tú','Nam','Lan'],likes:41,ts:Date.now()-72e5},
-{id:3,type:'text',name:'Minh',skill:'Tiếng Anh',price:'99k/buổi',title:'Tiếng Anh giao tiếp cho người mất gốc',body:'Mình từng mất gốc, tự học lên 7.0 IELTS speaking. Chia sẻ đúng lộ trình mình đã đi, không lý thuyết suông. Nhắn mình để học thử free 15 phút.',regs:['Tú'],likes:12,ts:Date.now()-108e5},
-{id:4,type:'poll',name:'Learn Online',skill:'Cộng đồng',price:'',title:'Bạn muốn học kỹ năng nào tiếp theo?',options:[{t:'Nấu ăn',v:18},{t:'Guitar',v:25},{t:'Excel',v:14},{t:'Tiếng Anh',v:31}],likes:8,ts:Date.now()-144e5}
-]}
-let _l=load();let posts=(_l||seed()).map(cleanPost).filter(Boolean);try{if(localStorage.getItem(LS)===null)save(posts)}catch(e){}
+let _l=load();let posts=(_l||[]).map(cleanPost).filter(Boolean);try{if(localStorage.getItem(LS)===null)save(posts)}catch(e){}
 try{const _h=document.querySelector('header');if(_h&&_h.offsetHeight)document.documentElement.style.setProperty('--bar-top',(_h.offsetHeight+6)+'px')}catch(e){}
 function ago(ts){ts=Number(ts);if(!Number.isFinite(ts))return'không rõ thời gian';const m=Math.floor((Date.now()-ts)/6e4);if(m<1)return'vừa xong';if(m<60)return m+' phút trước';const h=Math.floor(m/60);if(h<24)return h+' giờ trước';return Math.floor(h/24)+' ngày trước'}
 function toast(m){const t=$('toast');if(!t)return;t.innerHTML='';const s=document.createElement('span');s.textContent=String(m??'');t.appendChild(s);const b=document.createElement('button');b.textContent='✕';b.setAttribute('aria-label','Đóng thông báo');b.style.cssText='margin-left:10px;background:none;border:0;color:#fff;font-size:14px;cursor:pointer;min-width:44px;min-height:44px';b.onclick=()=>t.classList.remove('show');t.appendChild(b);t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),3500)}
@@ -210,7 +204,7 @@ const list=posts
 if(mode==='random'){for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]]}}else list.sort(mode==='liked'?byLike:mode==='regs'?byRegs:byDate);
 const ok=posts.filter(p=>p&&typeof p==='object'), teachers=new Set(ok.map(p=>p.name).filter(Boolean)).size, regs=ok.reduce((a,p)=>a+(Array.isArray(p.regs)?p.regs.length:0),0);
 const st=$('stats');if(st)st.textContent=`📚 ${ok.length} lớp · 👩‍🏫 ${teachers} người dạy · 📝 ${regs} lượt đăng ký`;
-$('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):'<div class="card">Không tìm thấy bài nào.</div>';
+$('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):(posts.length?'<div class="card">Không tìm thấy bài nào.</div>':'<div class="card"><h2 class="post-title">Chợ còn trống 🎉</h2><p class="post-body">Chưa có ai đăng lớp. Hãy là người đầu tiên chia sẻ kỹ năng của bạn ở form phía trên!</p></div>');
 if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
 }catch(e){$('feed').innerHTML='<div class="card">Có lỗi hiển thị feed. Thử tải lại trang.</div>';}
 }
