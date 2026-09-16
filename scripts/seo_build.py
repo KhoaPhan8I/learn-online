@@ -472,9 +472,10 @@ def main():
         missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages if p not in noindex] if u not in cur]
         stale = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in noindex] if u in cur]
         llms = ROOT / "llms.txt"
-        llms_ok = llms.is_file() and all(
-            slugify(s["slug"]) in llms.read_text(encoding="utf-8")
-            for s in load_seed()["skills"])
+        llms_txt = llms.read_text(encoding="utf-8") if llms.is_file() else ""
+        llms_ok = bool(llms_txt) and all(
+            slugify(s["slug"]) in llms_txt
+            for s in load_seed()["skills"]) and "Chợ tuần" in llms_txt
         covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
                         for s in load_seed()["skills"])
         if bad or missing or stale or not llms_ok or not covers_ok:

@@ -199,3 +199,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-plan-v14 | 🩺 Audit 77→78 (Ads 2→3: verdict an got gom expired + cap 3x) | 271 |
 | launch-v20 | ✨ Banner Co gi moi len r272 (chum audit 78) | 272 |
 | ai-seo-v4 | 📝 llms.txt dong bo bonus stack Ghim (AI citation chot tien) | 273 |
+| devops-v3 | 🛡️ Guard check llms bonus-stack (negative-test STALE + restore) | 274 |
