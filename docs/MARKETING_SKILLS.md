@@ -120,3 +120,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | competitor-v4 | VERIFY gia Kyna 51k-990k (render JS); Edumall chan ca browser | 192 |
 | marketing-plan-v11 | Cham lai audit: 75-76 (Competitor 4-5) | 193 |
 | offers-v2 | 🎁 Bonus stack Ghim: Cho tuan + video + adcopy + hoan tien | 194 |
+| ads-v2 | 📢 Verdict chay/kill ads tu doanh thu Ghim that (kill rule) | 195 |
