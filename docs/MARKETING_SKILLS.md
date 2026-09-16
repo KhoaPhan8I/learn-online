@@ -267,3 +267,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | ad-creative-v2 | 📢 Adcopy chen badge Ghim Noi Bat (quang cao co proof) | 339 |
 | launch-v42 | ✨ Banner Co gi moi len r340 (chum quang cao khoe Ghim) | 340 |
 | deploy-check-v24 | 🌐 Verify live r340: banner Quang cao khoe Ghim + TEST OK 391 (deploy dong bo) | 341 |
+| video-v2 | 🎬 Kich ban video chen badge Noi Bat (mentor tu quay co proof) | 342 |
