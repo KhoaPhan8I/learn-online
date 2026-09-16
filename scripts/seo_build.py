@@ -409,7 +409,7 @@ def write_llms(seed):
         lines.append(f"- [{m['name']}]({SITE}/giao-vien/{slugify(m['name'])}/): "
                      f"{', '.join(m.get('skills', []))}. {m.get('bio', '')}".rstrip())
     lines += ["", "## Chính sách",
-              "- Ghim Nổi Bật: 29.000 VND / 7 ngày, liên hệ admin kích hoạt (duyệt 24h, không duyệt hoàn tiền). Kèm theo không thêm tiền: ưu tiên lên Chợ tuần + kịch bản video 60s + mẫu quảng cáo.",
+              "- Ghim Nổi Bật: 29.000 VND / 7 ngày — có học viên đầu tiên trong 7 ngày (kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm). Duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Bonus đóng đúng lo: Chợ tuần + kịch bản video 60s + mẫu quảng cáo.",
               "", "## Trang",
               f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày.",
               f"- [Báo chí / Press kit]({SITE}/bao-chi/): câu chuyện + số liệu.",
@@ -493,7 +493,7 @@ def main():
         llms_txt = llms.read_text(encoding="utf-8") if llms.is_file() else ""
         llms_ok = bool(llms_txt) and all(
             slugify(s["slug"]) in llms_txt
-            for s in load_seed()["skills"]) and "Chợ tuần" in llms_txt
+            for s in load_seed()["skills"]) and "Chợ tuần" in llms_txt and "học viên đầu tiên" in llms_txt
         covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
                         for s in load_seed()["skills"])
         covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
