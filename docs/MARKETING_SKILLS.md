@@ -207,3 +207,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v6 | 🌐 Verify live r278: banner Bao chi dung offer + ROUND 278 (deploy dong bo) | 279 |
 | refactor-v7 | 🧹 Sweep: 365 defs, 0 dup that, 0 orphan + helper moi co test cover | 280 |
 | refactor-v8 | 🧹 Dialog kich hoat Ghim dung GHIM_PRICE (gia 1 nguon toi admin) | 281 |
+| offers-v5 | 🎁 Toast kich hoat nhac bonus kem theo (mentor dung ngay launch kit) | 282 |
