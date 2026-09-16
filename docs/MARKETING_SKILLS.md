@@ -91,6 +91,7 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | analytics-v2 | Stats dem review + sao TB (proof len so lieu) | 169 |
 | ab-v2 | Hero test co hypothesis 1 bien (Test One Thing) | 170 |
 | wrap-v2 | Tong ket ca nhan them review + sao (khoe proof) | 172 |
+| profile-v2 | Ho so mentor hien review + loi khen moi nhat | 173 |
 | marketing-plan-v4 | Cham lai audit: 68-69 (Content 4-5) | 171 |
 | reviews-v1 | Hoi review 1 cau sau hoc xong + treo tren card | 159 |
 | reviews-v2 | Fix cleanPost giu reviews qua reload (whitelist) | 160 |
