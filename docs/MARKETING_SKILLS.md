@@ -162,3 +162,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | analytics-v4 | 📊 Dashboard nhac don Ghim tre SLA (tien khong ngam) | 235 |
 | launch-v14 | ✨ Banner Co gi moi len r236 (chum tien ve) | 236 |
 | deploy-check-v2 | 🌐 Verify live r236: banner + isBoosted + SLA (deploy dong bo) | 237 |
+| marketing-plan-v13 | 🩺 Audit giu 77/85 (Ads 2 tran budget 0, I18n 0 dung stage) | 238 |
