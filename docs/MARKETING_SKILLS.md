@@ -141,3 +141,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | seo-v3 | 🚫 Mentor mau noindex + ra khoi sitemap (khong index rac) | 213 |
 | sales-pages-v5 | 🎁 Trang gia/ dong bo bonus stack r194 (offer nhat quan) | 214 |
 | launch-v8 | ✨ Banner Co gi moi len r215 (khong stale) | 215 |
+| deploy-check-v1 | 🌐 Verify live: home r215 + gia/ bonus + OG (deploy dong bo) | 216 |
