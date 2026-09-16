@@ -204,3 +204,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | image-v3 | 🖼️ Cover chinh ve lai co dau + gia Ghim (mat tien FB/Zalo) | 276 |
 | public-relations-v3 | 📰 Press kit dong bo bonus stack (bao chi viet dung offer) | 277 |
 | launch-v21 | ✨ Banner Co gi moi len r278 (chum ha tang offer) | 278 |
+| deploy-check-v6 | 🌐 Verify live r278: banner Bao chi dung offer + ROUND 278 (deploy dong bo) | 279 |
