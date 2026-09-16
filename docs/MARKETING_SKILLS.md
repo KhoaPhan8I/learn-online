@@ -134,3 +134,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | ai-seo-v3 | 📝 llms.txt co dau day du + hoan tien Ghim (AI citation sach) | 206 |
 | public-relations-v2 | 📰 Press kit co dau day du (uy tin bao chi) | 207 |
 | site-arch-v4 | 🦶 Footer mesh co dau + SITE_FOOT chung (sua 1 cho) | 208 |
+| sales-pages-v4 | 💰 Trang gia/ co dau + so-sanh re-verify 18/9 (chot tien sach) | 209 |
