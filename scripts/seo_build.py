@@ -288,6 +288,7 @@ USECASE_TMPL = """<!DOCTYPE html>
 <li>Để lại cách liên hệ để học viên nhắn tin</li>
 <li>Bấm đăng bài, copy link chia sẻ — mỗi người mở link +2 điểm</li>
 </ol>
+<p>Muốn có học viên đầu tiên trong 7 ngày? <a href="{site}/gia/">Ghim 29k/7 ngày</a>: lên kệ Nổi Bật + badge đếm ngược, duyệt 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp.</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day">Mở lớp đầu tiên ngay</a></p>
 <h2>Khóa học gợi ý</h2>
 <ul>
