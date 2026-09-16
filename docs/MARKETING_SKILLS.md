@@ -99,3 +99,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | reviews-v4 | Sao 1-5 + AggregateRating JSON-LD tu so that | 162 |
 | reviews-v5 | Card hien sao review (starStr) | 163 |
 | sales-v4 | Pitch chen review tot nhat (proof ban hang) | 164 |
+| positioning-v3 | About-proof hien review + sao TB (proof trang chu) | 174 |
