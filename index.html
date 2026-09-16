@@ -444,7 +444,6 @@ if(mode==='random'){const sh=shuffleIds(list.map(p=>numId(p.id)));const byId={};
 const st=$('stats');if(st)st.innerHTML=statsHtml();
 const fc=$('feed-count');if(fc){const total=posts.filter(p=>p&&typeof p==='object').length;const pc=total?Math.round(list.length/total*100):0;fc.textContent=list.length?list.length+' bài · '+pc+'% chợ':''};
 liveTicker();renderChips();renderBoost();renderTop();renderLeaders();try{renderAboutProof()}catch(e){}try{renderLdRating()}catch(e){}renderSched();renderHot();renderProspects();renderWhatsnew();renderFilterCounts();renderSortCounts();renderTypeCounts();renderFavBtn();renderOnboard();remind();
-function renderEmptyInto(){return emptyHtml((($('q')||{}).value||'').trim())}
 $('feed').innerHTML=list.length?list.map(p=>{try{return card(p)}catch(e){return ''}}).join(''):emptyHtml(kw);
 if(act){try{const el=$(act);if(el&&el.focus)el.focus({preventScroll:true})}catch(e){}}
 }catch(e){$('feed').innerHTML='<div class="card">Có lỗi hiển thị feed. Thử tải lại trang.</div>';}

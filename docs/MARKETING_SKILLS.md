@@ -152,3 +152,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v10 | ✨ Banner Co gi moi len r225 (chum ha tang + Ghim) | 225 |
 | offers-v3 | ✅ isBoosted(): badge + sort + upsell ton trong han Ghim (khong hien qua date) | 226 |
 | refactor-v3 | 🔍 Sweep trung lap: 254 ham duy nhat, 0 def thua (sheet/vote dung) | 227 |
+| refactor-v4 | 🧹 Xoa ham chet renderEmptyInto: 253 ham, 0 orphan | 228 |
