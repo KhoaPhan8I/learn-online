@@ -161,3 +161,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v13 | ✨ Banner Co gi moi len r234 (chum tien + du lieu) | 234 |
 | analytics-v4 | 📊 Dashboard nhac don Ghim tre SLA (tien khong ngam) | 235 |
 | launch-v14 | ✨ Banner Co gi moi len r236 (chum tien ve) | 236 |
+| deploy-check-v2 | 🌐 Verify live r236: banner + isBoosted + SLA (deploy dong bo) | 237 |
