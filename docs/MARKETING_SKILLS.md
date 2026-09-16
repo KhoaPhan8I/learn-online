@@ -138,3 +138,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | content-v6 | 📖 2 trang use-case co dau day du (2 chieu hoc-day) | 210 |
 | copy-edit-v3 | 🔍 Sweep 12 trang tinh: sach dau (1 hit dung chinh ta) | 211 |
 | launch-v7 | ✨ Banner Co gi moi len r212 (chum co dau) | 212 |
+| seo-v3 | 🚫 Mentor mau noindex + ra khoi sitemap (khong index rac) | 213 |

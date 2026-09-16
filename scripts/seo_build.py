@@ -58,6 +58,7 @@ MENTOR_TMPL = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{robots}
 <title>{name} — mentor {skills} | Learn Online</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{url}">
@@ -143,7 +144,10 @@ def render_mentor(mentor, all_skills):
     mine = {s.strip().lower() for s in mentor.get("skills", [])}
     rel = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
            for s in all_skills if s["name"].strip().lower() in mine][:3]
+    sample = 'mẫu' in mentor.get('bio', '').lower() or 'mẫu' in mentor.get('name', '').lower()
+    robots = '<meta name="robots" content="noindex, follow">' if sample else '<meta name="robots" content="index, follow">'
     return f"giao-vien/{slug}/index.html", MENTOR_TMPL.format(
+        robots=robots,
         name=html.escape(mentor["name"]), skills=html.escape(skills),
         desc=html.escape(desc), contact=html.escape(mentor.get("contact", "xem trong bài")),
         url=url, site=SITE, slug=slug, related=related_links(rel), foot=SITE_FOOT)
@@ -348,12 +352,15 @@ def render_hub(path, title, desc, crumb, items):
 def build():
     seed = load_seed()
     pages = {}
+    noindex = set()
     for skill in seed["skills"]:
         p, h = render_course(skill, seed["skills"])
         pages[p] = h
     for mentor in seed["mentors"]:
         p, h = render_mentor(mentor, seed["skills"])
         pages[p] = h
+        if 'noindex' in h.split('</head>')[0]:
+            noindex.add(p)
     course_items = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/") for s in seed["skills"]]
     mentor_items = [(m["name"], f"{SITE}/giao-vien/{slugify(m['name'])}/") for m in seed["mentors"]]
     p, h = render_hub("khoa-hoc/index.html", "Khóa học online",
@@ -387,7 +394,7 @@ def build():
         site=SITE, url=f"{SITE}/bao-chi/",
         nskills=len(seed["skills"]), nmentors=len(seed["mentors"]),
         related=related_links(press_rel), foot=SITE_FOOT)
-    return pages
+    return pages, noindex
 
 
 def write_llms(seed):
@@ -435,16 +442,18 @@ def write_og_covers(seed):
     return out
 
 
-def write_sitemap(pages):
+def write_sitemap(pages, noindex=None):
     import datetime
     today = datetime.date.today().isoformat()
+    noindex = noindex or set()
     def prio(u):
         if u == f"{SITE}/":
             return ("daily", "1.0")
         if "/khoa-hoc/" in u or "/giao-vien/" in u:
             return ("weekly", "0.8")
         return ("monthly", "0.6")
-    urls = [f"{SITE}/"] + sorted(f"{SITE}/{p.replace('index.html', '')}" for p in pages)
+    urls = [f"{SITE}/"] + sorted(f"{SITE}/{p.replace('index.html', '')}" for p in pages
+                                if p not in noindex)
     body = "\n".join(
         (lambda cf_pr: f"<url><loc>{u}</loc><lastmod>{today}</lastmod>"
          f"<changefreq>{cf_pr[0]}</changefreq><priority>{cf_pr[1]}</priority></url>")(prio(u))
@@ -456,19 +465,21 @@ def write_sitemap(pages):
 
 def main():
     check = "--check" in sys.argv
-    pages = build()
+    pages, noindex = build()
     if check:
         bad = [p for p in pages if not (ROOT / p).is_file()]
         cur = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
-        missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages] if u not in cur]
+        missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages if p not in noindex] if u not in cur]
+        stale = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in noindex] if u in cur]
         llms = ROOT / "llms.txt"
         llms_ok = llms.is_file() and all(
             slugify(s["slug"]) in llms.read_text(encoding="utf-8")
             for s in load_seed()["skills"])
         covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
                         for s in load_seed()["skills"])
-        if bad or missing or not llms_ok or not covers_ok:
+        if bad or missing or stale or not llms_ok or not covers_ok:
             print("STALE:", len(bad), "files missing,", len(missing), "urls missing from sitemap,",
+                  len(stale), "noindex urls leaked in sitemap,",
                   "llms.txt missing" if not llms_ok else "llms.txt ok,",
                   "og covers missing" if not covers_ok else "og covers ok")
             return 1
@@ -478,7 +489,7 @@ def main():
         dest = ROOT / p
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(h, encoding="utf-8")
-    (ROOT / "sitemap.xml").write_text(write_sitemap(pages), encoding="utf-8")
+    (ROOT / "sitemap.xml").write_text(write_sitemap(pages, noindex), encoding="utf-8")
     (ROOT / "llms.txt").write_text(write_llms(load_seed()), encoding="utf-8")
     covers = write_og_covers(load_seed())
     print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt + {len(covers)} og covers)")
