@@ -224,3 +224,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v9 | 🌐 Verify live r295: banner Hoan tien co hen + TEST OK 385 (deploy dong bo ngay) | 296 |
 | offers-v8 | ⏳ Badge Noi Bat dem nguoc that tu boostUntil (urgency that, khong gia) | 297 |
 | launch-v27 | ✨ Banner Co gi moi len r298 (chum urgency that) | 298 |
+| deploy-check-v10 | 🌐 Verify live r298: banner Dem nguoc + TEST OK 386 (deploy dong bo ngay) | 299 |
