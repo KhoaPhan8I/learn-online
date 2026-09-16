@@ -15,6 +15,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "seo-seed.json"
 SITE = "https://khoaphan8i.github.io/learn-online"
+SITE_FOOT = ('<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chủ</a> - '
+             '<a href="https://khoaphan8i.github.io/learn-online/gia/">Bảng giá</a> - '
+             '<a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Báo chí</a> - '
+             '<a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho người mới dạy</a> - '
+             '<a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cách tìm lớp</a> - '
+             '<a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sánh trung tâm</a></nav></footer>')
 
 COURSE_TMPL = """<!DOCTYPE html>
 <html lang="vi">
@@ -42,7 +48,7 @@ COURSE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -75,7 +81,7 @@ MENTOR_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -96,7 +102,7 @@ HUB_TMPL = """<!DOCTYPE html>
 <ul>
 {links}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -125,7 +131,7 @@ def render_course(skill, all_skills):
               for s in all_skills if slugify(s["slug"]) != slug][:3]
     return f"khoa-hoc/{slug}/index.html", COURSE_TMPL.format(
         title=html.escape(title), desc=html.escape(desc),
-        url=url, site=SITE, slug=slug, related=related_links(others)).replace(
+        url=url, site=SITE, slug=slug, related=related_links(others), foot=SITE_FOOT).replace(
         f"{SITE}/og-cover.png", f"{SITE}/og-{slug}.png")
 
 
@@ -140,7 +146,7 @@ def render_mentor(mentor, all_skills):
     return f"giao-vien/{slug}/index.html", MENTOR_TMPL.format(
         name=html.escape(mentor["name"]), skills=html.escape(skills),
         desc=html.escape(desc), contact=html.escape(mentor.get("contact", "xem trong bài")),
-        url=url, site=SITE, slug=slug, related=related_links(rel))
+        url=url, site=SITE, slug=slug, related=related_links(rel), foot=SITE_FOOT)
 
 
 COMPARE_TMPL = """<!DOCTYPE html>
@@ -182,7 +188,7 @@ COMPARE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -218,7 +224,7 @@ PRICE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -250,7 +256,7 @@ LEARNER_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -283,7 +289,7 @@ USECASE_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -326,7 +332,7 @@ PRESS_TMPL = """<!DOCTYPE html>
 <ul>
 {related}
 </ul>
-<footer><nav aria-label="Trang"><a href="https://khoaphan8i.github.io/learn-online/">Trang chu</a> - <a href="https://khoaphan8i.github.io/learn-online/gia/">Bang gia</a> - <a href="https://khoaphan8i.github.io/learn-online/bao-chi/">Bao chi</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/">Cho nguoi moi day</a> - <a href="https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/">Cach tim lop</a> - <a href="https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/">So sanh trung tam</a></nav></footer>
+{foot}
 </body>
 </html>
 """
@@ -336,7 +342,7 @@ def render_hub(path, title, desc, crumb, items):
     links = "\n".join(f'<li><a href="{u}">{html.escape(t)}</a></li>' for t, u in items)
     return path, HUB_TMPL.format(title=html.escape(title), desc=html.escape(desc),
                                  url=f"{SITE}/{path.replace('index.html', '')}",
-                                 site=SITE, crumb=crumb, links=links)
+                                 site=SITE, crumb=crumb, links=links, foot=SITE_FOOT)
 
 
 def build():
@@ -363,24 +369,24 @@ def build():
     pages["so-sanh/trung-tam/index.html"] = COMPARE_TMPL.format(
         title="Học ở trung tâm hay dạy trên Learn Online?",
         desc="So sánh trung thực: trung tâm truyền thống vs nền tảng chia sẻ khóa học Learn Online — chi phí, học phí, ai dạy được.",
-        url=f"{SITE}/so-sanh/trung-tam/", site=SITE, related=related_links(rel))
+        url=f"{SITE}/so-sanh/trung-tam/", site=SITE, related=related_links(rel), foot=SITE_FOOT)
     usecase = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
                for s in seed["skills"]][:3]
     pages["gia/index.html"] = PRICE_TMPL.format(
         site=SITE, url=f"{SITE}/gia/",
-        related=related_links(rel))
+        related=related_links(rel), foot=SITE_FOOT)
     pages["cho-nguoi-hoc/index.html"] = LEARNER_TMPL.format(
         site=SITE, url=f"{SITE}/cho-nguoi-hoc/",
-        related=related_links(usecase))
+        related=related_links(usecase), foot=SITE_FOOT)
     pages["cho-nguoi-moi-day/index.html"] = USECASE_TMPL.format(
         site=SITE, url=f"{SITE}/cho-nguoi-moi-day/",
-        related=related_links(usecase))
+        related=related_links(usecase), foot=SITE_FOOT)
     press_rel = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
                  for s in seed["skills"]][:3]
     pages["bao-chi/index.html"] = PRESS_TMPL.format(
         site=SITE, url=f"{SITE}/bao-chi/",
         nskills=len(seed["skills"]), nmentors=len(seed["mentors"]),
-        related=related_links(press_rel))
+        related=related_links(press_rel), foot=SITE_FOOT)
     return pages
 
 
