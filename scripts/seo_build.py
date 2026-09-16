@@ -297,32 +297,32 @@ PRESS_TMPL = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Press kit — Learn Online | Learn Online</title>
-<meta name="description" content="Press kit Learn Online: cau chuyen, so lieu, logo va anh. Nen tang chia se khoa hoc — ai cung day duoc.">
+<meta name="description" content="Press kit Learn Online: câu chuyện, số liệu, logo và ảnh. Nền tảng chia sẻ khóa học — ai cũng dạy được.">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{site}/og-cover.png">
 </head>
 <body>
-<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Bao chi</nav>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Báo chí</nav>
 <h1>Press kit — Learn Online</h1>
-<p>Learn Online la cho ky nang sharing online: ai cung day duoc, ai cung hoc duoc. Dang bai mien phi, hoc phi do mentor tu dat.</p>
-<h2>Cau chuyen (1 doan)</h2>
-<p>Hoc them ky nang moi o Viet Nam van dong nghia voi dong hoc phi cao cho trung tam. Learn Online dao nguoc mo hinh: bat cu ai gioi mot ky nang deu mo lop trong 1 phut, tu dat hoc phi, tu tim hoc vien bang link chia se. Hien co {nskills} nhom ky nang va {nmentors} mentor khoi dau.</p>
-<h2>So lieu nhanh</h2>
+<p>Learn Online là chợ kỹ năng sharing online: ai cũng dạy được, ai cũng học được. Đăng bài miễn phí, học phí do mentor tự đặt.</p>
+<h2>Câu chuyện (1 đoạn)</h2>
+<p>Học thêm kỹ năng mới ở Việt Nam vẫn đồng nghĩa với đóng học phí cao cho trung tâm. Learn Online đảo ngược mô hình: bất cứ ai giỏi một kỹ năng đều mở lớp trong 1 phút, tự đặt học phí, tự tìm học viên bằng link chia sẻ. Hiện có {nskills} nhóm kỹ năng và {nmentors} mentor khởi đầu.</p>
+<h2>Số liệu nhanh</h2>
 <ul>
-<li>{nskills} nhom ky nang</li>
+<li>{nskills} nhóm kỹ năng</li>
 <li>{nmentors} mentor</li>
-<li>Dang bai mien phi; Ghim Noi Bat 29.000d / 7 ngay</li>
+<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày (duyệt 24h, không duyệt hoàn tiền)</li>
 </ul>
 <h2>Asset</h2>
 <ul>
 <li><a href="{site}/og-cover.png">Logo/cover 1200x630 (PNG)</a></li>
-<li><a href="{site}/sitemap.xml">Sitemap day du</a></li>
-<li><a href="{site}/llms.txt">Tom tat AI-readable (llms.txt)</a></li>
+<li><a href="{site}/sitemap.xml">Sitemap đầy đủ</a></li>
+<li><a href="{site}/llms.txt">Tóm tắt AI-readable (llms.txt)</a></li>
 </ul>
-<p>Lien he bao chi: xem thong tin tren trang chu {site}/</p>
-<h2>Khoa hoc</h2>
+<p>Liên hệ báo chí: xem thông tin trên trang chủ {site}/</p>
+<h2>Khóa học</h2>
 <ul>
 {related}
 </ul>
