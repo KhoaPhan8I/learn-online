@@ -187,3 +187,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops-v11 | ⏳ Don Ghim het 7 ngay tu expired (pipeline/conv khong ao) | 259 |
 | revops-v12 | 💰 Doanh thu giu don expired + conv dem ca expired (tien da thu khong mat) | 260 |
 | revops-v13 | 💰 Dashboard hien don da chay xong rieng (so tien khop so don) | 261 |
+| paywalls-v3 | 📌 Upsell nhac don Ghim cu da xong (chot don lap lai) | 262 |
