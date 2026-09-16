@@ -409,7 +409,7 @@ def write_llms(seed):
         lines.append(f"- [{m['name']}]({SITE}/giao-vien/{slugify(m['name'])}/): "
                      f"{', '.join(m.get('skills', []))}. {m.get('bio', '')}".rstrip())
     lines += ["", "## Chính sách",
-              "- Ghim Nổi Bật: 29.000 VND / 7 ngày, liên hệ admin kích hoạt (duyệt 24h, không duyệt hoàn tiền).",
+              "- Ghim Nổi Bật: 29.000 VND / 7 ngày, liên hệ admin kích hoạt (duyệt 24h, không duyệt hoàn tiền). Kèm theo không thêm tiền: ưu tiên lên Chợ tuần + kịch bản video 60s + mẫu quảng cáo.",
               "", "## Trang",
               f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày.",
               f"- [Báo chí / Press kit]({SITE}/bao-chi/): câu chuyện + số liệu.",
