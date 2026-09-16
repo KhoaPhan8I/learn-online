@@ -163,3 +163,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v14 | ✨ Banner Co gi moi len r236 (chum tien ve) | 236 |
 | deploy-check-v2 | 🌐 Verify live r236: banner + isBoosted + SLA (deploy dong bo) | 237 |
 | marketing-plan-v13 | 🩺 Audit giu 77/85 (Ads 2 tran budget 0, I18n 0 dung stage) | 238 |
+| marketing-psychology-v2 | 🎉 Empty-state kem proof thu nhap Ghim (moi lop dau) | 239 |
