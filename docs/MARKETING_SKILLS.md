@@ -114,3 +114,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | emails-v5 | Sent-log: biet email nao da gui khi nao (CRM-lite) | 186 |
 | churn-v3 | Luu STK co Hoan tac (bao ve tien thu Ghim) | 187 |
 | sms-v3 | Sent-log SMS: biet lan truoc nhan khi nao (chong spam) | 188 |
+| analytics-v3 | Dashboard nhac gui email/SMS khi co list chua cham (action) | 189 |
