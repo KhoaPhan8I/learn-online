@@ -237,3 +237,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | prospecting-v2 | 🎯 Tin moi day kem outcome Ghim 7 ngay (dong bo value-equation) | 309 |
 | launch-v31 | ✨ Banner Co gi moi len r310 (chum outcome moi cham) | 310 |
 | deploy-check-v14 | 🌐 Verify live r310: banner Moi day kem Ghim + TEST OK 388 (deploy dong bo ngay) | 311 |
+| sales-pages-v6 | 💰 Trang gia/ dong bo outcome + guarantee + dem nguoc (chot tien sach) | 312 |
