@@ -170,3 +170,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | cold-email-v3 | ✉️ Tin nhac lan 1 kem proof Ghim, chao cuoi giu sach (khong gay ap luc) | 243 |
 | marketing-ideas-v2 | 🎁 Tong ket cua toi kem proof thu nhap Ghim ca san (khoe co proof) | 244 |
 | launch-v16 | ✨ Banner Co gi moi len r244 (chum proof that xuyen suốt) | 244 |
+| offers-v4 | 💰 Sheet Ghim kem proof doanh thu that (chot tien co proof) | 245 |
