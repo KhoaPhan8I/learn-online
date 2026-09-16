@@ -128,3 +128,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | referrals-v2 | 🎯 Tin moi day kem proof thu nhap Ghim that (social proof) | 200 |
 | revops-v8 | 📄 don-ghim.csv them cot kenh (data kenh khong ket) | 201 |
 | launch-v4 | ✨ Banner Co gi moi tu r88 len r202 (khong stale) | 202 |
+| revops-v9 | 💳 Nhac cau hinh STK ngay trong sheet Ghim (tien ve dung cho) | 203 |
