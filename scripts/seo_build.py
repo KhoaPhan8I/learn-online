@@ -323,7 +323,7 @@ PRESS_TMPL = """<!DOCTYPE html>
 <ul>
 <li>{nskills} nhóm kỹ năng</li>
 <li>{nmentors} mentor</li>
-<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày (duyệt 24h, không duyệt hoàn tiền)</li>
+<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày (duyệt 24h, không duyệt hoàn tiền; kèm Chợ tuần + kịch bản video + mẫu quảng cáo)</li>
 </ul>
 <h2>Asset</h2>
 <ul>
