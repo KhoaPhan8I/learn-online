@@ -147,3 +147,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v9 | ✨ Banner Co gi moi len r219 (chum viral loop) | 219 |
 | seo-audit-v2 | 🔗 Verify 12 trang: JSON-LD hop le + 0 link gay (UTM dung) | 220 |
 | aso-v2 | 📲 Verify PWA live: manifest + 2 icons + start_url UTM (cai duoc) | 221 |
+| devops-v2 | 🛡️ Guard local scripts/guard.cmd (CI remote doi workflow scope) | 223 |
