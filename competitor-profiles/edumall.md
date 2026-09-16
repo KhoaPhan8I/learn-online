@@ -1,6 +1,7 @@
-# Competitor: Edumall (edumall.vn) — 2026-09-16
+# Competitor: Edumall (edumall.vn) — 2026-09-16 (re-check 2026-09-17)
 
 > 2026-09-16: fetch edumall.vn timeout (curl 000, chặn bot) — giữ nguyên nhận định định tính, CHƯA verify giá.
+> 2026-09-17: fetch lại — SSL CERTIFICATE_VERIFY_FAILED (self-signed, chặn fetch). Vẫn CHƯA verify giá Edumall.
 
 ## Họ là ai
 - Siêu thị khóa học online VN: mô hình marketplace khóa đóng gói tương tự Unica.

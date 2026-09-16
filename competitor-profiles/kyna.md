@@ -1,6 +1,7 @@
-# Competitor: Kyna (kyna.vn) — 2026-09-16
+# Competitor: Kyna (kyna.vn) — 2026-09-16 (re-check 2026-09-17)
 
 > 2026-09-16: fetch kyna.vn + /khoa-hoc (HTTP 200 nhưng redirect về homepage SPA, không trích được giá) — giữ nguyên nhận định định tính, CHƯA verify giá.
+> 2026-09-17: fetch lại homepage + /khoa-hoc (HTTP 200, 190KB). Trang là SPA — giá duy nhất trích được là voucher Deltaxu 200.000đ, KHÔNG phải giá khóa học. Vẫn CHƯA verify giá khóa Kyna.
 
 ## Họ là ai
 - Nền tảng học online VN (người đi làm + trẻ em: Kyna English...), khóa học do Kyna tổ chức/kiểm soát chất lượng.
