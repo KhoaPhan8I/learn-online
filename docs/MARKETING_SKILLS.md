@@ -174,3 +174,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | copy-edit-v4 | ✍️ Prompt xin review co dau day du (tin nhan mentor chuyen nghiep) | 246 |
 | copy-edit-v5 | ✍️ Sheet Ghim + toast STK co dau day du (tien bac phai chuan) | 247 |
 | copy-edit-v6 | ✍️ Checklist lead-magnet + shareNews co dau (qua tang phai chuan) | 248 |
+| copy-edit-v7 | ✍️ Dong CK payLine co dau day du (2 nhanh co/khong STK) | 249 |
