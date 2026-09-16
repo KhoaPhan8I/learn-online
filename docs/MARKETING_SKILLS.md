@@ -107,3 +107,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-plan-v6 | Cham lai audit: 70-71 (Sales pages 4-5) | 179 |
 | marketing-plan-v7 | Cham lai audit: 71-72 (Conversion 4-5, CTA value-copy) | 180 |
 | onboarding-v2 | Endowed Progress: checklist mo o 1/4 (buoc Ghe cho pre-done) | 181 |
+| marketing-plan-v8 | Cham lai audit: 72-73 (Onboarding 4-5) | 182 |
