@@ -232,3 +232,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v29 | ✨ Banner Co gi moi len r304 (chum outcome-first) | 304 |
 | deploy-check-v12 | 🌐 Verify live r304: banner Ghim hua ket qua + TEST OK 388 (deploy dong bo ngay) | 305 |
 | ai-seo-v5 | 📝 llms dong bo outcome + guarantee + guard siet (AI citation chot tien) | 306 |
+| launch-v30 | ✨ Banner Co gi moi len r307 (chum AI doc dung offer) | 307 |
