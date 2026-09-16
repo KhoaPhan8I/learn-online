@@ -228,3 +228,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-plan-v15 | 🩺 Audit giu 78/85 (Pricing mo ta chum offer r291/294/297, khong tang diem ao) | 300 |
 | launch-v28 | ✨ Banner Co gi moi len r301 (chum audit trung thuc) | 301 |
 | deploy-check-v11 | 🌐 Verify live r301: banner Audit giu 78 + TEST OK 387 (deploy dong bo) | 302 |
+| offers-v9 | 🎯 Sheet Ghim outcome-first: Co hoc vien dau tien trong 7 ngay (value-equation) | 303 |
