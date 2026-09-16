@@ -266,3 +266,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v23 | 🌐 Verify live r337: banner Cho tuan co proof + TEST OK 390 (deploy dong bo) | 338 |
 | ad-creative-v2 | 📢 Adcopy chen badge Ghim Noi Bat (quang cao co proof) | 339 |
 | launch-v42 | ✨ Banner Co gi moi len r340 (chum quang cao khoe Ghim) | 340 |
+| deploy-check-v24 | 🌐 Verify live r340: banner Quang cao khoe Ghim + TEST OK 391 (deploy dong bo) | 341 |
