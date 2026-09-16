@@ -159,3 +159,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | churn-v5 | 💾 Backup ly do xoa (22 keys, doi may khong mat context) | 232 |
 | revops-v10 | 📅 Doanh thu thang dang T9/26 (doc hieu ngay) | 233 |
 | launch-v13 | ✨ Banner Co gi moi len r234 (chum tien + du lieu) | 234 |
+| analytics-v4 | 📊 Dashboard nhac don Ghim tre SLA (tien khong ngam) | 235 |
