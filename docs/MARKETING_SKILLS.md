@@ -165,3 +165,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-plan-v13 | 🩺 Audit giu 77/85 (Ads 2 tran budget 0, I18n 0 dung stage) | 238 |
 | marketing-psychology-v2 | 🎉 Empty-state kem proof thu nhap Ghim (moi lop dau) | 239 |
 | launch-v15 | ✨ Banner Co gi moi len r240 (chum proof that) | 240 |
+| deploy-check-v3 | 🌐 Verify live r240: banner Mời lớp đầu + proof + ROUND 240 (deploy dong bo) | 241 |
