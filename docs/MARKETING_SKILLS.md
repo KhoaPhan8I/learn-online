@@ -103,3 +103,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | content-v5 | Cho tuan kem loi khen hay nhat tuan (viral proof) | 175 |
 | pricing-v2 | May tinh hoan von Ghim: may hoc vien la lai 29k | 176 |
 | marketing-plan-v5 | Cham lai audit: 69-70 (Pricing 4-5) | 177 |
+| sales-pages-v3 | Trang gia/ them tinh hoan von (chot tien co proof) | 178 |
