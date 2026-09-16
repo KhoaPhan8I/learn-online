@@ -255,3 +255,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | offers-v10 | ✅ Toast kich hoat outcome-first: badge dem nguoc + hoc vien dau tien | 327 |
 | launch-v38 | ✨ Banner Co gi moi len r328 (chum kich hoat hua dung) | 328 |
 | deploy-check-v20 | 🌐 Verify live r328: banner Kich hoat hua dung + TEST OK 388 (deploy dong bo) | 329 |
+| paywalls-v4 | 📌 Upsell 4 nhanh outcome-first: hoc vien trong 7 ngay (chot don dung cho) | 330 |
