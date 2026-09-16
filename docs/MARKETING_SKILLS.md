@@ -154,3 +154,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | refactor-v3 | 🔍 Sweep trung lap: 254 ham duy nhat, 0 def thua (sheet/vote dung) | 227 |
 | refactor-v4 | 🧹 Xoa ham chet renderEmptyInto: 253 ham, 0 orphan | 228 |
 | launch-v11 | ✨ Banner Co gi moi len r229 (chum code sach) | 229 |
+| churn-v4 | 📝 Exit survey 1 cau khi xoa + nudge dung ly do (save offer) | 230 |
