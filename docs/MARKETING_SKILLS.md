@@ -167,3 +167,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v15 | ✨ Banner Co gi moi len r240 (chum proof that) | 240 |
 | deploy-check-v3 | 🌐 Verify live r240: banner Mời lớp đầu + proof + ROUND 240 (deploy dong bo) | 241 |
 | co-marketing-v2 | 🤝 Tin moi day cheo kem proof thu nhap Ghim that (thuyet phuc doi tac) | 242 |
+| cold-email-v3 | ✉️ Tin nhac lan 1 kem proof Ghim, chao cuoi giu sach (khong gay ap luc) | 243 |
