@@ -145,3 +145,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | social-v3 | 🎓 Share milestone hoc xong: hoc vien khoe 1 cham (viral loop) | 217 |
 | social-v4 | 🎯 Chi bung share khi review 4-5 sao (khoe dung cho hay) | 218 |
 | launch-v9 | ✨ Banner Co gi moi len r219 (chum viral loop) | 219 |
+| seo-audit-v2 | 🔗 Verify 12 trang: JSON-LD hop le + 0 link gay (UTM dung) | 220 |
