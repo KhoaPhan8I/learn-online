@@ -242,3 +242,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v15 | 🌐 Verify live r313: banner Gia chot tien sach + TEST OK 388 (deploy dong bo ngay) | 314 |
 | emails-v7 | ✉️ Email Ghim dong bo outcome + guarantee cu the (offer nhat quan) | 315 |
 | launch-v33 | ✨ Banner Co gi moi len r316 (chum email hua dung) | 316 |
+| deploy-check-v16 | 🌐 Verify live r316: banner Email hua dung + TEST OK 388 (deploy dong bo ngay) | 317 |
