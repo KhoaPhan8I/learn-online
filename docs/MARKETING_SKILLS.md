@@ -186,3 +186,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v17 | ✨ Banner Co gi moi len r258 (chum ref khong rot) | 258 |
 | revops-v11 | ⏳ Don Ghim het 7 ngay tu expired (pipeline/conv khong ao) | 259 |
 | revops-v12 | 💰 Doanh thu giu don expired + conv dem ca expired (tien da thu khong mat) | 260 |
+| revops-v13 | 💰 Dashboard hien don da chay xong rieng (so tien khop so don) | 261 |
