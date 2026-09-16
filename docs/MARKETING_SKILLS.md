@@ -150,3 +150,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | devops-v2 | 🛡️ Guard local scripts/guard.cmd (CI remote doi workflow scope) | 223 |
 | refactor-v2 | 🧹 Xoa boostRows trung lap: ke Noi Bat het han tu an (khach khong thay do het date) | 224 |
 | launch-v10 | ✨ Banner Co gi moi len r225 (chum ha tang + Ghim) | 225 |
+| offers-v3 | ✅ isBoosted(): badge + sort + upsell ton trong han Ghim (khong hien qua date) | 226 |
