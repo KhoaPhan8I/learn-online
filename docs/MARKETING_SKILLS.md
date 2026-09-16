@@ -122,3 +122,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | offers-v2 | 🎁 Bonus stack Ghim: Cho tuan + video + adcopy + hoan tien | 194 |
 | ads-v2 | 📢 Verdict chay/kill ads tu doanh thu Ghim that (kill rule) | 195 |
 | marketing-plan-v12 | Cham lai audit: 76-77 (Ads 1-2, spend guard) | 196 |
+| revops-v7 | ⏱️ SLA duyet Ghim 24h: nhac don tre chot (chong leak tien) | 197 |
