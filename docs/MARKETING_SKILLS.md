@@ -220,3 +220,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v25 | ✨ Banner Co gi moi len r292 (chum offer dong lo) | 292 |
 | deploy-check-v8 | 🌐 Verify live r292: banner Bonus dong lo + TEST OK 384 (deploy dong bo) | 293 |
 | offers-v7 | 🛡️ Cam ket hoan tien cu the: qua 24h chua duyet hoan du 29k trong 24h tiep | 294 |
+| launch-v26 | ✨ Banner Co gi moi len r295 (chum cam ket + live) | 295 |
