@@ -192,3 +192,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | copy-edit-v8 | ✍️ Tin share ho so KOC co dau (mat mui KOC chuyen nghiep) | 264 |
 | copy-edit-v9 | ✍️ Loi CSV mentor co dau (admin nhap file doc hieu) | 265 |
 | onboarding-v3 | 🚀 Buoc Chia se kem proof Ghim (dong luc mo lop dau) | 266 |
+| refactor-v6 | 🧹 ghimRoi dung GHIM_PRICE constant (1 nguon su that tien) | 267 |
