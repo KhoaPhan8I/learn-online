@@ -210,3 +210,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | offers-v5 | 🎁 Toast kich hoat nhac bonus kem theo (mentor dung ngay launch kit) | 282 |
 | launch-v22 | 🚀 Launch kit buoc Ghim nhac bonus (offer trong tay mentor) | 283 |
 | launch-v23 | ✨ Banner Co gi moi len r284 (chum bonus moi cham) | 284 |
+| revops-v14 | ⏳ Sheet Ghim nudge don treo qua 24h (mentor biet doi admin) | 285 |
