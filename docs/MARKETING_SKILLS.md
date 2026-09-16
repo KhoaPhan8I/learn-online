@@ -158,3 +158,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v12 | ✨ Banner Co gi moi len r231 (chum giu mentor) | 231 |
 | churn-v5 | 💾 Backup ly do xoa (22 keys, doi may khong mat context) | 232 |
 | revops-v10 | 📅 Doanh thu thang dang T9/26 (doc hieu ngay) | 233 |
+| launch-v13 | ✨ Banner Co gi moi len r234 (chum tien + du lieu) | 234 |
