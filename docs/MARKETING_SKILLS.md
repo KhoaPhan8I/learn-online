@@ -213,3 +213,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops-v14 | ⏳ Sheet Ghim nudge don treo qua 24h (mentor biet doi admin) | 285 |
 | copy-edit-v10 | ✍️ Loi dang bai focus thang vao o sai (mentor khong mo) | 286 |
 | refactor-v9 | 🧹 Xoa window.reg cu de song: dang ky giu referral bonus + note (khong rot don) | 287 |
+| launch-v24 | ✨ Banner Co gi moi len r288 (chum giu don + sach code) | 288 |
