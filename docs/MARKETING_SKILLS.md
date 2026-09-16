@@ -166,3 +166,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | marketing-psychology-v2 | 🎉 Empty-state kem proof thu nhap Ghim (moi lop dau) | 239 |
 | launch-v15 | ✨ Banner Co gi moi len r240 (chum proof that) | 240 |
 | deploy-check-v3 | 🌐 Verify live r240: banner Mời lớp đầu + proof + ROUND 240 (deploy dong bo) | 241 |
+| co-marketing-v2 | 🤝 Tin moi day cheo kem proof thu nhap Ghim that (thuyet phuc doi tac) | 242 |
