@@ -230,3 +230,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v11 | 🌐 Verify live r301: banner Audit giu 78 + TEST OK 387 (deploy dong bo) | 302 |
 | offers-v9 | 🎯 Sheet Ghim outcome-first: Co hoc vien dau tien trong 7 ngay (value-equation) | 303 |
 | launch-v29 | ✨ Banner Co gi moi len r304 (chum outcome-first) | 304 |
+| deploy-check-v12 | 🌐 Verify live r304: banner Ghim hua ket qua + TEST OK 388 (deploy dong bo ngay) | 305 |
