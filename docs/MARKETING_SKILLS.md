@@ -117,3 +117,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | analytics-v3 | Dashboard nhac gui email/SMS khi co list chua cham (action) | 189 |
 | refactor-v1 | Xoa renderPayLine chet + savePay render lai sheet that | 190 |
 | marketing-plan-v10 | Cham lai audit: 74-75 (Email 4-5) | 191 |
+| competitor-v4 | VERIFY gia Kyna 51k-990k (render JS); Edumall chan ca browser | 192 |

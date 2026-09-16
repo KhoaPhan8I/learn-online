@@ -2,6 +2,7 @@
 
 > 2026-09-16: fetch kyna.vn + /khoa-hoc (HTTP 200 nhưng redirect về homepage SPA, không trích được giá) — giữ nguyên nhận định định tính, CHƯA verify giá.
 > 2026-09-17: fetch lại homepage + /khoa-hoc (HTTP 200, 190KB). Trang là SPA — giá duy nhất trích được là voucher Deltaxu 200.000đ, KHÔNG phải giá khóa học. Vẫn CHƯA verify giá khóa Kyna.
+> VERIFY 2026-09-18 (Orca render JS): danh mục phát triển tư duy (redirect skills.kynaenglish.vn), 123 giá render: **51.000đ–990.000đ/khóa**, mẫu phổ biến 198.000đ. Tương đương dải Unica.
 
 ## Họ là ai
 - Nền tảng học online VN (người đi làm + trẻ em: Kyna English...), khóa học do Kyna tổ chức/kiểm soát chất lượng.

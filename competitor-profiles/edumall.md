@@ -2,6 +2,7 @@
 
 > 2026-09-16: fetch edumall.vn timeout (curl 000, chặn bot) — giữ nguyên nhận định định tính, CHƯA verify giá.
 > 2026-09-17: fetch lại — SSL CERTIFICATE_VERIFY_FAILED (self-signed, chặn fetch). Vẫn CHƯA verify giá Edumall.
+> 2026-09-18: thử Orca browser render JS — trang trắng (chrome-error, chặn cả trình duyệt). Vẫn CHƯA verify giá Edumall.
 
 ## Họ là ai
 - Siêu thị khóa học online VN: mô hình marketplace khóa đóng gói tương tự Unica.
