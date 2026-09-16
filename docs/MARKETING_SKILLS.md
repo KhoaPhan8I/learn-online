@@ -260,3 +260,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v21 | 🌐 Verify live r331: banner Upsell hua dung + TEST OK 388 (deploy dong bo ngay) | 332 |
 | sales-v5 | 📣 Pitch chen badge Ghim Noi Bat khi lop dang Ghim (proof ban hang) | 333 |
 | launch-v40 | ✨ Banner Co gi moi len r334 (chum pitch khoe Ghim) | 334 |
+| deploy-check-v22 | 🌐 Verify live r334: banner Pitch khoe Ghim + TEST OK 389 (deploy dong bo) | 335 |
