@@ -223,3 +223,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v26 | ✨ Banner Co gi moi len r295 (chum cam ket + live) | 295 |
 | deploy-check-v9 | 🌐 Verify live r295: banner Hoan tien co hen + TEST OK 385 (deploy dong bo ngay) | 296 |
 | offers-v8 | ⏳ Badge Noi Bat dem nguoc that tu boostUntil (urgency that, khong gia) | 297 |
+| launch-v27 | ✨ Banner Co gi moi len r298 (chum urgency that) | 298 |
