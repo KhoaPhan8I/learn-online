@@ -269,3 +269,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v24 | 🌐 Verify live r340: banner Quang cao khoe Ghim + TEST OK 391 (deploy dong bo) | 341 |
 | video-v2 | 🎬 Kich ban video chen badge Noi Bat (mentor tu quay co proof) | 342 |
 | launch-v43 | ✨ Banner Co gi moi len r343 (chum video khoe Ghim) | 343 |
+| deploy-check-v25 | 🌐 Verify live r343: banner Video khoe Ghim + TEST OK 392 (deploy dong bo ngay) | 344 |
