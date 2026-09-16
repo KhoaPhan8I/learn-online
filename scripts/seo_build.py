@@ -235,24 +235,24 @@ LEARNER_TMPL = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Muon hoc ky nang? Tim lop kem truc tiep 3 buoc | Learn Online</title>
-<meta name="description" content="Muon hoc them ky nang? 3 buoc tim lop kem truc tiep: go ky nang, hoi mentor truoc, dang ky giu cho — mien phi tim kiem.">
+<title>Muốn học kỹ năng? Tìm lớp kèm trực tiếp 3 bước | Learn Online</title>
+<meta name="description" content="Muốn học thêm kỹ năng? 3 bước tìm lớp kèm trực tiếp: gõ kỹ năng, hỏi mentor trước, đăng ký giữ chỗ — miễn phí tìm kiếm.">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{site}/og-cover.png">
 </head>
 <body>
-<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Cho nguoi muon hoc</nav>
-<h1>Muon hoc ky nang? Tim lop kem 3 buoc</h1>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Cho người muốn học</nav>
+<h1>Muốn học kỹ năng? Tìm lớp kèm 3 bước</h1>
 <ol>
-<li>Go ky nang vao o tim kiem (VD: guitar, tieng Anh, nau an)</li>
-<li>Bam hoi mentor truoc khi dang ky — hoi hoc phi, lich, trinh do</li>
-<li>Dang ky giu cho + de lai gio hoc mong muon de mentor xac nhan</li>
+<li>Gõ kỹ năng vào ô tìm kiếm (VD: guitar, tiếng Anh, nấu ăn)</li>
+<li>Bấm hỏi mentor trước khi đăng ký — hỏi học phí, lịch, trình độ</li>
+<li>Đăng ký giữ chỗ + để lại giờ học mong muốn để mentor xác nhận</li>
 </ol>
-<p>Khac video thu san: lop kem truc tiep, di theo toc do cua ban.</p>
-<p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-muon-hoc">Tim lop ngay</a></p>
-<h2>Khoa hoc goi y</h2>
+<p>Khác video thu sẵn: lớp kèm trực tiếp, đi theo tốc độ của bạn.</p>
+<p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-muon-hoc">Tìm lớp ngay</a></p>
+<h2>Khóa học gợi ý</h2>
 <ul>
 {related}
 </ul>
@@ -267,25 +267,25 @@ USECASE_TMPL = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chua tung day ai? Bat dau voi lop dau tien | Learn Online</title>
-<meta name="description" content="Ban gioi mot ky nang nhung chua tung day? 5 buoc mo lop dau tien trong 1 phut — mien phi dang bai, hoc phi tu dat.">
+<title>Chưa từng dạy ai? Bắt đầu với lớp đầu tiên | Learn Online</title>
+<meta name="description" content="Bạn giỏi một kỹ năng nhưng chưa từng dạy? 5 bước mở lớp đầu tiên trong 1 phút — miễn phí đăng bài, học phí tự đặt.">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{site}/og-cover.png">
 </head>
 <body>
-<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Cho nguoi moi day</nav>
-<h1>Chua tung day ai? Bat dau voi lop dau tien</h1>
+<nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / Cho người mới dạy</nav>
+<h1>Chưa từng dạy ai? Bắt đầu với lớp đầu tiên</h1>
 <ol>
-<li>Chon 1 ky nang ban tu tin nhat</li>
-<li>Dat ten lop ro rang: ky nang + trinh do + doi tuong</li>
-<li>Dat hoc phi theo gia that tren trang, moi day lay gia giua</li>
-<li>De lai cach lien he de hoc vien nhan tin</li>
-<li>Bam dang bai, copy link chia se — moi nguoi mo link +2 diem</li>
+<li>Chọn 1 kỹ năng bạn tự tin nhất</li>
+<li>Đặt tên lớp rõ ràng: kỹ năng + trình độ + đối tượng</li>
+<li>Đặt học phí theo giá thật trên trang, mới dạy lấy giá giữa</li>
+<li>Để lại cách liên hệ để học viên nhắn tin</li>
+<li>Bấm đăng bài, copy link chia sẻ — mỗi người mở link +2 điểm</li>
 </ol>
-<p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day">Mo lop dau tien ngay</a></p>
-<h2>Khoa hoc goi y</h2>
+<p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day">Mở lớp đầu tiên ngay</a></p>
+<h2>Khóa học gợi ý</h2>
 <ul>
 {related}
 </ul>
