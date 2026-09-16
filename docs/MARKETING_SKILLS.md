@@ -173,3 +173,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | offers-v4 | 💰 Sheet Ghim kem proof doanh thu that (chot tien co proof) | 245 |
 | copy-edit-v4 | ✍️ Prompt xin review co dau day du (tin nhan mentor chuyen nghiep) | 246 |
 | copy-edit-v5 | ✍️ Sheet Ghim + toast STK co dau day du (tien bac phai chuan) | 247 |
+| copy-edit-v6 | ✍️ Checklist lead-magnet + shareNews co dau (qua tang phai chuan) | 248 |
