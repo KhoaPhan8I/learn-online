@@ -111,3 +111,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | copy-edit-v2 | Footer co dau day du (giong cho nhat quan) | 183 |
 | marketing-plan-v9 | Cham lai audit: 73-74 (Messaging 4-5) | 184 |
 | competitor-v3 | Re-verify Unica 49k-999k (17/9); Kyna/Edumall van chua verify | 185 |
+| emails-v5 | Sent-log: biet email nao da gui khi nao (CRM-lite) | 186 |
