@@ -100,3 +100,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | reviews-v5 | Card hien sao review (starStr) | 163 |
 | sales-v4 | Pitch chen review tot nhat (proof ban hang) | 164 |
 | positioning-v3 | About-proof hien review + sao TB (proof trang chu) | 174 |
+| content-v5 | Cho tuan kem loi khen hay nhat tuan (viral proof) | 175 |
