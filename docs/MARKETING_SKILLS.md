@@ -195,3 +195,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | refactor-v6 | 🧹 ghimRoi dung GHIM_PRICE constant (1 nguon su that tien) | 267 |
 | churn-v6 | 💾 Nudge e kem proof Ghim, nhanh ban giu sach (giu mentor e) | 268 |
 | launch-v19 | ✨ Banner Co gi moi len r269 (chum giu + chuan) | 269 |
+| deploy-check-v5 | 🌐 Verify live r269: banner Giu mentor e + ROUND 269 (deploy dong bo) | 270 |
