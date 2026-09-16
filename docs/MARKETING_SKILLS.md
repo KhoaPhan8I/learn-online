@@ -178,3 +178,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | analytics-v5 | 📊 Dashboard nhac nguoi cho xac nhan 1 cham (kẻo nguoi, keo don) | 250 |
 | analytics-v6 | 📊 Nudge pending chi dem lop minh (khong dem lop mau) | 251 |
 | refactor-v5 | 🧹 Tach slaNudge: quet het IIFE nested-template (diem gay r251) | 252 |
+| referrals-v3 | 🎯 Moc thuong hien ngay ca khi 0 luot (moi KOC tu dau) | 253 |
