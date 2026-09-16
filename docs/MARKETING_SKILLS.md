@@ -203,3 +203,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | image-v2 | 🖼️ OG cover co dau Arial + guard size (share FB/Zalo co dau) | 275 |
 | image-v3 | 🖼️ Cover chinh ve lai co dau + gia Ghim (mat tien FB/Zalo) | 276 |
 | public-relations-v3 | 📰 Press kit dong bo bonus stack (bao chi viet dung offer) | 277 |
+| launch-v21 | ✨ Banner Co gi moi len r278 (chum ha tang offer) | 278 |
