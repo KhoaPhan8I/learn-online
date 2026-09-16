@@ -191,3 +191,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v18 | ✨ Banner Co gi moi len r263 (chum tien dung so) | 263 |
 | copy-edit-v8 | ✍️ Tin share ho so KOC co dau (mat mui KOC chuyen nghiep) | 264 |
 | copy-edit-v9 | ✍️ Loi CSV mentor co dau (admin nhap file doc hieu) | 265 |
+| onboarding-v3 | 🚀 Buoc Chia se kem proof Ghim (dong luc mo lop dau) | 266 |
