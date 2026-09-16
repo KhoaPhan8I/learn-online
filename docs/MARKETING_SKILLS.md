@@ -205,3 +205,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | public-relations-v3 | 📰 Press kit dong bo bonus stack (bao chi viet dung offer) | 277 |
 | launch-v21 | ✨ Banner Co gi moi len r278 (chum ha tang offer) | 278 |
 | deploy-check-v6 | 🌐 Verify live r278: banner Bao chi dung offer + ROUND 278 (deploy dong bo) | 279 |
+| refactor-v7 | 🧹 Sweep: 365 defs, 0 dup that, 0 orphan + helper moi co test cover | 280 |
