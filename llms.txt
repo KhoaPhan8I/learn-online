@@ -1,7 +1,7 @@
 # Learn Online
 
-Nen tang chia se khoa hoc: ai cung day duoc, ai cung hoc duoc.
-Hoc phi do mentor tu dat. Dang bai mien phi.
+Nền tảng chia sẻ khóa học: ai cũng dạy được, ai cũng học được.
+Học phí do mentor tự đặt. Đăng bài miễn phí.
 
 ## Khoa hoc
 - [Guitar](https://khoaphan8i.github.io/learn-online/khoa-hoc/guitar/): từ cơ bản tới nâng cao, học cùng mentor thật.
@@ -12,13 +12,13 @@ Hoc phi do mentor tu dat. Dang bai mien phi.
 ## Mentor
 - [Mentor Mẫu](https://khoaphan8i.github.io/learn-online/giao-vien/mentor-m-u/): Guitar, Tiếng Anh. Mentor mẫu — thay bằng hồ sơ thật từ app.
 
-## Chinh sach
-- Ghim Noi Bat: 29.000 VND / 7 ngay, lien he admin kich hoat.
+## Chính sách
+- Ghim Nổi Bật: 29.000 VND / 7 ngày, liên hệ admin kích hoạt (duyệt 24h, không duyệt hoàn tiền).
 
 ## Trang
-- [Bang gia](https://khoaphan8i.github.io/learn-online/gia/): dang mien phi, Ghim 29k/7 ngay.
-- [Bao chi / Press kit](https://khoaphan8i.github.io/learn-online/bao-chi/): cau chuyen + so lieu.
-- [Cho nguoi moi day](https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/): 5 buoc mo lop dau.
-- [Cach tim lop](https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/): 3 buoc tim lop kem.
-- [So sanh trung tam](https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/): mo lop khong von.
-- Sitemap day du: https://khoaphan8i.github.io/learn-online/sitemap.xml
+- [Bảng giá](https://khoaphan8i.github.io/learn-online/gia/): đăng miễn phí, Ghim 29k/7 ngày.
+- [Báo chí / Press kit](https://khoaphan8i.github.io/learn-online/bao-chi/): câu chuyện + số liệu.
+- [Cho người mới dạy](https://khoaphan8i.github.io/learn-online/cho-nguoi-moi-day/): 5 bước mở lớp đầu.
+- [Cách tìm lớp](https://khoaphan8i.github.io/learn-online/cho-nguoi-hoc/): 3 bước tìm lớp kèm.
+- [So sánh trung tâm](https://khoaphan8i.github.io/learn-online/so-sanh/trung-tam/): mở lớp không vốn.
+- Sitemap đầy đủ: https://khoaphan8i.github.io/learn-online/sitemap.xml

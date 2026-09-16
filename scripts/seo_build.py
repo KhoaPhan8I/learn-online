@@ -386,8 +386,8 @@ def build():
 
 def write_llms(seed):
     lines = ["# Learn Online", "",
-             "Nen tang chia se khoa hoc: ai cung day duoc, ai cung hoc duoc.",
-             "Hoc phi do mentor tu dat. Dang bai mien phi.", "",
+             "Nền tảng chia sẻ khóa học: ai cũng dạy được, ai cũng học được.",
+             "Học phí do mentor tự đặt. Đăng bài miễn phí.", "",
              "## Khoa hoc"]
     for s in seed["skills"]:
         lines.append(f"- [{s['name']}]({SITE}/khoa-hoc/{slugify(s['slug'])}/): {s['blurb']}")
@@ -395,15 +395,15 @@ def write_llms(seed):
     for m in seed["mentors"]:
         lines.append(f"- [{m['name']}]({SITE}/giao-vien/{slugify(m['name'])}/): "
                      f"{', '.join(m.get('skills', []))}. {m.get('bio', '')}".rstrip())
-    lines += ["", "## Chinh sach",
-              "- Ghim Noi Bat: 29.000 VND / 7 ngay, lien he admin kich hoat.",
+    lines += ["", "## Chính sách",
+              "- Ghim Nổi Bật: 29.000 VND / 7 ngày, liên hệ admin kích hoạt (duyệt 24h, không duyệt hoàn tiền).",
               "", "## Trang",
-              f"- [Bang gia]({SITE}/gia/): dang mien phi, Ghim 29k/7 ngay.",
-              f"- [Bao chi / Press kit]({SITE}/bao-chi/): cau chuyen + so lieu.",
-              f"- [Cho nguoi moi day]({SITE}/cho-nguoi-moi-day/): 5 buoc mo lop dau.",
-              f"- [Cach tim lop]({SITE}/cho-nguoi-hoc/): 3 buoc tim lop kem.",
-              f"- [So sanh trung tam]({SITE}/so-sanh/trung-tam/): mo lop khong von.",
-              f"- Sitemap day du: {SITE}/sitemap.xml"]
+              f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày.",
+              f"- [Báo chí / Press kit]({SITE}/bao-chi/): câu chuyện + số liệu.",
+              f"- [Cho người mới dạy]({SITE}/cho-nguoi-moi-day/): 5 bước mở lớp đầu.",
+              f"- [Cách tìm lớp]({SITE}/cho-nguoi-hoc/): 3 bước tìm lớp kèm.",
+              f"- [So sánh trung tâm]({SITE}/so-sanh/trung-tam/): mở lớp không vốn.",
+              f"- Sitemap đầy đủ: {SITE}/sitemap.xml"]
     return "\n".join(lines) + "\n"
 
 
