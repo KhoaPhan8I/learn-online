@@ -216,3 +216,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v24 | ✨ Banner Co gi moi len r288 (chum giu don + sach code) | 288 |
 | deploy-check-v7 | 🌐 Verify live r288: banner Giu don + TEST OK 383 (deploy dong bo) | 289 |
 | analytics-v7 | 📊 Nudge pending neu ten lop co nguoi cho (mentor khong mo) | 290 |
+| offers-v6 | 🎁 Bonus Ghim dong tung lo: so khong ai thay / khong biet quay / ngai viet / so mat tien | 291 |
