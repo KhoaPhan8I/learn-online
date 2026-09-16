@@ -149,3 +149,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | aso-v2 | 📲 Verify PWA live: manifest + 2 icons + start_url UTM (cai duoc) | 221 |
 | devops-v2 | 🛡️ Guard local scripts/guard.cmd (CI remote doi workflow scope) | 223 |
 | refactor-v2 | 🧹 Xoa boostRows trung lap: ke Noi Bat het han tu an (khach khong thay do het date) | 224 |
+| launch-v10 | ✨ Banner Co gi moi len r225 (chum ha tang + Ghim) | 225 |
