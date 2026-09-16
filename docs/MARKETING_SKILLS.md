@@ -106,3 +106,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | sales-pages-v3 | Trang gia/ them tinh hoan von (chot tien co proof) | 178 |
 | marketing-plan-v6 | Cham lai audit: 70-71 (Sales pages 4-5) | 179 |
 | marketing-plan-v7 | Cham lai audit: 71-72 (Conversion 4-5, CTA value-copy) | 180 |
+| onboarding-v2 | Endowed Progress: checklist mo o 1/4 (buoc Ghe cho pre-done) | 181 |
