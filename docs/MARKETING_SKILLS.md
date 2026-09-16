@@ -143,3 +143,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v8 | ✨ Banner Co gi moi len r215 (khong stale) | 215 |
 | deploy-check-v1 | 🌐 Verify live: home r215 + gia/ bonus + OG (deploy dong bo) | 216 |
 | social-v3 | 🎓 Share milestone hoc xong: hoc vien khoe 1 cham (viral loop) | 217 |
+| social-v4 | 🎯 Chi bung share khi review 4-5 sao (khoe dung cho hay) | 218 |
