@@ -220,7 +220,7 @@ PRICE_TMPL = """<!DOCTYPE html>
 <table>
 <tr><th>Gói</th><th>Giá</th><th>Được gì</th></tr>
 <tr><td>Miễn phí</td><td>0đ, vĩnh viễn</td><td>Đăng lớp không giới hạn, tự đặt học phí, hỏi/đăng ký/bình luận, streak + referral, lên kệ theo thời gian</td></tr>
-<tr><td>Ghim Nổi Bật</td><td>29.000đ / 7 ngày</td><td>Mọi thứ của Miễn phí + kệ Nổi Bật + badge + đứng đầu tìm kiếm. Duyệt 24h, không duyệt hoàn tiền</td></tr>
+<tr><td>Ghim Nổi Bật</td><td>29.000đ / 7 ngày</td><td>Mọi thứ của Miễn phí + kệ Nổi Bật + badge + đứng đầu tìm kiếm. Duyệt 24h, không duyệt hoàn tiền. Kèm theo không thêm tiền: ưu tiên lên Chợ tuần + kịch bản video 60s + mẫu quảng cáo</td></tr>
 </table>
 <p><b>Tính nhanh hoàn vốn:</b> lớp 200.000đ/học viên chỉ cần thêm 1 học viên là hoàn vốn 29k Ghim. Lớp 50.000đ cần 1 học viên. Ghim càng rẻ khi học phí càng cao.</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=pricing&utm_campaign=gia">Mở lớp đầu tiên miễn phí</a></p>

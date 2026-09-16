@@ -139,3 +139,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | copy-edit-v3 | 🔍 Sweep 12 trang tinh: sach dau (1 hit dung chinh ta) | 211 |
 | launch-v7 | ✨ Banner Co gi moi len r212 (chum co dau) | 212 |
 | seo-v3 | 🚫 Mentor mau noindex + ra khoi sitemap (khong index rac) | 213 |
+| sales-pages-v5 | 🎁 Trang gia/ dong bo bonus stack r194 (offer nhat quan) | 214 |
