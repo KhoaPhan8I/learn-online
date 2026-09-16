@@ -160,3 +160,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops-v10 | 📅 Doanh thu thang dang T9/26 (doc hieu ngay) | 233 |
 | launch-v13 | ✨ Banner Co gi moi len r234 (chum tien + du lieu) | 234 |
 | analytics-v4 | 📊 Dashboard nhac don Ghim tre SLA (tien khong ngam) | 235 |
+| launch-v14 | ✨ Banner Co gi moi len r236 (chum tien ve) | 236 |
