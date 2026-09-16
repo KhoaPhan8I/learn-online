@@ -125,3 +125,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops-v7 | ⏱️ SLA duyet Ghim 24h: nhac don tre chot (chong leak tien) | 197 |
 | competitor-v5 | Re-verify Unica 49k-999k (36 gia) + Kyna 51k-990k (render) 18/9 | 198 |
 | attribution-v2 | 📡 Doanh thu Ghim theo kenh: do tien vao kenh da ra don | 199 |
+| referrals-v2 | 🎯 Tin moi day kem proof thu nhap Ghim that (social proof) | 200 |
