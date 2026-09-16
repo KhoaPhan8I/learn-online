@@ -247,3 +247,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v34 | ✨ Banner Co gi moi len r319 (chum bao chi hua dung) | 319 |
 | deploy-check-v17 | 🌐 Verify live r319: banner Bao chi hua dung + TEST OK 388 (deploy dong bo ngay) | 320 |
 | content-v7 | 📖 Trang moi-day them dong Ghim outcome + link gia (chot tien tu SEO) | 321 |
+| launch-v35 | ✨ Banner Co gi moi len r322 (chum SEO chot tien) | 322 |
