@@ -130,3 +130,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v4 | ✨ Banner Co gi moi tu r88 len r202 (khong stale) | 202 |
 | revops-v9 | 💳 Nhac cau hinh STK ngay trong sheet Ghim (tien ve dung cho) | 203 |
 | launch-v5 | 🚀 Launch kit buoc Ghim kem ROI theo gia lop do (ca nhan hoa) | 204 |
+| launch-v6 | ✨ Banner Co gi moi len r205 (khong stale) | 205 |
