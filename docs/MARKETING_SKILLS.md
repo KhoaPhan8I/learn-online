@@ -209,3 +209,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | refactor-v8 | 🧹 Dialog kich hoat Ghim dung GHIM_PRICE (gia 1 nguon toi admin) | 281 |
 | offers-v5 | 🎁 Toast kich hoat nhac bonus kem theo (mentor dung ngay launch kit) | 282 |
 | launch-v22 | 🚀 Launch kit buoc Ghim nhac bonus (offer trong tay mentor) | 283 |
+| launch-v23 | ✨ Banner Co gi moi len r284 (chum bonus moi cham) | 284 |
