@@ -225,3 +225,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | offers-v8 | ⏳ Badge Noi Bat dem nguoc that tu boostUntil (urgency that, khong gia) | 297 |
 | launch-v27 | ✨ Banner Co gi moi len r298 (chum urgency that) | 298 |
 | deploy-check-v10 | 🌐 Verify live r298: banner Dem nguoc + TEST OK 386 (deploy dong bo ngay) | 299 |
+| marketing-plan-v15 | 🩺 Audit giu 78/85 (Pricing mo ta chum offer r291/294/297, khong tang diem ao) | 300 |
