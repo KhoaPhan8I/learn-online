@@ -109,3 +109,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | onboarding-v2 | Endowed Progress: checklist mo o 1/4 (buoc Ghe cho pre-done) | 181 |
 | marketing-plan-v8 | Cham lai audit: 72-73 (Onboarding 4-5) | 182 |
 | copy-edit-v2 | Footer co dau day du (giong cho nhat quan) | 183 |
+| marketing-plan-v9 | Cham lai audit: 73-74 (Messaging 4-5) | 184 |
