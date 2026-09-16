@@ -250,3 +250,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v35 | ✨ Banner Co gi moi len r322 (chum SEO chot tien) | 322 |
 | deploy-check-v18 | 🌐 Verify live r322: banner SEO chot tien + TEST OK 388 (deploy dong bo) | 323 |
 | launch-v36 | 🚀 Launch kit buoc Ghim outcome-first (offer trong tay mentor) | 324 |
+| launch-v37 | ✨ Banner Co gi moi len r325 (chum kit hua ket qua) | 325 |
