@@ -197,3 +197,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v19 | ✨ Banner Co gi moi len r269 (chum giu + chuan) | 269 |
 | deploy-check-v5 | 🌐 Verify live r269: banner Giu mentor e + ROUND 269 (deploy dong bo) | 270 |
 | marketing-plan-v14 | 🩺 Audit 77→78 (Ads 2→3: verdict an got gom expired + cap 3x) | 271 |
+| launch-v20 | ✨ Banner Co gi moi len r272 (chum audit 78) | 272 |
