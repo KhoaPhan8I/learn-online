@@ -177,7 +177,7 @@ COMPARE_TMPL = """<!DOCTYPE html>
 <tr><td>Học phí</td><td>Nền tảng định giá</td><td>Mentor tự đặt</td></tr>
 </table>
 <p>Chi tiết trung thực từng nhà (snapshot 2026-09-16, chưa crawl verify): Unica giỏi thư viện khóa rẻ; Edumall mạnh combo; Kyna mạnh lộ trình cam kết. Khe của Learn Online là lớp kèm trực tiếp cho mentor cá nhân — điều cả ba chưa làm.</p>
-<p><a href="{site}/?utm_source=seo&utm_medium=compare&utm_campaign=trung-tam">Đăng lớp đầu tiên trên Learn Online</a></p>
+<p><a href="{site}/?utm_source=seo&utm_medium=compare&utm_campaign=trung-tam">Đăng lớp đầu tiên trên Learn Online</a> — miễn phí, 1 phút xong, không cần mặt bằng.</p>
 <h2>Khóa học khác</h2>
 <ul>
 {related}
