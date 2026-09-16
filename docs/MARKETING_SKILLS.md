@@ -226,3 +226,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v27 | ✨ Banner Co gi moi len r298 (chum urgency that) | 298 |
 | deploy-check-v10 | 🌐 Verify live r298: banner Dem nguoc + TEST OK 386 (deploy dong bo ngay) | 299 |
 | marketing-plan-v15 | 🩺 Audit giu 78/85 (Pricing mo ta chum offer r291/294/297, khong tang diem ao) | 300 |
+| launch-v28 | ✨ Banner Co gi moi len r301 (chum audit trung thuc) | 301 |
