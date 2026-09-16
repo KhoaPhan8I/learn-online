@@ -136,3 +136,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | site-arch-v4 | 🦶 Footer mesh co dau + SITE_FOOT chung (sua 1 cho) | 208 |
 | sales-pages-v4 | 💰 Trang gia/ co dau + so-sanh re-verify 18/9 (chot tien sach) | 209 |
 | content-v6 | 📖 2 trang use-case co dau day du (2 chieu hoc-day) | 210 |
+| copy-edit-v3 | 🔍 Sweep 12 trang tinh: sach dau (1 hit dung chinh ta) | 211 |
