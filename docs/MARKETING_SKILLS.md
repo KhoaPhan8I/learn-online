@@ -177,3 +177,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | copy-edit-v7 | ✍️ Dong CK payLine co dau day du (2 nhanh co/khong STK) | 249 |
 | analytics-v5 | 📊 Dashboard nhac nguoi cho xac nhan 1 cham (kẻo nguoi, keo don) | 250 |
 | analytics-v6 | 📊 Nudge pending chi dem lop minh (khong dem lop mau) | 251 |
+| refactor-v5 | 🧹 Tach slaNudge: quet het IIFE nested-template (diem gay r251) | 252 |
