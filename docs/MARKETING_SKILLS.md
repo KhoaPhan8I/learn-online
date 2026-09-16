@@ -222,3 +222,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | offers-v7 | 🛡️ Cam ket hoan tien cu the: qua 24h chua duyet hoan du 29k trong 24h tiep | 294 |
 | launch-v26 | ✨ Banner Co gi moi len r295 (chum cam ket + live) | 295 |
 | deploy-check-v9 | 🌐 Verify live r295: banner Hoan tien co hen + TEST OK 385 (deploy dong bo ngay) | 296 |
+| offers-v8 | ⏳ Badge Noi Bat dem nguoc that tu boostUntil (urgency that, khong gia) | 297 |
