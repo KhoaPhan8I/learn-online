@@ -156,3 +156,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v11 | ✨ Banner Co gi moi len r229 (chum code sach) | 229 |
 | churn-v4 | 📝 Exit survey 1 cau khi xoa + nudge dung ly do (save offer) | 230 |
 | launch-v12 | ✨ Banner Co gi moi len r231 (chum giu mentor) | 231 |
+| churn-v5 | 💾 Backup ly do xoa (22 keys, doi may khong mat context) | 232 |
