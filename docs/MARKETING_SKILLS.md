@@ -180,3 +180,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | refactor-v5 | 🧹 Tach slaNudge: quet het IIFE nested-template (diem gay r251) | 252 |
 | referrals-v3 | 🎯 Moc thuong hien ngay ca khi 0 luot (moi KOC tu dau) | 253 |
 | referrals-v4 | 🎁 Thuong 2 chieu khong rot: dang ky moi nhan +1 ⭐ muon (chong mat khach ref) | 254 |
+| referrals-v5 | 🎁 Dang bai dau cung nhan +1 ⭐ muon (mentor moi tu ref khong rot) | 255 |
