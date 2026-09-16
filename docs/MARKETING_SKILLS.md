@@ -256,3 +256,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v38 | ✨ Banner Co gi moi len r328 (chum kich hoat hua dung) | 328 |
 | deploy-check-v20 | 🌐 Verify live r328: banner Kich hoat hua dung + TEST OK 388 (deploy dong bo) | 329 |
 | paywalls-v4 | 📌 Upsell 4 nhanh outcome-first: hoc vien trong 7 ngay (chot don dung cho) | 330 |
+| launch-v39 | ✨ Banner Co gi moi len r331 (chum upsell hua dung) | 331 |
