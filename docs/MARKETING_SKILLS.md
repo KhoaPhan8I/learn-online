@@ -211,3 +211,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v22 | 🚀 Launch kit buoc Ghim nhac bonus (offer trong tay mentor) | 283 |
 | launch-v23 | ✨ Banner Co gi moi len r284 (chum bonus moi cham) | 284 |
 | revops-v14 | ⏳ Sheet Ghim nudge don treo qua 24h (mentor biet doi admin) | 285 |
+| copy-edit-v10 | ✍️ Loi dang bai focus thang vao o sai (mentor khong mo) | 286 |
