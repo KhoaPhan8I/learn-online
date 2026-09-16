@@ -182,3 +182,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | referrals-v4 | 🎁 Thuong 2 chieu khong rot: dang ky moi nhan +1 ⭐ muon (chong mat khach ref) | 254 |
 | referrals-v5 | 🎁 Dang bai dau cung nhan +1 ⭐ muon (mentor moi tu ref khong rot) | 255 |
 | emails-v6 | ✉️ Email Ghim dong bo bonus stack (offer nhat quan, chot tien) | 256 |
+| deploy-check-v4 | 🌐 Verify live r256: banner r244 + proof (deploy dong bo) | 257 |
