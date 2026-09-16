@@ -193,3 +193,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | copy-edit-v9 | ✍️ Loi CSV mentor co dau (admin nhap file doc hieu) | 265 |
 | onboarding-v3 | 🚀 Buoc Chia se kem proof Ghim (dong luc mo lop dau) | 266 |
 | refactor-v6 | 🧹 ghimRoi dung GHIM_PRICE constant (1 nguon su that tien) | 267 |
+| churn-v6 | 💾 Nudge e kem proof Ghim, nhanh ban giu sach (giu mentor e) | 268 |
