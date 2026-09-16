@@ -239,3 +239,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v14 | 🌐 Verify live r310: banner Moi day kem Ghim + TEST OK 388 (deploy dong bo ngay) | 311 |
 | sales-pages-v6 | 💰 Trang gia/ dong bo outcome + guarantee + dem nguoc (chot tien sach) | 312 |
 | launch-v32 | ✨ Banner Co gi moi len r313 (chum gia chot tien) | 313 |
+| deploy-check-v15 | 🌐 Verify live r313: banner Gia chot tien sach + TEST OK 388 (deploy dong bo ngay) | 314 |
