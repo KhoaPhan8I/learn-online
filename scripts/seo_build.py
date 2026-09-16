@@ -422,24 +422,42 @@ def write_llms(seed):
 
 def write_og_covers(seed):
     """Sinh og-cover riêng từng kỹ năng (PIL). Trả về {slug: filename}."""
-    from PIL import Image, ImageDraw
+    from PIL import Image, ImageDraw, ImageFont
+    import os
+    def vi_font(sz):
+        for p in [r"C:\Windows\Fonts\arial.ttf", "/c/Windows/Fonts/arial.ttf",
+                  "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]:
+            if os.path.isfile(p):
+                try:
+                    return ImageFont.truetype(p, sz)
+                except Exception:
+                    pass
+        return ImageFont.load_default()
     out = {}
     for s in seed["skills"]:
         slug = slugify(s["slug"])
         fn = f"og-{slug}.png"
         dest = ROOT / fn
-        if dest.is_file():
+        if dest.is_file() and _og_has_vi(dest):
             out[slug] = fn
             continue
         im = Image.new("RGB", (1200, 630), (15, 15, 20))
         d = ImageDraw.Draw(im)
         d.rectangle([0, 560, 1200, 630], fill=(254, 44, 85))
         d.rectangle([90, 140, 110, 420], fill=(251, 191, 36))
-        d.text((140, 200), f"Hoc {s['name']} online", fill=(244, 244, 246))
-        d.text((140, 300), "Learn Online — ai cung day duoc", fill=(167, 167, 184))
+        d.text((140, 200), f"Học {s['name']} online", font=vi_font(64), fill=(244, 244, 246))
+        d.text((140, 300), "Learn Online — ai cũng dạy được", font=vi_font(44), fill=(167, 167, 184))
         im.save(dest)
         out[slug] = fn
     return out
+
+
+def _og_has_vi(path):
+    """Covers cũ vẽ không dấu thì vẽ lại (check byte dấu trong text đã render không khả thi -> check kích thước+mờ). Đơn giản: coi file <7KB (default font nhỏ) là cũ."""
+    try:
+        return path.stat().st_size >= 7000
+    except Exception:
+        return False
 
 
 def write_sitemap(pages, noindex=None):
@@ -478,11 +496,14 @@ def main():
             for s in load_seed()["skills"]) and "Chợ tuần" in llms_txt
         covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
                         for s in load_seed()["skills"])
-        if bad or missing or stale or not llms_ok or not covers_ok:
+        covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
+                        for s in load_seed()["skills"])
+        if bad or missing or stale or not llms_ok or not covers_ok or not covers_vi:
             print("STALE:", len(bad), "files missing,", len(missing), "urls missing from sitemap,",
                   len(stale), "noindex urls leaked in sitemap,",
                   "llms.txt missing" if not llms_ok else "llms.txt ok,",
-                  "og covers missing" if not covers_ok else "og covers ok")
+                  "og covers missing" if not covers_ok else "og covers ok,",
+                  "og covers ascii" if not covers_vi else "og covers vi ok")
             return 1
         print(f"SEO_CHECK_OK ({len(pages)} pages in sync)")
         return 0
