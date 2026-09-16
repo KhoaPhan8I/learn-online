@@ -201,3 +201,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | ai-seo-v4 | 📝 llms.txt dong bo bonus stack Ghim (AI citation chot tien) | 273 |
 | devops-v3 | 🛡️ Guard check llms bonus-stack (negative-test STALE + restore) | 274 |
 | image-v2 | 🖼️ OG cover co dau Arial + guard size (share FB/Zalo co dau) | 275 |
+| image-v3 | 🖼️ Cover chinh ve lai co dau + gia Ghim (mat tien FB/Zalo) | 276 |
