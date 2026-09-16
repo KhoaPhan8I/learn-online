@@ -188,3 +188,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | revops-v12 | 💰 Doanh thu giu don expired + conv dem ca expired (tien da thu khong mat) | 260 |
 | revops-v13 | 💰 Dashboard hien don da chay xong rieng (so tien khop so don) | 261 |
 | paywalls-v3 | 📌 Upsell nhac don Ghim cu da xong (chot don lap lai) | 262 |
+| launch-v18 | ✨ Banner Co gi moi len r263 (chum tien dung so) | 263 |
