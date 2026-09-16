@@ -185,3 +185,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v4 | 🌐 Verify live r256: banner r244 + proof (deploy dong bo) | 257 |
 | launch-v17 | ✨ Banner Co gi moi len r258 (chum ref khong rot) | 258 |
 | revops-v11 | ⏳ Don Ghim het 7 ngay tu expired (pipeline/conv khong ao) | 259 |
+| revops-v12 | 💰 Doanh thu giu don expired + conv dem ca expired (tien da thu khong mat) | 260 |
