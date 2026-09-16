@@ -218,3 +218,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | analytics-v7 | 📊 Nudge pending neu ten lop co nguoi cho (mentor khong mo) | 290 |
 | offers-v6 | 🎁 Bonus Ghim dong tung lo: so khong ai thay / khong biet quay / ngai viet / so mat tien | 291 |
 | launch-v25 | ✨ Banner Co gi moi len r292 (chum offer dong lo) | 292 |
+| deploy-check-v8 | 🌐 Verify live r292: banner Bonus dong lo + TEST OK 384 (deploy dong bo) | 293 |
