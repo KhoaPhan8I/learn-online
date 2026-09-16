@@ -253,3 +253,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v37 | ✨ Banner Co gi moi len r325 (chum kit hua ket qua) | 325 |
 | deploy-check-v19 | 🌐 Verify live r325: banner Kit hua ket qua + TEST OK 388 (deploy dong bo ngay) | 326 |
 | offers-v10 | ✅ Toast kich hoat outcome-first: badge dem nguoc + hoc vien dau tien | 327 |
+| launch-v38 | ✨ Banner Co gi moi len r328 (chum kich hoat hua dung) | 328 |
