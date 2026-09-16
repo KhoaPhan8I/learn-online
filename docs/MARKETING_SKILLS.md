@@ -101,3 +101,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | sales-v4 | Pitch chen review tot nhat (proof ban hang) | 164 |
 | positioning-v3 | About-proof hien review + sao TB (proof trang chu) | 174 |
 | content-v5 | Cho tuan kem loi khen hay nhat tuan (viral proof) | 175 |
+| pricing-v2 | May tinh hoan von Ghim: may hoc vien la lai 29k | 176 |
