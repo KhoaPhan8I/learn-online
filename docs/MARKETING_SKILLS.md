@@ -281,3 +281,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v28 | 🌐 Verify live r353: banner So sach gon gang + TEST OK 394 (deploy dong bo) | 354 |
 | refactor-v11 | 🧹 Sweep code chet r355: 263 ham, 0 ham thua (def+export pattern dung) | 355 |
 | deploy-check-v29 | 🌐 Verify live r355: banner Quet code chet + TEST OK 394 (deploy dong bo) | 356 |
+| test-isolation-v6 | 🧪 Snapshot sach r357: remind-v2 vao backup (27->28 keys) + test cover | 357 |
