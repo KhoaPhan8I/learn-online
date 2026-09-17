@@ -280,3 +280,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v46 | ✨ Banner Co gi moi len r353 (chum so sach gon gang) | 353 |
 | deploy-check-v28 | 🌐 Verify live r353: banner So sach gon gang + TEST OK 394 (deploy dong bo) | 354 |
 | refactor-v11 | 🧹 Sweep code chet r355: 263 ham, 0 ham thua (def+export pattern dung) | 355 |
+| deploy-check-v29 | 🌐 Verify live r355: banner Quet code chet + TEST OK 394 (deploy dong bo) | 356 |
