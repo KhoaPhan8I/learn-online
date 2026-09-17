@@ -290,3 +290,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | test-isolation-v9 | 🧪 Nhap khong ket r363: backup JSON toi 5MB (CSV giu 1MB) + test cover | 363 |
 | deploy-check-v33 | 🌐 Verify live r363: banner Nhap khong ket + TEST OK 399 (deploy dong bo) | 364 |
 | test-isolation-v10 | 🧪 Xuat du du lieu r365: backup v4 giu them mails/sms/reflog (18->21 keys) + roundtrip cover | 365 |
+| deploy-check-v34 | 🌐 Verify live r365: banner Xuat du du lieu + TEST OK 400 (fix schedLabel flake +60s margin) | 366 |
