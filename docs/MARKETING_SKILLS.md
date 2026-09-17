@@ -293,3 +293,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | test-isolation-v11 | 🧪 Test chay du r367: seed mentor tam, suite 400->404 checks (guard skip) | 367 |
 | deploy-check-v34 | 🌐 Verify live r365: banner Xuat du du lieu + TEST OK 400 (fix schedLabel flake +60s margin) | 366 |
 | deploy-check-v35 | 🌐 Verify live r367: banner Test chay du + TEST OK 404 (seed khong ro, deploy dong bo) | 368 |
+| test-isolation-v12 | 🧪 Xuat tron ven r369: export v4 giu them events/digest (21->23 keys) + roundtrip cover | 369 |
