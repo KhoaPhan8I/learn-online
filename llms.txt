@@ -3,7 +3,7 @@
 Nền tảng chia sẻ khóa học: ai cũng dạy được, ai cũng học được.
 Học phí do mentor tự đặt. Đăng bài miễn phí.
 
-## Khoa hoc
+## Khóa học
 - [Guitar](https://khoaphan8i.github.io/learn-online/khoa-hoc/guitar/): từ cơ bản tới nâng cao, học cùng mentor thật.
 - [Tiếng Anh](https://khoaphan8i.github.io/learn-online/khoa-hoc/tieng-anh/): giao tiếp, phát âm và từ vựng thực tế.
 - [Nấu ăn](https://khoaphan8i.github.io/learn-online/khoa-hoc/nau-an/): nấu món Việt ngon tại nhà.

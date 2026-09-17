@@ -402,7 +402,7 @@ def write_llms(seed):
     lines = ["# Learn Online", "",
              "Nền tảng chia sẻ khóa học: ai cũng dạy được, ai cũng học được.",
              "Học phí do mentor tự đặt. Đăng bài miễn phí.", "",
-             "## Khoa hoc"]
+             "## Khóa học"]
     for s in seed["skills"]:
         lines.append(f"- [{s['name']}]({SITE}/khoa-hoc/{slugify(s['slug'])}/): {s['blurb']}")
     lines += ["", "## Mentor"]
@@ -454,9 +454,14 @@ def write_og_covers(seed):
 
 
 def _og_has_vi(path):
-    """Covers cũ vẽ không dấu thì vẽ lại (check byte dấu trong text đã render không khả thi -> check kích thước+mờ). Đơn giản: coi file <7KB (default font nhỏ) là cũ."""
+    """Covers cũ vẽ không dấu thì vẽ lại. Size>=7KB là điều kiện cần; Image.verify() loại file hỏng/giả PNG."""
     try:
-        return path.stat().st_size >= 7000
+        if path.stat().st_size < 7000:
+            return False
+        from PIL import Image
+        with Image.open(path) as im:
+            im.verify()
+        return True
     except Exception:
         return False
 
