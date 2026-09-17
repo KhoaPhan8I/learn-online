@@ -277,3 +277,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | devops-v4 | 🛡️ Guard OG verify PNG that + llms heading co dau (audit RnD) | 349 |
 | launch-v45 | ✨ Banner Co gi moi len r350 (chum fix audit RnD) | 350 |
 | deploy-check-v27 | 🌐 Verify live r350: banner Guard soi PNG + TEST OK 394 (deploy dong bo) | 351 |
+| launch-v46 | ✨ Banner Co gi moi len r353 (chum so sach gon gang) | 353 |
