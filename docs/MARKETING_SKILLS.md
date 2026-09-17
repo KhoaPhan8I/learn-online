@@ -272,4 +272,5 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v25 | 🌐 Verify live r343: banner Video khoe Ghim + TEST OK 392 (deploy dong bo ngay) | 344 |
 | referrals-v6 | 🛡️ Chan tu farm ref: mo link chinh minh khong +diem (audit RnD) | 345 |
 | launch-v44 | ✨ Banner Co gi moi len r346 (chum ref sach) | 346 |
+| refactor-v10 | 🧹 Test snapshot bao phu ABK + events + autobackup (audit RnD) | 348 |
 | deploy-check-v26 | 🌐 Verify live r346: banner Ref khong farm + TEST OK 393 (deploy dong bo ngay) | 347 |
