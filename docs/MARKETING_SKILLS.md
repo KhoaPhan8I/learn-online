@@ -295,3 +295,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v35 | 🌐 Verify live r367: banner Test chay du + TEST OK 404 (seed khong ro, deploy dong bo) | 368 |
 | test-isolation-v12 | 🧪 Xuat tron ven r369: export v4 giu them events/digest (21->23 keys) + roundtrip cover | 369 |
 | deploy-check-v36 | 🌐 Verify live r369: banner Xuat tron ven + TEST OK 405 (export tron 23 keys, deploy dong bo) | 370 |
+| test-isolation-v13 | 🧪 Khong sot key r371: guard test bat export raw khop backupKeys (23 keys) + negative control | 371 |
