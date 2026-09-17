@@ -283,3 +283,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | deploy-check-v29 | 🌐 Verify live r355: banner Quet code chet + TEST OK 394 (deploy dong bo) | 356 |
 | test-isolation-v6 | 🧪 Snapshot sach r357: remind-v2 vao backup (27->28 keys) + test cover | 357 |
 | deploy-check-v30 | 🌐 Verify live r357: banner Snapshot sach + TEST OK 395 (deploy dong bo) | 358 |
+| test-isolation-v7 | 🧪 Snapshot sach r359: seen-v1 vao backup (28->29 keys) + test cover | 359 |
