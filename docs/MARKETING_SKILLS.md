@@ -286,3 +286,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | test-isolation-v7 | 🧪 Snapshot sach r359: seen-v1 vao backup (28->29 keys) + test cover | 359 |
 | deploy-check-v31 | 🌐 Verify live r359: banner Snapshot sach + TEST OK 396 (deploy dong bo) | 360 |
 | test-isolation-v8 | 🧪 Export du r361: backup v4 giu 18 keys cau hinh + roundtrip cover | 361 |
+| deploy-check-v32 | 🌐 Verify live r361: banner Sao luu du + TEST OK 398 (deploy dong bo) | 362 |
