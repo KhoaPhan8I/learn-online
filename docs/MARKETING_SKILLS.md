@@ -274,4 +274,5 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | launch-v44 | ✨ Banner Co gi moi len r346 (chum ref sach) | 346 |
 | refactor-v10 | 🧹 Test snapshot bao phu ABK + events + autobackup (audit RnD) | 348 |
 | devops-v4 | 🛡️ Guard OG verify PNG that + llms heading co dau (audit RnD) | 349 |
+| launch-v45 | ✨ Banner Co gi moi len r350 (chum fix audit RnD) | 350 |
 | deploy-check-v26 | 🌐 Verify live r346: banner Ref khong farm + TEST OK 393 (deploy dong bo ngay) | 347 |
