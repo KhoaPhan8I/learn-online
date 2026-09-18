@@ -44,7 +44,7 @@ COURSE_TMPL = """<!DOCTYPE html>
 <h1>{title}</h1>
 <p>{desc}</p>
 <p>🎓 <b>Học {name}:</b> <a href="{site}/?utm_source=seo&utm_medium=course&utm_campaign={slug}">tìm lớp {name} trên Learn Online</a> — hỏi mentor trước khi đăng ký, học phí do mentor tự đặt.</p>
-<p>🚀 <b>Dạy {name}:</b> <a href="{site}/?utm_source=seo&utm_medium=teach&utm_campaign={slug}">đăng lớp miễn phí trong 1 phút</a> — muốn có học viên đầu tiên trong 7 ngày thì <a href="{site}/gia/">Ghim Nổi Bật 29k/7 ngày</a> (duyệt 24h, không duyệt hoàn tiền).</p>
+<p>🚀 <b>Dạy {name}:</b> <a href="{site}/?utm_source=seo&utm_medium=teach&utm_campaign={slug}">đăng lớp miễn phí trong 1 phút</a> — muốn có học viên đầu tiên trong 7 ngày thì <a href="{site}/gia/">Ghim Nổi Bật 29k/7 ngày</a> (duyệt 24h, không duyệt hoàn tiền) · ở lại top 2 tuần liền: <a href="{site}/gia/">Ghim Đôi 49k/14 ngày, tiết kiệm 9k</a>.</p>
 <h2>Khóa học khác</h2>
 <ul>
 {related}
