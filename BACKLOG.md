@@ -20,4 +20,5 @@
 - [x] Copy outreach cho bundle Ghim Đôi 49k (mục 6 trong `docs/OUTREACH_GHIM_29K.md`, UNVERIFIED).
 - [x] Bundle ở điểm mua: hàng Ghim Đôi trong modal `boostSheetHtml` So sánh gói (`e8c6941`, GUARD_OK).
 - [x] Đóng vòng byCamp: cột medium+campaign trong `don-ghim.csv` export (`b67bdbb`, CSV_ATTR_VERIFY_PASS).
+- [x] Bundle trong generator `seo_build.py` (source of truth: PRICE_TMPL JSON-LD 2 offers + hàng Ghim Đôi + llms.txt; build lại `gia/` khớp — `547d7f6`, GUARD_OK + SEO_CHECK_OK). Bài học: KHÔNG sửa tay `gia/index.html`, generator sẽ ghi đè.
 - [ ] Cho buyer chọn Ghim Đôi 49k trong app (hiện modal mới chỉ hiện hàng so sánh; `payLine`/`doActivateBoost`/`mailOrder` còn cứng 29k → buyer Ghim Đôi phải ghi tay 49k trong mail; scale trigger khi slug ghimdoi49k ra đơn đầu).
