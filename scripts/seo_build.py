@@ -559,14 +559,21 @@ def main():
             return 1
         print(f"SEO_CHECK_OK ({len(pages)} pages in sync)")
         return 0
+    def write_if_changed(path, text):
+        # idempotent build: untouched file keeps its mtime, so an unchanged
+        # rebuild shows zero diff instead of dirtying the whole tree
+        if path.is_file() and path.read_text(encoding="utf-8") == text:
+            return False
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+        return True
+    wrote = 0
     for p, h in pages.items():
-        dest = ROOT / p
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(h, encoding="utf-8")
-    (ROOT / "sitemap.xml").write_text(write_sitemap(pages, noindex), encoding="utf-8")
-    (ROOT / "llms.txt").write_text(write_llms(load_seed()), encoding="utf-8")
+        wrote += write_if_changed(ROOT / p, h)
+    wrote += write_if_changed(ROOT / "sitemap.xml", write_sitemap(pages, noindex))
+    wrote += write_if_changed(ROOT / "llms.txt", write_llms(load_seed()))
     covers = write_og_covers(load_seed())
-    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt + {len(covers)} og covers)")
+    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt + {len(covers)} og covers, {wrote} files written)")
 
 
 if __name__ == "__main__":
