@@ -50,11 +50,11 @@ Kịch bản video 60s (quay bằng điện thoại):
 ## 4. Chốt đơn Ghim (buyer tick Ghim lúc Đăng bài)
 
 1. Buyer điền tên / kỹ năng / tiêu đề / liên hệ → tick
-   📌 Ghim Nổi Bật 7 ngày (29k) → Đăng bài.
+   📌 Ghim Nổi Bật 7 ngày (29k) hoặc 📌📌 Ghim Đôi 14 ngày (49k) → Đăng bài.
 2. App tạo đơn pending mã `LO-XXXXXX` + nội dung CK `LEARNONLINE GHIM LO-XXXXXX`
    (hàm `ckText`, đã verify live).
 3. Thanh toán hiện tại (chưa có STK công khai — P2):
-   `Gửi đơn cho admin qua email khoaphanofficial@gmail.com để nhận STK + CK 29k
+   `Gửi đơn cho admin qua email khoaphanofficial@gmail.com để nhận STK + CK 29k (Ghim lẻ) / 49k (Ghim Đôi)
    — nội dung: LEARNONLINE GHIM + mã đơn` (hàm `payLine`, đã verify live).
 4. Share link đơn: `https://khoaphan8i.github.io/learn-online/?code=LO-XXXXXX`
    — mở link là thấy đơn + modal Ghim.
