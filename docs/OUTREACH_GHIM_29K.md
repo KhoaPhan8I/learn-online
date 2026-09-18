@@ -82,3 +82,20 @@ Link kèm: https://khoaphan8i.github.io/learn-online/gia/
 Quy trình chốt đơn giữ nguyên mục 4 (mã `LO-XXXXXX`, nội dung CK
 `LEARNONLINE GHIM + mã đơn`), chỉ khác số tiền 49k — ghi rõ trong mail
 gửi admin khi STK về.
+
+## 7. Follow-up cho traffic SEO thấy CTA Ghim Đôi (mở rộng 2026-09-18, UNVERIFIED)
+
+10 trang `khoa-hoc/*` đã có link Ghim Đôi cạnh CTA Ghim 29k (`56ff1f7`).
+Khi có đăng ký/hỏi bài từ nguồn `utm_medium=teach|course` mà chưa tick
+Ghim, dùng mẫu này (chờ Owner duyệt target trước khi gửi — rào:
+no public post/DM):
+
+> Bạn vào xem lớp [TÊN LỚP] từ trang [TÊN KHÓA HỌC] đúng không? Mở lớp
+> miễn phí 1 phút là xong. Muốn có học viên đầu tiên trong 7 ngày thì
+> tick Ghim 29k (duyệt 24h, không duyệt hoàn tiền); muốn giữ top 2 tuần
+> tuyển sinh liền thì Ghim Đôi 49k/14 ngày — tiết kiệm 9k so với Ghim lẻ
+> 2 lần. Rep "GHIM" hoặc "DOI" mình giữ suất + gửi nội dung CK nhé!
+
+Link kèm: https://khoaphan8i.github.io/learn-online/gia/ + link lớp cụ thể.
+Chốt đơn giữ nguyên mục 4, số tiền 29k/49k ghi rõ trong mail gửi admin
+khi STK về.
