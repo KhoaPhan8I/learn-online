@@ -62,11 +62,11 @@ Kịch bản video 60s (quay bằng điện thoại):
 
 ## 5. Blocker P2 — cần Khoa (không bịa STK)
 
-- `index.html:293` còn `const PAY_DEFAULT={bank:'',acc:''};`
+- `index.html:294` còn `const PAY_DEFAULT={bank:'',acc:''};`
 - Cần: STK thật + Zalo nhận đơn + check mailbox
-  `khoaphanofficial@gmail.com` để thấy mailto đơn đầu và xác nhận CK 29k.
+  `khoaphanofficial@gmail.com` để thấy mailto đơn đầu và xác nhận CK 29k (Ghim lẻ) / 49k (Ghim Đôi).
 - Khi có STK: điền vào `PAY_DEFAULT`, chạy `scripts/guard.cmd`,
-  T count tick, push live, re-eval `payLine()` + `boostRevenue()`.
+  T count tick, push live, re-eval `payLine(code)` + `boostRevenue()`.
 
 ## 6. Bundle Ghim Đôi 49k/14 ngày (mở rộng 2026-09-18, UNVERIFIED)
 

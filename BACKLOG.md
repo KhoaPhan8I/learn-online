@@ -36,4 +36,6 @@
 - [x] Địa chỉ admin trên mọi điểm chạm mua (trước đây `gia/` + bundle chỉ ghi "email admin" không địa chỉ — buyer từ SEO kẹt; thêm `khoaphanofficial@gmail.com` vào hàng bundle, FAQ, llms.txt; GUARD_OK + SEO_CHECK_OK).
 - [x] Copy chốt đơn khớp 2 mức giá (mục 4 outreach chỉ ghi CK 29k — buyer Ghim Đôi nhận sai số tiền; thêm tick Đôi + CK 29k/49k theo gói; UNVERIFIED, DM-gated).
 - [x] Doc STK đồng bộ `payLine(code)` của peer (PAY_STK_SETUP còn quote fallback cũ `CK 29k` + anchor dòng stale; sửa quote 3 nhánh + anchor `savePay:678/setPay:296/PAYK:293/getPay:295/payLine:297/boostPrice:420/tests:1232-1234`; docs-only, không chạm hunk peer).
+- [x] Outreach §5 blocker đồng bộ 2 giá (còn quote `CK 29k` + anchor `index.html:293` stale + `payLine()` cũ; sửa `index.html:294`, CK 29k/49k, `payLine(code)`; docs-only).
+- [ ] App-lane: `ghimRoi()` (`index.html:440`) luôn hoàn vốn trên `GHIM_PRICE=29000` — buyer tick Ghim Đôi 49k thấy dòng "hoàn vốn 29k Ghim" sai số tiền; cần truyền giá theo đơn như `payLine(code)` (ghi nhận, không sửa — lane peer).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
