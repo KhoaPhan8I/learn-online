@@ -2,14 +2,17 @@
 
 ## Tier 0 — sự cố
 - [ ] Ra khỏi `$0 UNVERIFIED`: cần buyer thật hoặc payment proof — không dừng ở demo.
+- STATE blocker 2026-09-18: checkout manual, `PAY_DEFAULT={bank:'',acc:''}` trống → buyer phải email admin chờ STK; cần Owner điền STK (`savePay`/PAY_DEFAULT) + duyệt target outbound DM trước khi gửi (rào: no public post/DM, no push main).
 
 ## Tier 1 — roadmap tuần
-- [ ] `/ship` 1 course unit bán được.
-- [ ] Thiếu checkout → `/feature-dev` rồi `/verify`.
+- [x] `/ship` 1 course unit bán được (b76883a: 10 course pages learner+mentor CTA + Ghim 29k upsell).
+- [x] Funnel teach-path: seoPrefill prefill q+f-skill (8590cb1, 4/4 logic PASS + SEO_CHECK_OK + NODE_SYNTAX_OK).
+- [ ] Thiếu checkout auto → `/feature-dev` khi Owner duyệt STK công khai.
 
 ## Tier 2 — bảo trì
-- [ ] Đồng bộ landing/checkout với funnel hiện tại.
+- [x] Đồng bộ landing/checkout với funnel hiện tại (teach CTA → seoPrefill q+f-skill, mailto checkout giữ nguyên).
 
 ## Tier 3 — research (không đáy)
 - [ ] Packaging 1 upsell / bundle nhỏ.
 - [ ] So sánh 2 CTA trên landing.
+- [ ] Theo dõi slug nào convert đầu tiên qua utm_campaign (log touch → đếm course vs teach khi có buyer).
