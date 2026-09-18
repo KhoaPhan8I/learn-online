@@ -2,7 +2,7 @@
 
 ## Tier 0 — sự cố
 - [ ] Ra khỏi `$0 UNVERIFIED`: cần buyer thật hoặc payment proof — không dừng ở demo.
-- STATE blocker 2026-09-18: checkout manual, `PAY_DEFAULT={bank:'',acc:''}` trống → buyer phải email admin chờ STK; cần Owner điền STK (`savePay`/PAY_DEFAULT) + duyệt target outbound DM trước khi gửi (rào: no public post/DM, no push main).
+- STATE 2026-09-18 (PAY live): `PAY_DEFAULT={bank:'VietQR VPBank',acc:'10902967868'}` live + `payLine(code)` per-order + `pay cfg` khớp STK (PAY_VERIFY 8/8 + NODE_SYNTAX_OK); buyer CK ngay LEARNONLINE GHIM + mã đơn, honor-system xác nhận tay. Còn chờ: buyer thật đầu tiên + Owner duyệt target outbound DM trước khi gửi (rào: no public post/DM, no push main).
 
 ## Tier 1 — roadmap tuần
 - [x] `/ship` 1 course unit bán được (b76883a: 10 course pages learner+mentor CTA + Ghim 29k upsell).
