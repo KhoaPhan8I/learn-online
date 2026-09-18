@@ -222,12 +222,12 @@ PRICE_TMPL = """<!DOCTYPE html>
 <tr><th>Gói</th><th>Giá</th><th>Được gì</th></tr>
 <tr><td>Miễn phí</td><td>0đ, vĩnh viễn</td><td>Đăng lớp không giới hạn, tự đặt học phí, hỏi/đăng ký/bình luận, streak + referral, lên kệ theo thời gian</td></tr>
 <tr><td>Ghim Nổi Bật</td><td>29.000đ / 7 ngày</td><td>Có học viên đầu tiên trong 7 ngày: kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm. Duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Bonus đóng đúng lo: Chợ tuần + kịch bản video 60s + mẫu quảng cáo</td></tr>
-<tr><td>Ghim Đôi (tiết kiệm 9k)</td><td>49.000đ / 14 ngày</td><td>Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp — phủ 2 tuần vàng tuyển sinh. Quyền lợi như Ghim Nổi Bật ×2. Đặt qua email admin cùng mã đơn Ghim.</td></tr>
+<tr><td>Ghim Đôi (tiết kiệm 9k)</td><td>49.000đ / 14 ngày</td><td>Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp — phủ 2 tuần vàng tuyển sinh. Quyền lợi như Ghim Nổi Bật ×2. Đặt qua email admin (khoaphanofficial@gmail.com) cùng mã đơn Ghim.</td></tr>
 </table>
 <p><b>Tính nhanh hoàn vốn:</b> lớp 200.000đ/học viên chỉ cần thêm 1 học viên là hoàn vốn Ghim (29k Ghim / 49k Ghim Đôi 14 ngày). Lớp 50.000đ cần 1 học viên. Ghim càng rẻ khi học phí càng cao.</p>
 <h2>Hỏi nhanh trước khi Ghim</h2>
 <ul>
-<li><b>Đặt Ghim thế nào?</b> Đăng lớp trong app, tick Ghim (29k) hoặc Ghim Đôi (49k), app tạo mã đơn <b>LO-XXXXXX</b> + nội dung CK <b>LEARNONLINE GHIM + mã đơn</b>; gửi mail cho admin theo hướng dẫn trong app để nhận STK.</li>
+<li><b>Đặt Ghim thế nào?</b> Đăng lớp trong app, tick Ghim (29k) hoặc Ghim Đôi (49k), app tạo mã đơn <b>LO-XXXXXX</b> + nội dung CK <b>LEARNONLINE GHIM + mã đơn</b>; gửi mail cho admin (<b>khoaphanofficial@gmail.com</b>) theo hướng dẫn trong app để nhận STK.</li>
 <li><b>Ghim Đôi khác gì 2 lần Ghim lẻ?</b> Cùng 1 lớp, 2 đợt 7 ngày liên tiếp (14 ngày, 49k — tiết kiệm 9k), giữ top tìm kiếm liền 2 tuần tuyển sinh thay vì rơi khỏi kệ giữa chừng.</li>
 <li><b>Không duyệt thì sao?</b> Duyệt trong 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp.</li>
 </ul>
@@ -423,7 +423,7 @@ def write_llms(seed):
                      f"{', '.join(m.get('skills', []))}. {m.get('bio', '')}".rstrip())
     lines += ["", "## Chính sách",
               "- Ghim Nổi Bật: 29.000 VND / 7 ngày — có học viên đầu tiên trong 7 ngày (kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm). Duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Bonus đóng đúng lo: Chợ tuần + kịch bản video 60s + mẫu quảng cáo.",
-              "- Ghim Đôi: 49.000 VND / 14 ngày (tiết kiệm 9k) — Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp. Đặt qua email admin cùng mã đơn Ghim.",
+              "- Ghim Đôi: 49.000 VND / 14 ngày (tiết kiệm 9k) — Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp. Đặt qua email admin (khoaphanofficial@gmail.com) cùng mã đơn Ghim.",
               "", "## Trang",
               f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày · Ghim Đôi 49k/14 ngày.",
               f"- [Báo chí / Press kit]({SITE}/bao-chi/): câu chuyện + số liệu.",
