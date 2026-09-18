@@ -1,8 +1,7 @@
-# Cấu hình STK nhận Ghim 29k/49k — Owner làm 1 lần (2 phút)
+# Cấu hình STK nhận Ghim 29k/49k — LIVE 2026-09-18 (SELL FIRST)
 
-Trạng thái live: **$0 UNVERIFIED** — vì `PAY_DEFAULT` trống nên buyer thấy
-fallback "Gửi đơn cho admin qua email để nhận STK", không CK được ngay.
-Điền STK 1 lần là funnel chạy full: buyer thấy STK + nội dung CK `LEARNONLINE GHIM + mã đơn`.
+Trạng thái live: **PAY live, $0 UNVERIFIED** — `PAY_DEFAULT={bank:'VietQR VPBank',acc:'10902967868'}` (STK Owner, SELL FIRST 2026-09-18); buyer thấy STK + nội dung CK `LEARNONLINE GHIM + mã đơn` ngay, honor-system xác nhận tay.
+Đổi STK sau này = Cách A (trong app, không đụng code) hoặc Cách B (sửa `index.html:294`).
 
 ## Cách A — trong app, 1 phút (khuyên dùng, không đụng code)
 
@@ -19,17 +18,17 @@ Kỹ thuật: `window.savePay()` (`index.html:678`) + `setPay()` (`index.html:29
 Sửa 1 dòng `index.html:294`:
 
 ```js
-const PAY_DEFAULT={bank:'Vietcombank',acc:'0123456789'}; // thay STK thật
+const PAY_DEFAULT={bank:'VietQR VPBank',acc:'10902967868'}; // live 2026-09-18 (SELL FIRST)
 ```
 
-Mặc định `{bank:'',acc:''}` = giữ hành vi cũ (báo chưa cấu hình).
+Để trống lại `{bank:'',acc:''}` = quay về fallback cũ (báo chưa cấu hình — chỉ dùng khi Owner đổi STK).
 `getPay()` (`index.html:295`) ưu tiên localStorage (Cách A) trước `PAY_DEFAULT`.
 
 ## Buyer thấy gì (không đổi code)
 
-- Chưa STK, gọi không kèm mã đơn: `Gửi đơn cho admin qua email khoaphanofficial@gmail.com để nhận STK + CK 29k (Ghim 7 ngày) / 49k (Ghim Đôi 14 ngày) — nội dung: LEARNONLINE GHIM + mã đơn` (`payLine`, `index.html:297`).
-- Chưa STK, gọi kèm mã đơn (`payLine(code)`): thêm `CK 29k` hoặc `CK 49k` theo đúng đơn (tra qua `boostFind(code)` + `boostPrice()`; `boostPrice` ở `index.html:420` suy ra từ `plan`/`price`).
-- Có STK: `CK <bank> <acc>[ — CK 29k/49k] — nội dung: LEARNONLINE GHIM + mã đơn` + nút Copy nội dung CK / Copy link đơn / Gửi đơn cho admin trong sheet.
+- Live 2026-09-18 (có STK): `CK VietQR VPBank 10902967868[ — CK 29k/49k] — nội dung: LEARNONLINE GHIM + mã đơn` + nút Copy nội dung CK / Copy link đơn / Gửi đơn cho admin trong sheet.
+- Dự phòng khi mất STK, gọi không kèm mã đơn: `Gửi đơn cho admin qua email khoaphanofficial@gmail.com để nhận STK + CK 29k (Ghim 7 ngày) / 49k (Ghim Đôi 14 ngày) — nội dung: LEARNONLINE GHIM + mã đơn` (`payLine`, `index.html:297`).
+- Dự phòng khi mất STK, gọi kèm mã đơn (`payLine(code)`): thêm `CK 29k` hoặc `CK 49k` theo đúng đơn (tra qua `boostFind(code)` + `boostPrice()`; `boostPrice` ở `index.html:420` suy ra từ `plan`/`price`).
 
 ## Verify sau khi điền (30 giây)
 
@@ -38,6 +37,6 @@ Mặc định `{bank:'',acc:''}` = giữ hành vi cũ (báo chưa cấu hình).
 
 ## Rào Owner (không tự làm)
 
-- STK là credentials tiền thật: agent KHÔNG tự điền, Owner tự nhập 1 trong 2 cách trên.
+- STK live là của Owner cung cấp (SELL FIRST 2026-09-18): agent KHÔNG tự bịa STK khác; đổi STK sau này Owner tự nhập 1 trong 2 cách trên.
 - Outbound DM/post công khai vẫn cần Owner duyệt target (rào anti-spam).
 - Push `main`/production: Owner gate.

@@ -53,20 +53,20 @@ Kịch bản video 60s (quay bằng điện thoại):
    📌 Ghim Nổi Bật 7 ngày (29k) hoặc 📌📌 Ghim Đôi 14 ngày (49k) → Đăng bài.
 2. App tạo đơn pending mã `LO-XXXXXX` + nội dung CK `LEARNONLINE GHIM LO-XXXXXX`
    (hàm `ckText`, đã verify live).
-3. Thanh toán hiện tại (chưa có STK công khai — P2):
-   `Gửi đơn cho admin qua email khoaphanofficial@gmail.com để nhận STK + CK 29k (Ghim lẻ) / 49k (Ghim Đôi)
-   — nội dung: LEARNONLINE GHIM + mã đơn` (hàm `payLine`, đã verify live).
+3. Thanh toán (PAY live 2026-09-18):
+   `CK VietQR VPBank 10902967868 — CK 29k (Ghim lẻ) / 49k (Ghim Đôi)
+   — nội dung: LEARNONLINE GHIM + mã đơn` (hàm `payLine(code)`, đã verify live).
 4. Share link đơn: `https://khoaphan8i.github.io/learn-online/?code=LO-XXXXXX`
    — mở link là thấy đơn + modal Ghim.
 5. Admin duyệt trong 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp.
 
-## 5. Blocker P2 — cần Khoa (không bịa STK)
+## 5. Blocker P2 — ĐÃ MỞ (PAY live 2026-09-18, không bịa STK khác)
 
-- `index.html:294` còn `const PAY_DEFAULT={bank:'',acc:''};`
-- Cần: STK thật + Zalo nhận đơn + check mailbox
-  `khoaphanofficial@gmail.com` để thấy mailto đơn đầu và xác nhận CK 29k (Ghim lẻ) / 49k (Ghim Đôi).
-- Khi có STK: điền vào `PAY_DEFAULT`, chạy `scripts/guard.cmd`,
-  T count tick, push live, re-eval `payLine(code)` + `boostRevenue()`.
+- `index.html:294` đã live `const PAY_DEFAULT={bank:'VietQR VPBank',acc:'10902967868'};` (STK Owner, SELL FIRST).
+- Còn cần: Zalo nhận đơn + check mailbox
+  `khoaphanofficial@gmail.com` để thấy mailto đơn đầu và xác nhận CK 29k (Ghim lẻ) / 49k (Ghim Đôi) honor-system.
+- Sau mỗi sửa PAY: chạy `scripts/guard.cmd`,
+  T count tick, re-eval `payLine(code)` + `boostRevenue()`. Không push main.
 
 ## 6. Bundle Ghim Đôi 49k/14 ngày (mở rộng 2026-09-18, UNVERIFIED)
 
