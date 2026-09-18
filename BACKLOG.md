@@ -38,4 +38,5 @@
 - [x] Doc STK đồng bộ `payLine(code)` của peer (PAY_STK_SETUP còn quote fallback cũ `CK 29k` + anchor dòng stale; sửa quote 3 nhánh + anchor `savePay:678/setPay:296/PAYK:293/getPay:295/payLine:297/boostPrice:420/tests:1232-1234`; docs-only, không chạm hunk peer).
 - [x] Outreach §5 blocker đồng bộ 2 giá (còn quote `CK 29k` + anchor `index.html:293` stale + `payLine()` cũ; sửa `index.html:294`, CK 29k/49k, `payLine(code)`; docs-only).
 - [ ] App-lane: `ghimRoi()` (`index.html:440`) luôn hoàn vốn trên `GHIM_PRICE=29000` — buyer tick Ghim Đôi 49k thấy dòng "hoàn vốn 29k Ghim" sai số tiền; cần truyền giá theo đơn như `payLine(code)` (ghi nhận, không sửa — lane peer).
+- [x] Copy xử lý từ chối 49k (mục 8 outreach: công thức hoàn vốn Đôi `ceil(49000/giá lớp)` + mẫu nhắn reframe 58k→49k tiết kiệm 9k; UNVERIFIED, DM-gated).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
