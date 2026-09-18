@@ -226,6 +226,10 @@ PRICE_TMPL = """<!DOCTYPE html>
 </table>
 <p><b>Tính nhanh hoàn vốn:</b> lớp 200.000đ/học viên chỉ cần thêm 1 học viên là hoàn vốn Ghim (29k Ghim / 49k Ghim Đôi 14 ngày). Lớp 50.000đ cần 1 học viên. Ghim càng rẻ khi học phí càng cao.</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=pricing&utm_campaign=gia">Mở lớp đầu tiên miễn phí</a></p>
+<script>
+// pass incoming utm_* through to CTA so byCamp keeps bundle source (e.g. slug-ghimdoi)
+(function(){{var q=new URLSearchParams(location.search),c=q.get('utm_campaign');if(!c)return;var s=q.get('utm_source'),m=q.get('utm_medium');document.querySelectorAll('a[href*=\"utm_\"]').forEach(function(a){{var u=new URL(a.href);u.searchParams.set('utm_campaign',c);if(s)u.searchParams.set('utm_source',s);if(m)u.searchParams.set('utm_medium',m);a.href=u.toString()}})}})();
+</script>
 <h2>Khóa học khác</h2>
 <ul>
 {related}

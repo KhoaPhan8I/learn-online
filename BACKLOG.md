@@ -29,4 +29,5 @@
 - [x] Ghim Đôi vào trang usecase + báo chí (generator USECASE_TMPL CTA + PRESS_TMPL dòng giá; build lại 18 pages — `7a74165`, GUARD_OK + SEO_CHECK_OK).
 - [x] Copy 29k lẻ còn sót trong generator đồng bộ bundle (meta description + dòng hoàn vốn + llms link bảng giá đều nhắc Ghim Đôi; title giữ nguyên cho gọn SEO; build lại 18 pages, GUARD_OK + SEO_CHECK_OK).
 - [x] Tag campaign riêng cho link Ghim Đôi (course: `{slug}-ghimdoi`, usecase: `nguoi-moi-day-ghimdoi`; 10 trang khóa học + usecase rebuild khớp; `byCamp` tách được click bundle khỏi Ghim lẻ; GUARD_OK + SEO_CHECK_OK).
+- [x] Giữ tag bundle qua trang `gia/` (pass-through JS: CTA mang `utm_campaign` đến thay vì hardcode `gia`; fix `KeyError: 'slug'` do brace trong comment template; GUARD_OK + SEO_CHECK_OK).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
