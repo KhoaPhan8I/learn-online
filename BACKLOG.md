@@ -32,4 +32,5 @@
 - [x] Giữ tag bundle qua trang `gia/` (pass-through JS: CTA mang `utm_campaign` đến thay vì hardcode `gia`; fix `KeyError: 'slug'` do brace trong comment template; GUARD_OK + SEO_CHECK_OK).
 - [x] Guard kiểm tra JS cả trang `gia/` (trước đây chỉ `index.html`; gia có script pass-through mà không ai check — `GIA_JS_SYNTAX_OK`, GUARD_OK).
 - [x] Tag campaign cho 2 CTA Ghim Đôi còn sót (so-sanh: `trung-tam-ghimdoi`, báo chí: `bao-chi-ghimdoi`; mọi CTA bundle giờ đều có tag riêng; GUARD_OK + SEO_CHECK_OK).
+- [x] FAQ Ghim trên trang `gia/` (3 hỏi: đặt Ghim thế nào / Đôi khác gì 2 lần lẻ / không duyệt thì sao; copy khớp quy trình manual + số tiền thật; GUARD_OK + SEO_CHECK_OK).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
