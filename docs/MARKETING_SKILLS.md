@@ -300,3 +300,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | test-isolation-v14 | 🧪 Ghim luu chac r373: test khoa boostSaveOne persist intent (khong lech trang thai) | 373 |
 | deploy-check-v38 | 🌐 Verify live r373: banner Ghim luu chac + TEST OK 407 (boostSaveOne persist, deploy dong bo) | 374 |
 | test-isolation-v15 | 🧪 Pipeline hien dung r375: test khoa boostPipeHtml render so lieu + SLA (khop boostPipeline) | 375 |
+| deploy-check-v39 | 🌐 Verify live r375: banner Pipeline hien dung + TEST OK 408 (boostPipeHtml render, deploy dong bo) | 376 |
