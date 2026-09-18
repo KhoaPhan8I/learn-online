@@ -23,4 +23,5 @@
 - [x] Bundle trong generator `seo_build.py` (source of truth: PRICE_TMPL JSON-LD 2 offers + hàng Ghim Đôi + llms.txt; build lại `gia/` khớp — `547d7f6`, GUARD_OK + SEO_CHECK_OK). Bài học: KHÔNG sửa tay `gia/index.html`, generator sẽ ghi đè.
 - [ ] Cho buyer chọn Ghim Đôi 49k trong app (peer pane đang làm, uncommitted `M index.html`: checkbox f-boost2 + plan/price plumbing + revenue sums — để peer commit).
 - [x] Upsell Ghim Đôi trên 10 trang SEO khóa học (generator PAGE_TMPL line teach-path: link Ghim Đôi 49k/14d tiết kiệm 9k cạnh CTA Ghim 29k; build lại 18 pages — `56ff1f7`, GUARD_OK + SEO_CHECK_OK).
+- [x] Follow-up cho traffic SEO thấy CTA Ghim Đôi (mục 7 `docs/OUTREACH_GHIM_29K.md`: mẫu nhắn cho visitor `utm_medium=teach|course` chưa tick Ghim — `d5a607d`, UNVERIFIED, DM-gated chờ Owner duyệt target).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
