@@ -177,7 +177,7 @@ COMPARE_TMPL = """<!DOCTYPE html>
 <tr><td>Chi phí mở lớp</td><td>Thuê mặt bằng, in tài liệu</td><td>Miễn phí đăng bài</td></tr>
 <tr><td>Học phí</td><td>Trung tâm ấn định</td><td>Mentor tự đặt</td></tr>
 <tr><td>Ai dạy được</td><td>Giáo viên hợp đồng</td><td>Bất cứ ai có kỹ năng</td></tr>
-<tr><td>Tìm học viên</td><td>Chạy quảng cáo, phát tờ rơi</td><td>Chia sẻ link, streak, Ghim 29k/7 ngày · ở top 2 tuần: Ghim Đôi 49k/14 ngày</td></tr>
+<tr><td>Tìm học viên</td><td>Chạy quảng cáo, phát tờ rơi</td><td>Chia sẻ link, streak, Ghim 29k/7 ngày · ở top 2 tuần: <a href="{site}/gia/?utm_source=seo&utm_medium=compare&utm_campaign=trung-tam-ghimdoi">Ghim Đôi 49k/14 ngày</a></td></tr>
 </table>
 <p>Trung tâm phù hợp khi bạn cần phòng học vật lý và giáo trình chuẩn. Learn Online phù hợp khi bạn có kỹ năng và muốn dạy ngay, không vốn.</p>
 <h2>Nền tảng khóa học đóng gói thì sao?</h2>
@@ -330,7 +330,7 @@ PRESS_TMPL = """<!DOCTYPE html>
 <ul>
 <li>{nskills} nhóm kỹ năng</li>
 <li>{nmentors} mentor</li>
-<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày — có học viên đầu tiên trong 7 ngày (duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp; kèm Chợ tuần + kịch bản video + mẫu quảng cáo); Ghim Đôi 49.000đ / 14 ngày (tiết kiệm 9k)</li>
+<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày — có học viên đầu tiên trong 7 ngày (duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp; kèm Chợ tuần + kịch bản video + mẫu quảng cáo); <a href="{site}/gia/?utm_source=seo&utm_medium=press&utm_campaign=bao-chi-ghimdoi">Ghim Đôi 49.000đ / 14 ngày (tiết kiệm 9k)</a></li>
 </ul>
 <h2>Asset</h2>
 <ul>
