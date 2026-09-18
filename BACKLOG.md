@@ -13,6 +13,7 @@
 - [x] Đồng bộ landing/checkout với funnel hiện tại (teach CTA → seoPrefill q+f-skill, mailto checkout giữ nguyên).
 
 ## Tier 3 — research (không đáy)
+- [x] Doc cấu hình STK cho Owner 1 chạm (`docs/PAY_STK_SETUP.md` — Cách A trong app / Cách B PAY_DEFAULT).
 - [ ] Packaging 1 upsell / bundle nhỏ.
 - [ ] So sánh 2 CTA trên landing.
 - [ ] Theo dõi slug nào convert đầu tiên qua utm_campaign (log touch → đếm course vs teach khi có buyer).
