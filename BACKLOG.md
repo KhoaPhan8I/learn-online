@@ -17,4 +17,4 @@
 - [x] Packaging 1 upsell / bundle nhỏ (2026-09-18: hàng Ghim Đôi 49k/14 ngày tiết kiệm 9k vào `gia/index.html`, line 24).
 - [x] Theo dõi slug nào convert đầu tiên qua utm_campaign (`addBoostIntent` lưu med/camp từ `attrLast`, `boostRevenue.byCamp`, `revCampHtml` nối vào `revHtml`, self-test `boost byCamp slug` — BYCAMP_VERIFY_PASS + SEO_CHECK_OK).
 - [x] So sánh 2 CTA trên landing (đã live sẵn: `applyAb()` ở init line 830, verdict + export CSV trong dashboard, AB_CTA_VERIFY_PASS 5/5).
-- [ ] Copy outreach cho bundle Ghim Đôi 49k (biến thể từ `docs/OUTREACH_GHIM_29K.md`).
+- [x] Copy outreach cho bundle Ghim Đôi 49k (mục 6 trong `docs/OUTREACH_GHIM_29K.md`, UNVERIFIED).

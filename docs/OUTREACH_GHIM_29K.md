@@ -67,3 +67,18 @@ Kịch bản video 60s (quay bằng điện thoại):
   `khoaphanofficial@gmail.com` để thấy mailto đơn đầu và xác nhận CK 29k.
 - Khi có STK: điền vào `PAY_DEFAULT`, chạy `scripts/guard.cmd`,
   T count tick, push live, re-eval `payLine()` + `boostRevenue()`.
+
+## 6. Bundle Ghim Đôi 49k/14 ngày (mở rộng 2026-09-18, UNVERIFIED)
+
+Hàng bundle trên `gia/` (tiết kiệm 9k so với 2×29k). Kịch bản dùng:
+buyer đã Ghim 1 tuần, còn 1–2 ngày hết hạn mà chưa đủ học viên → upsell Ghim tiếp.
+
+> Tuần Ghim đầu sắp hết mà lớp bạn mới có X đăng ký — đừng để rơi khỏi kệ
+> Nổi Bật đúng lúc đang nóng. Ghim Đôi 49k/14 ngày (tiết kiệm 9k so với
+> Ghim lẻ 2 lần): giữ top tìm kiếm liền 2 tuần tuyển sinh. Rep "DOI" mình
+> giữ suất + gửi nội dung CK nhé!
+
+Link kèm: https://khoaphan8i.github.io/learn-online/gia/
+Quy trình chốt đơn giữ nguyên mục 4 (mã `LO-XXXXXX`, nội dung CK
+`LEARNONLINE GHIM + mã đơn`), chỉ khác số tiền 49k — ghi rõ trong mail
+gửi admin khi STK về.
