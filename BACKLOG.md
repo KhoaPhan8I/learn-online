@@ -18,3 +18,6 @@
 - [x] Theo dõi slug nào convert đầu tiên qua utm_campaign (`addBoostIntent` lưu med/camp từ `attrLast`, `boostRevenue.byCamp`, `revCampHtml` nối vào `revHtml`, self-test `boost byCamp slug` — BYCAMP_VERIFY_PASS + SEO_CHECK_OK).
 - [x] So sánh 2 CTA trên landing (đã live sẵn: `applyAb()` ở init line 830, verdict + export CSV trong dashboard, AB_CTA_VERIFY_PASS 5/5).
 - [x] Copy outreach cho bundle Ghim Đôi 49k (mục 6 trong `docs/OUTREACH_GHIM_29K.md`, UNVERIFIED).
+- [x] Bundle ở điểm mua: hàng Ghim Đôi trong modal `boostSheetHtml` So sánh gói (`e8c6941`, GUARD_OK).
+- [x] Đóng vòng byCamp: cột medium+campaign trong `don-ghim.csv` export (`b67bdbb`, CSV_ATTR_VERIFY_PASS).
+- [ ] Cho buyer chọn Ghim Đôi 49k trong app (hiện modal mới chỉ hiện hàng so sánh; `payLine`/`doActivateBoost`/`mailOrder` còn cứng 29k → buyer Ghim Đôi phải ghi tay 49k trong mail; scale trigger khi slug ghimdoi49k ra đơn đầu).
