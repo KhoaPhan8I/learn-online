@@ -540,7 +540,10 @@ def main():
                       "missing keywords" if not llms_ok else "ok")
         covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
                         for s in load_seed()["skills"])
-        covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
+        # covers_vi: same predicate as build (size + Image.verify), not just
+        # size — a corrupt >7k PNG must fail loudly here; also crash-safe
+        # when a cover is missing (.stat() alone would raise instead of False)
+        covers_vi = all(_og_has_vi(ROOT / f"og-{slugify(s['slug'])}.png")
                         for s in load_seed()["skills"])
         if bad or drift or untagged or missing or stale or sm_drift or not llms_ok or llms_drift or not covers_ok or not covers_vi:
             print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(untagged), "bundle pages untagged,", len(missing), "urls missing from sitemap,",
