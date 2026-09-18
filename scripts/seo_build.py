@@ -521,6 +521,11 @@ def main():
         cur = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
         missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages if p not in noindex] if u not in cur]
         stale = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in noindex] if u in cur]
+        # sitemap drift: same revert class — generator overwrites it on every
+        # build, so a hand-edit must fail loudly; strip <lastmod> (today's
+        # date) so the compare doesn't false-positive on a daily rebuild
+        norm = lambda t: re.sub(r"<lastmod>[^<]*</lastmod>", "<lastmod/>", t)
+        sm_drift = norm(cur) != norm(write_sitemap(pages, noindex)) if cur else False
         llms = ROOT / "llms.txt"
         llms_txt = llms.read_text(encoding="utf-8") if llms.is_file() else ""
         llms_ok = bool(llms_txt) and all(
@@ -537,9 +542,10 @@ def main():
                         for s in load_seed()["skills"])
         covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
                         for s in load_seed()["skills"])
-        if bad or drift or untagged or missing or stale or not llms_ok or llms_drift or not covers_ok or not covers_vi:
+        if bad or drift or untagged or missing or stale or sm_drift or not llms_ok or llms_drift or not covers_ok or not covers_vi:
             print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(untagged), "bundle pages untagged,", len(missing), "urls missing from sitemap,",
                   len(stale), "noindex urls leaked in sitemap,",
+                  "sitemap drifted from generator," if sm_drift else "sitemap structure ok,",
                   "llms.txt " + llms_state + ",",
                   "og covers missing" if not covers_ok else "og covers ok,",
                   "og covers ascii" if not covers_vi else "og covers vi ok")
