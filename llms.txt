@@ -8,6 +8,12 @@ Học phí do mentor tự đặt. Đăng bài miễn phí.
 - [Tiếng Anh](https://khoaphan8i.github.io/learn-online/khoa-hoc/tieng-anh/): giao tiếp, phát âm và từ vựng thực tế.
 - [Nấu ăn](https://khoaphan8i.github.io/learn-online/khoa-hoc/nau-an/): nấu món Việt ngon tại nhà.
 - [Lập trình](https://khoaphan8i.github.io/learn-online/khoa-hoc/lap-trinh/): lập trình web từ số 0.
+- [Piano](https://khoaphan8i.github.io/learn-online/khoa-hoc/piano/): từ nhạc lý cơ bản tới đệm hát, học cùng mentor thật.
+- [Toán](https://khoaphan8i.github.io/learn-online/khoa-hoc/toan/): kèm 1-1 từ mất gốc tới luyện thi theo trình độ.
+- [Excel](https://khoaphan8i.github.io/learn-online/khoa-hoc/excel/): từ hàm cơ bản tới báo cáo tự động qua bài tập thật.
+- [Marketing online](https://khoaphan8i.github.io/learn-online/khoa-hoc/marketing-online/): chạy quảng cáo, viết content và chốt đơn thực chiến.
+- [Thiết kế Canva](https://khoaphan8i.github.io/learn-online/khoa-hoc/thiet-ke-canva/): tự tay làm banner, slide và ấn phẩm đẹp mắt.
+- [Tiếng Hàn](https://khoaphan8i.github.io/learn-online/khoa-hoc/tieng-han/): giao tiếp, phát âm và luyện thi TOPIK cơ bản.
 
 ## Mentor
 - [Mentor Mẫu](https://khoaphan8i.github.io/learn-online/giao-vien/mentor-m-u/): Guitar, Tiếng Anh. Mentor mẫu — thay bằng hồ sơ thật từ app.
