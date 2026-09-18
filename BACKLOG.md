@@ -22,10 +22,11 @@
 - [x] Đóng vòng byCamp: cột medium+campaign trong `don-ghim.csv` export (`b67bdbb`, CSV_ATTR_VERIFY_PASS).
 - [x] Bundle trong generator `seo_build.py` (source of truth: PRICE_TMPL JSON-LD 2 offers + hàng Ghim Đôi + llms.txt; build lại `gia/` khớp — `547d7f6`, GUARD_OK + SEO_CHECK_OK). Bài học: KHÔNG sửa tay `gia/index.html`, generator sẽ ghi đè.
 - [x] Cho buyer chọn Ghim Đôi 49k trong app (checkbox f-boost2 + plan/price plumbing + revenue sums — `a90b5f7`, DOI_VERIFY_PASS 16/16 + GUARD_OK).
-- [ ] expRev theo giá từng đơn (hiện `Math.round(pen*conv)*GHIM_PRICE` flat 29k — sai khi pending có đơn Đôi 49k).
+- [x] expRev theo giá từng đơn (pending-sum × conv thay vì flat 29k — EXPREV_VERIFY_PASS + GUARD_OK).
 - [x] Upsell Ghim Đôi trên 10 trang SEO khóa học (generator PAGE_TMPL line teach-path: link Ghim Đôi 49k/14d tiết kiệm 9k cạnh CTA Ghim 29k; build lại 18 pages — `56ff1f7`, GUARD_OK + SEO_CHECK_OK).
 - [x] Follow-up cho traffic SEO thấy CTA Ghim Đôi (mục 7 `docs/OUTREACH_GHIM_29K.md`: mẫu nhắn cho visitor `utm_medium=teach|course` chưa tick Ghim — `d5a607d`, UNVERIFIED, DM-gated chờ Owner duyệt target).
 - [x] Ghim Đôi vào bảng so-sanh trung tâm (generator COMPARE_TMPL hàng "Tìm học viên": Ghim Đôi 49k/14d cạnh Ghim 29k; build lại khớp — `14d3348`, GUARD_OK + SEO_CHECK_OK).
 - [x] Ghim Đôi vào trang usecase + báo chí (generator USECASE_TMPL CTA + PRESS_TMPL dòng giá; build lại 18 pages — `7a74165`, GUARD_OK + SEO_CHECK_OK).
 - [x] Copy 29k lẻ còn sót trong generator đồng bộ bundle (meta description + dòng hoàn vốn + llms link bảng giá đều nhắc Ghim Đôi; title giữ nguyên cho gọn SEO; build lại 18 pages, GUARD_OK + SEO_CHECK_OK).
+- [x] Tag campaign riêng cho link Ghim Đôi (course: `{slug}-ghimdoi`, usecase: `nguoi-moi-day-ghimdoi`; 10 trang khóa học + usecase rebuild khớp; `byCamp` tách được click bundle khỏi Ghim lẻ; GUARD_OK + SEO_CHECK_OK).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
