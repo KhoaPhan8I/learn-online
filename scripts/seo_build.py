@@ -43,7 +43,8 @@ COURSE_TMPL = """<!DOCTYPE html>
 <nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / <a href="{site}/khoa-hoc/">Khóa học</a> / {title}</nav>
 <h1>{title}</h1>
 <p>{desc}</p>
-<p><a href="{site}/?utm_source=seo&utm_medium=course&utm_campaign={slug}">Mở lớp học trên Learn Online</a></p>
+<p>🎓 <b>Học {name}:</b> <a href="{site}/?utm_source=seo&utm_medium=course&utm_campaign={slug}">tìm lớp {name} trên Learn Online</a> — hỏi mentor trước khi đăng ký, học phí do mentor tự đặt.</p>
+<p>🚀 <b>Dạy {name}:</b> <a href="{site}/?utm_source=seo&utm_medium=teach&utm_campaign={slug}">đăng lớp miễn phí trong 1 phút</a> — muốn có học viên đầu tiên trong 7 ngày thì <a href="{site}/gia/">Ghim Nổi Bật 29k/7 ngày</a> (duyệt 24h, không duyệt hoàn tiền).</p>
 <h2>Khóa học khác</h2>
 <ul>
 {related}
@@ -131,7 +132,7 @@ def render_course(skill, all_skills):
     others = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
               for s in all_skills if slugify(s["slug"]) != slug][:3]
     return f"khoa-hoc/{slug}/index.html", COURSE_TMPL.format(
-        title=html.escape(title), desc=html.escape(desc),
+        title=html.escape(title), desc=html.escape(desc), name=html.escape(skill["name"]),
         url=url, site=SITE, slug=slug, related=related_links(others), foot=SITE_FOOT).replace(
         f"{SITE}/og-cover.png", f"{SITE}/og-{slug}.png")
 
