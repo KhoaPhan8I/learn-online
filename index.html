@@ -290,7 +290,8 @@ video,img.media{width:100%;border-radius:16px;margin-bottom:10px;background:#000
 <script src="qrcode.min.js"></script>
 <script>
 const PAYK='learn-online-pay-v1';
-function getPay(){try{const v=JSON.parse(localStorage.getItem(PAYK)||'null');return v&&typeof v==='object'?v:{}}catch(e){return{}}}
+const PAY_DEFAULT={bank:'',acc:''}; // ĐIỀN STK NHẬN GHIM 29k TẠI ĐÂY, VD {bank:'Vietcombank',acc:'0123456789'} — để trống = giữ hành vi cũ (báo chưa cấu hình)
+function getPay(){try{const v=JSON.parse(localStorage.getItem(PAYK)||'null');if(v&&typeof v==='object'&&v.acc)return v}catch(e){}return{bank:PAY_DEFAULT.bank,acc:PAY_DEFAULT.acc}}
 function setPay(bank,acc){try{localStorage.setItem(PAYK,JSON.stringify({bank:String(bank||'').slice(0,40),acc:String(acc||'').slice(0,40)}));return true}catch(e){return false}}
 function payLine(){const p=getPay();if(p.acc)return'CK '+(p.bank?p.bank+' ':'')+p.acc+' — nội dung: LEARNONLINE GHIM + mã đơn';return'Admin chưa cấu hình STK nhận — liên hệ admin để CK'}
 const LS='learn-online-posts-v2', VOTED='learn-online-voted-v2', ME='learn-online-me-v2', HIST='learn-online-search-v2', FAVF='learn-online-favfilter-v2', FOLLOW='learn-online-follow-v2', ONB='learn-online-onboard-v2', REP='learn-online-rep-v2', BOOST='learn-online-boost-v2', MAILS='learn-online-mails-v1', PERSONA='learn-online-persona-v1', SMSL='learn-online-sms-v1', REFLOG='learn-online-reflog-v1', DRAFT='learn-online-draft-v1';
