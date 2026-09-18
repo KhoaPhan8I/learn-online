@@ -290,7 +290,7 @@ USECASE_TMPL = """<!DOCTYPE html>
 <li>Để lại cách liên hệ để học viên nhắn tin</li>
 <li>Bấm đăng bài, copy link chia sẻ — mỗi người mở link +2 điểm</li>
 </ol>
-<p>Muốn có học viên đầu tiên trong 7 ngày? <a href="{site}/gia/">Ghim 29k/7 ngày</a>: lên kệ Nổi Bật + badge đếm ngược, duyệt 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp.</p>
+<p>Muốn có học viên đầu tiên trong 7 ngày? <a href="{site}/gia/">Ghim 29k/7 ngày</a>: lên kệ Nổi Bật + badge đếm ngược, duyệt 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Ở top 2 tuần liền: <a href="{site}/gia/">Ghim Đôi 49k/14 ngày, tiết kiệm 9k</a>.</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day">Mở lớp đầu tiên ngay</a></p>
 <h2>Khóa học gợi ý</h2>
 <ul>
@@ -326,7 +326,7 @@ PRESS_TMPL = """<!DOCTYPE html>
 <ul>
 <li>{nskills} nhóm kỹ năng</li>
 <li>{nmentors} mentor</li>
-<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày — có học viên đầu tiên trong 7 ngày (duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp; kèm Chợ tuần + kịch bản video + mẫu quảng cáo)</li>
+<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày — có học viên đầu tiên trong 7 ngày (duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp; kèm Chợ tuần + kịch bản video + mẫu quảng cáo); Ghim Đôi 49.000đ / 14 ngày (tiết kiệm 9k)</li>
 </ul>
 <h2>Asset</h2>
 <ul>
