@@ -16,7 +16,7 @@
 - [x] Doc cấu hình STK cho Owner 1 chạm (`docs/PAY_STK_SETUP.md` — Cách A trong app / Cách B PAY_DEFAULT).
 - [x] Packaging 1 upsell / bundle nhỏ (2026-09-18: hàng Ghim Đôi 49k/14 ngày tiết kiệm 9k vào `gia/index.html`, line 24).
 - [x] Theo dõi slug nào convert đầu tiên qua utm_campaign (`addBoostIntent` lưu med/camp từ `attrLast`, `boostRevenue.byCamp`, `revCampHtml` nối vào `revHtml`, self-test `boost byCamp slug` — BYCAMP_VERIFY_PASS + SEO_CHECK_OK).
-- [x] So sánh 2 CTA trên landing (đã live sẵn: `applyAb()` ở init line 830, verdict + export CSV trong dashboard, AB_CTA_VERIFY_PASS 5/5).
+- [x] So sánh 2 CTA trên landing (đã live sẵn: `applyAb()` def 825 / init 833, verdict + export CSV trong dashboard, AB_CTA_VERIFY_PASS 5/5).
 - [x] Copy outreach cho bundle Ghim Đôi 49k (mục 6 trong `docs/OUTREACH_GHIM_29K.md`, UNVERIFIED).
 - [x] Bundle ở điểm mua: hàng Ghim Đôi trong modal `boostSheetHtml` So sánh gói (`e8c6941`, GUARD_OK).
 - [x] Đóng vòng byCamp: cột medium+campaign trong `don-ghim.csv` export (`b67bdbb`, CSV_ATTR_VERIFY_PASS).
