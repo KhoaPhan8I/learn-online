@@ -511,6 +511,13 @@ def main():
         drift = [p for p, h in pages.items()
                  if (ROOT / p).is_file()
                  and (ROOT / p).read_text(encoding="utf-8") != h]
+        # bundle-tag check: every page mentioning Ghim Đôi must carry a
+        # -ghimdoi campaign tag, or byCamp can't split bundle vs single
+        # orders (gia/ exempt: it's the destination, pass-through JS keeps
+        # the inbound tag instead of hardcoding one)
+        untagged = [p for p, h in pages.items()
+                    if p != "gia/index.html"
+                    and "Ghim Đôi" in h and "ghimdoi" not in h]
         cur = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
         missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages if p not in noindex] if u not in cur]
         stale = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in noindex] if u in cur]
@@ -523,14 +530,16 @@ def main():
                         for s in load_seed()["skills"])
         covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
                         for s in load_seed()["skills"])
-        if bad or drift or missing or stale or not llms_ok or not covers_ok or not covers_vi:
-            print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(missing), "urls missing from sitemap,",
+        if bad or drift or untagged or missing or stale or not llms_ok or not covers_ok or not covers_vi:
+            print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(untagged), "bundle pages untagged,", len(missing), "urls missing from sitemap,",
                   len(stale), "noindex urls leaked in sitemap,",
                   "llms.txt missing" if not llms_ok else "llms.txt ok,",
                   "og covers missing" if not covers_ok else "og covers ok,",
                   "og covers ascii" if not covers_vi else "og covers vi ok")
             if drift:
                 print("DRIFT:", ", ".join(drift[:10]))
+            if untagged:
+                print("UNTAGGED:", ", ".join(untagged[:10]))
             return 1
         print(f"SEO_CHECK_OK ({len(pages)} pages in sync)")
         return 0

@@ -41,4 +41,5 @@
 - [x] Copy xử lý từ chối 49k (mục 8 outreach: công thức hoàn vốn Đôi `ceil(49000/giá lớp)` + mẫu nhắn reframe 58k→49k tiết kiệm 9k; UNVERIFIED, DM-gated).
 - [x] Guard content-drift cho trang build (`seo_build.py --check` chỉ check tồn tại/sitemap/llms/og nên sửa tay `gia/index.html` mất lặng khi rebuild — đúng lớp lỗi bundle-revert; thêm so disk vs render in-memory, in `DRIFT: <file>`, exit 1; proof: chèn comment → `1 files drifted`, restore → `SEO_CHECK_OK`; GUARD_OK).
 - [x] Dòng hoàn vốn `gia/` khớp outreach §8 (trước đây ví dụ chỉ 200k/50k, thiếu case 30k mà §8 đã chốt: lẻ 1 hv / Đôi 2 hv; sửa PRICE_TMPL + rebuild `gia/`; GUARD_OK + SEO_CHECK_OK).
+- [x] Guard tag bundle `-ghimdoi` (`--check` xanh dù page nhắc Ghim Đôi mà mất tag thì `byCamp` mù bundle-vs-lẻ; thêm `untagged` fail + in `UNTAGGED:`, `gia/` exempt vì pass-through giữ tag inbound; proof: template regression → `untagged-probe` bắt, cây thật `untagged-now: []`; GUARD_OK).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
