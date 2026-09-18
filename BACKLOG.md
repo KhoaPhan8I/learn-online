@@ -39,4 +39,5 @@
 - [x] Outreach §5 blocker đồng bộ 2 giá (còn quote `CK 29k` + anchor `index.html:293` stale + `payLine()` cũ; sửa `index.html:294`, CK 29k/49k, `payLine(code)`; docs-only).
 - [ ] App-lane: `ghimRoi()` (`index.html:440`) luôn hoàn vốn trên `GHIM_PRICE=29000` — buyer tick Ghim Đôi 49k thấy dòng "hoàn vốn 29k Ghim" sai số tiền; cần truyền giá theo đơn như `payLine(code)` (ghi nhận, không sửa — lane peer).
 - [x] Copy xử lý từ chối 49k (mục 8 outreach: công thức hoàn vốn Đôi `ceil(49000/giá lớp)` + mẫu nhắn reframe 58k→49k tiết kiệm 9k; UNVERIFIED, DM-gated).
+- [x] Guard content-drift cho trang build (`seo_build.py --check` chỉ check tồn tại/sitemap/llms/og nên sửa tay `gia/index.html` mất lặng khi rebuild — đúng lớp lỗi bundle-revert; thêm so disk vs render in-memory, in `DRIFT: <file>`, exit 1; proof: chèn comment → `1 files drifted`, restore → `SEO_CHECK_OK`; GUARD_OK).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).

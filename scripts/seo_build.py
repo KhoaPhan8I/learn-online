@@ -505,6 +505,12 @@ def main():
     pages, noindex = build()
     if check:
         bad = [p for p in pages if not (ROOT / p).is_file()]
+        # content check: generated page on disk must equal rendered output,
+        # so hand-edits to built files (e.g. gia/index.html) fail loudly
+        # instead of being silently overwritten on next build
+        drift = [p for p, h in pages.items()
+                 if (ROOT / p).is_file()
+                 and (ROOT / p).read_text(encoding="utf-8") != h]
         cur = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
         missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages if p not in noindex] if u not in cur]
         stale = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in noindex] if u in cur]
@@ -517,12 +523,14 @@ def main():
                         for s in load_seed()["skills"])
         covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
                         for s in load_seed()["skills"])
-        if bad or missing or stale or not llms_ok or not covers_ok or not covers_vi:
-            print("STALE:", len(bad), "files missing,", len(missing), "urls missing from sitemap,",
+        if bad or drift or missing or stale or not llms_ok or not covers_ok or not covers_vi:
+            print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(missing), "urls missing from sitemap,",
                   len(stale), "noindex urls leaked in sitemap,",
                   "llms.txt missing" if not llms_ok else "llms.txt ok,",
                   "og covers missing" if not covers_ok else "og covers ok,",
                   "og covers ascii" if not covers_vi else "og covers vi ok")
+            if drift:
+                print("DRIFT:", ", ".join(drift[:10]))
             return 1
         print(f"SEO_CHECK_OK ({len(pages)} pages in sync)")
         return 0
