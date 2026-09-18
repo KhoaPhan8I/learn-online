@@ -21,4 +21,6 @@
 - [x] Bundle ở điểm mua: hàng Ghim Đôi trong modal `boostSheetHtml` So sánh gói (`e8c6941`, GUARD_OK).
 - [x] Đóng vòng byCamp: cột medium+campaign trong `don-ghim.csv` export (`b67bdbb`, CSV_ATTR_VERIFY_PASS).
 - [x] Bundle trong generator `seo_build.py` (source of truth: PRICE_TMPL JSON-LD 2 offers + hàng Ghim Đôi + llms.txt; build lại `gia/` khớp — `547d7f6`, GUARD_OK + SEO_CHECK_OK). Bài học: KHÔNG sửa tay `gia/index.html`, generator sẽ ghi đè.
-- [ ] Cho buyer chọn Ghim Đôi 49k trong app (hiện modal mới chỉ hiện hàng so sánh; `payLine`/`doActivateBoost`/`mailOrder` còn cứng 29k → buyer Ghim Đôi phải ghi tay 49k trong mail; scale trigger khi slug ghimdoi49k ra đơn đầu).
+- [ ] Cho buyer chọn Ghim Đôi 49k trong app (peer pane đang làm, uncommitted `M index.html`: checkbox f-boost2 + plan/price plumbing + revenue sums — để peer commit).
+- [x] Upsell Ghim Đôi trên 10 trang SEO khóa học (generator PAGE_TMPL line teach-path: link Ghim Đôi 49k/14d tiết kiệm 9k cạnh CTA Ghim 29k; build lại 18 pages — `56ff1f7`, GUARD_OK + SEO_CHECK_OK).
+- [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).
