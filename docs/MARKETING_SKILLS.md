@@ -298,3 +298,4 @@ Mỗi dòng: skill → vị trí áp trong `index.html` → round.
 | test-isolation-v13 | 🧪 Khong sot key r371: guard test bat export raw khop backupKeys (23 keys) + negative control | 371 |
 | deploy-check-v37 | 🌐 Verify live r371: banner Khong sot key + TEST OK 406 (guard tron 23 keys, deploy dong bo) | 372 |
 | test-isolation-v14 | 🧪 Ghim luu chac r373: test khoa boostSaveOne persist intent (khong lech trang thai) | 373 |
+| deploy-check-v38 | 🌐 Verify live r373: banner Ghim luu chac + TEST OK 407 (boostSaveOne persist, deploy dong bo) | 374 |
