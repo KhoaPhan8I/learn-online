@@ -27,4 +27,5 @@
 - [x] Follow-up cho traffic SEO thấy CTA Ghim Đôi (mục 7 `docs/OUTREACH_GHIM_29K.md`: mẫu nhắn cho visitor `utm_medium=teach|course` chưa tick Ghim — `d5a607d`, UNVERIFIED, DM-gated chờ Owner duyệt target).
 - [x] Ghim Đôi vào bảng so-sanh trung tâm (generator COMPARE_TMPL hàng "Tìm học viên": Ghim Đôi 49k/14d cạnh Ghim 29k; build lại khớp — `14d3348`, GUARD_OK + SEO_CHECK_OK).
 - [x] Ghim Đôi vào trang usecase + báo chí (generator USECASE_TMPL CTA + PRESS_TMPL dòng giá; build lại 18 pages — `7a74165`, GUARD_OK + SEO_CHECK_OK).
+- [x] Copy 29k lẻ còn sót trong generator đồng bộ bundle (meta description + dòng hoàn vốn + llms link bảng giá đều nhắc Ghim Đôi; title giữ nguyên cho gọn SEO; build lại 18 pages, GUARD_OK + SEO_CHECK_OK).
 - [ ] Đóng vòng upsell: khi slug ghimdoi49k ra đơn đầu, scale copy trang SEO có convert cao nhất trước (dùng `byCamp`).

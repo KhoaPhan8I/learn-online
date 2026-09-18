@@ -205,7 +205,7 @@ PRICE_TMPL = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bảng giá — Đăng miễn phí, Ghim 29k/7 ngày | Learn Online</title>
-<meta name="description" content="Bảng giá Learn Online: đăng lớp miễn phí vĩnh viễn. Ghim Nổi Bật 29.000đ/7 ngày: có học viên đầu tiên trong 7 ngày — kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm.">
+<meta name="description" content="Bảng giá Learn Online: đăng lớp miễn phí vĩnh viễn. Ghim Nổi Bật 29.000đ/7 ngày: có học viên đầu tiên trong 7 ngày — kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm. Ghim Đôi 49.000đ/14 ngày (tiết kiệm 9k).">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{url}">
@@ -224,7 +224,7 @@ PRICE_TMPL = """<!DOCTYPE html>
 <tr><td>Ghim Nổi Bật</td><td>29.000đ / 7 ngày</td><td>Có học viên đầu tiên trong 7 ngày: kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm. Duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Bonus đóng đúng lo: Chợ tuần + kịch bản video 60s + mẫu quảng cáo</td></tr>
 <tr><td>Ghim Đôi (tiết kiệm 9k)</td><td>49.000đ / 14 ngày</td><td>Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp — phủ 2 tuần vàng tuyển sinh. Quyền lợi như Ghim Nổi Bật ×2. Đặt qua email admin cùng mã đơn Ghim.</td></tr>
 </table>
-<p><b>Tính nhanh hoàn vốn:</b> lớp 200.000đ/học viên chỉ cần thêm 1 học viên là hoàn vốn 29k Ghim. Lớp 50.000đ cần 1 học viên. Ghim càng rẻ khi học phí càng cao.</p>
+<p><b>Tính nhanh hoàn vốn:</b> lớp 200.000đ/học viên chỉ cần thêm 1 học viên là hoàn vốn Ghim (29k Ghim / 49k Ghim Đôi 14 ngày). Lớp 50.000đ cần 1 học viên. Ghim càng rẻ khi học phí càng cao.</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=pricing&utm_campaign=gia">Mở lớp đầu tiên miễn phí</a></p>
 <h2>Khóa học khác</h2>
 <ul>
@@ -415,7 +415,7 @@ def write_llms(seed):
               "- Ghim Nổi Bật: 29.000 VND / 7 ngày — có học viên đầu tiên trong 7 ngày (kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm). Duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Bonus đóng đúng lo: Chợ tuần + kịch bản video 60s + mẫu quảng cáo.",
               "- Ghim Đôi: 49.000 VND / 14 ngày (tiết kiệm 9k) — Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp. Đặt qua email admin cùng mã đơn Ghim.",
               "", "## Trang",
-              f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày.",
+              f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày · Ghim Đôi 49k/14 ngày.",
               f"- [Báo chí / Press kit]({SITE}/bao-chi/): câu chuyện + số liệu.",
               f"- [Cho người mới dạy]({SITE}/cho-nguoi-moi-day/): 5 bước mở lớp đầu.",
               f"- [Cách tìm lớp]({SITE}/cho-nguoi-hoc/): 3 bước tìm lớp kèm.",
