@@ -99,3 +99,18 @@ no public post/DM):
 Link kèm: https://khoaphan8i.github.io/learn-online/gia/ + link lớp cụ thể.
 Chốt đơn giữ nguyên mục 4, số tiền 29k/49k ghi rõ trong mail gửi admin
 khi STK về.
+
+## 8. Chốt khi buyer chê 49k "đắt" (mở rộng 2026-09-18, UNVERIFIED)
+
+Hoàn vốn app (`ghimRoi`, `index.html:440`) hiện luôn tính trên Ghim lẻ
+29k — buyer Đôi cần nghe con số 49k. Công thức nói miệng: **lớp [GIÁ]/hv
+chỉ cần [N]=ceil(49000/GIÁ) học viên là hoàn vốn Ghim Đôi 14 ngày**;
+ví dụ lớp 200k → 1 học viên, lớp 50k → 1 học viên, lớp 30k → 2 học viên
+(trước khi gửi tự tính lại N cho đúng giá lớp buyer — không đọc số mẫu mù).
+
+> 49k nghe to nhưng tính theo lớp bạn ([GIÁ]k/hv): chỉ cần thêm [N]
+> học viên trong 14 ngày là hoàn vốn — còn 13 ngày còn lại là lãi.
+> Ghim lẻ 2 lần tốn 58k; Đôi gộp 49k tiết kiệm 9k + không rơi khỏi top
+> giữa chừng. Không duyệt hoàn đủ như Ghim lẻ. Rep "DOI" mình giữ suất nhé!
+
+Chốt đơn giữ nguyên mục 4, số tiền 49k + mã đơn ghi rõ trong mail gửi admin.
