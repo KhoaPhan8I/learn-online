@@ -526,14 +526,21 @@ def main():
         llms_ok = bool(llms_txt) and all(
             slugify(s["slug"]) in llms_txt
             for s in load_seed()["skills"]) and "Chợ tuần" in llms_txt and "học viên đầu tiên" in llms_txt
+        # llms drift: same revert class as pages — generator overwrites
+        # llms.txt on every build, so a hand-edit must fail loudly here
+        # instead of vanishing silently on the next rebuild
+        llms_drift = bool(llms_txt) and llms_txt != write_llms(load_seed())
+        llms_state = ("missing" if not llms_txt else
+                      "drifted from generator" if llms_drift else
+                      "missing keywords" if not llms_ok else "ok")
         covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
                         for s in load_seed()["skills"])
         covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
                         for s in load_seed()["skills"])
-        if bad or drift or untagged or missing or stale or not llms_ok or not covers_ok or not covers_vi:
+        if bad or drift or untagged or missing or stale or not llms_ok or llms_drift or not covers_ok or not covers_vi:
             print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(untagged), "bundle pages untagged,", len(missing), "urls missing from sitemap,",
                   len(stale), "noindex urls leaked in sitemap,",
-                  "llms.txt missing" if not llms_ok else "llms.txt ok,",
+                  "llms.txt " + llms_state + ",",
                   "og covers missing" if not covers_ok else "og covers ok,",
                   "og covers ascii" if not covers_vi else "og covers vi ok")
             if drift:
