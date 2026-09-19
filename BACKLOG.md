@@ -3,6 +3,7 @@
 ## Tier 0 — sự cố
 - [ ] Ra khỏi `$0 UNVERIFIED`: cần buyer thật hoặc payment proof — không dừng ở demo.
 - STATE 2026-09-18 (PAY live): `PAY_DEFAULT={bank:'VietQR VPBank',acc:'10902967868'}` live + `payLine(code)` per-order + `pay cfg` khớp STK (PAY_VERIFY 8/8 + NODE_SYNTAX_OK); buyer CK ngay LEARNONLINE GHIM + mã đơn, honor-system xác nhận tay. Quota cycle: 10 DM draft cá nhân hóa theo 10 skill (`docs/DM_QUOTA_2026-09-18.md`, `76201c6`) + docs sync PAY live (`PAY_STK_SETUP.md`, `OUTREACH §4-§5`). Funnel: views 0 / DM 10 draft 0 sent / replies 0 / closes 0 / `$0 UNVERIFIED`. Còn chờ (Owner gate): deploy repo→production (no push main) + duyệt target outbound DM trước khi gửi (rào: no public post/DM).
+- STATE 2026-09-19: local PAY live re-verify (NODE_SYNTAX_OK + SEO_CHECK_OK 18 pages); production STALE (sell 319KB 0×STK — chỉ còn placeholder `pay-acc`, gia 3.5K title cũ thiếu Ghim Đôi, 0×STK/email); local ahead 52, deploy blocked (no push main — hard stop); DM 10 draft 0 sent gated (chờ Owner duyệt target). Funnel: views 0 / DM 10 draft 0 sent / replies 0 / closes 0 / `$0 UNVERIFIED`.
 
 ## Tier 1 — roadmap tuần
 - [x] `/ship` 1 course unit bán được (b76883a: 10 course pages learner+mentor CTA + Ghim 29k upsell).
