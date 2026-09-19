@@ -9,7 +9,7 @@ Live: **https://khoaphan8i.github.io/learn-online/**
 1. Mở live link trên → bấm **Đăng lớp** (hoặc CTA hero).
 2. Điền tên / kỹ năng / tiêu đề / liên hệ → tick **📌 Ghim Nổi Bật 7 ngày (29k)** → **Đăng bài**.
 3. App tạo đơn pending mã `LO-XXXXXX` + nội dung CK `LEARNONLINE GHIM LO-XXXXXX`.
-4. Chưa có STK công khai: bấm **Gửi đơn cho admin** (mailto `khoaphanofficial@gmail.com`) để nhận STK + CK 29k. Admin duyệt trong 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp.
+4. CK **VietQR VPBank 10902967868** (live 2026-09-18) — nội dung `LEARNONLINE GHIM LO-XXXXXX` (29k Ghim / 49k Ghim Đôi theo đơn) → bấm **Gửi đơn cho admin** (mailto `khoaphanofficial@gmail.com`) để báo đã CK. Admin duyệt trong 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp.
 5. Share link đơn: `https://khoaphan8i.github.io/learn-online/?code=LO-XXXXXX` — mở link là thấy đơn + modal Ghim.
 
 ## Chính sách Ghim
