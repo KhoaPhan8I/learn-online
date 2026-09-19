@@ -545,13 +545,19 @@ def main():
         # when a cover is missing (.stat() alone would raise instead of False)
         covers_vi = all(_og_has_vi(ROOT / f"og-{slugify(s['slug'])}.png")
                         for s in load_seed()["skills"])
-        if bad or drift or untagged or missing or stale or sm_drift or not llms_ok or llms_drift or not covers_ok or not covers_vi:
+        # pay-stk check: root index.html is hand-maintained (not generated),
+        # but it's the only file holding the live STK — an accidental edit
+        # here kills checkout silently, so --check must fail loudly
+        pay_txt = (ROOT / "index.html").read_text(encoding="utf-8-sig") if (ROOT / "index.html").is_file() else ""
+        pay_ok = "PAY_DEFAULT" in pay_txt and pay_txt.count("10902967868") >= 3
+        if bad or drift or untagged or missing or stale or sm_drift or not llms_ok or llms_drift or not covers_ok or not covers_vi or not pay_ok:
             print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(untagged), "bundle pages untagged,", len(missing), "urls missing from sitemap,",
                   len(stale), "noindex urls leaked in sitemap,",
                   "sitemap drifted from generator," if sm_drift else "sitemap structure ok,",
                   "llms.txt " + llms_state + ",",
                   "og covers missing" if not covers_ok else "og covers ok,",
-                  "og covers ascii" if not covers_vi else "og covers vi ok")
+                  "og covers ascii" if not covers_vi else "og covers vi ok,",
+                  "pay STK live" if pay_ok else "PAY STK MISSING from index.html")
             if drift:
                 print("DRIFT:", ", ".join(drift[:10]))
             if untagged:
