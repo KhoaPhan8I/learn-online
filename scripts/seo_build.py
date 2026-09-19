@@ -43,7 +43,8 @@ COURSE_TMPL = """<!DOCTYPE html>
 <nav aria-label="breadcrumb"><a href="{site}/">Learn Online</a> / <a href="{site}/khoa-hoc/">Khóa học</a> / {title}</nav>
 <h1>{title}</h1>
 <p>{desc}</p>
-<p><a href="{site}/?utm_source=seo&utm_medium=course&utm_campaign={slug}">Mở lớp học trên Learn Online</a></p>
+<p>🎓 <b>Học {name}:</b> <a href="{site}/?utm_source=seo&utm_medium=course&utm_campaign={slug}">tìm lớp {name} trên Learn Online</a> — hỏi mentor trước khi đăng ký, học phí do mentor tự đặt.</p>
+<p>🚀 <b>Dạy {name}:</b> <a href="{site}/?utm_source=seo&utm_medium=teach&utm_campaign={slug}">đăng lớp miễn phí trong 1 phút</a> — muốn có học viên đầu tiên trong 7 ngày thì <a href="{site}/gia/?utm_source=seo&utm_medium=teach&utm_campaign={slug}-ghim">Ghim Nổi Bật 29k/7 ngày</a> (duyệt 24h, không duyệt hoàn tiền) · ở lại top 2 tuần liền: <a href="{site}/gia/?utm_source=seo&utm_medium=teach&utm_campaign={slug}-ghimdoi">Ghim Đôi 49k/14 ngày, tiết kiệm 9k</a>.</p>
 <h2>Khóa học khác</h2>
 <ul>
 {related}
@@ -131,7 +132,7 @@ def render_course(skill, all_skills):
     others = [(f"Học {s['name']} online", f"{SITE}/khoa-hoc/{slugify(s['slug'])}/")
               for s in all_skills if slugify(s["slug"]) != slug][:3]
     return f"khoa-hoc/{slug}/index.html", COURSE_TMPL.format(
-        title=html.escape(title), desc=html.escape(desc),
+        title=html.escape(title), desc=html.escape(desc), name=html.escape(skill["name"]),
         url=url, site=SITE, slug=slug, related=related_links(others), foot=SITE_FOOT).replace(
         f"{SITE}/og-cover.png", f"{SITE}/og-{slug}.png")
 
@@ -176,7 +177,7 @@ COMPARE_TMPL = """<!DOCTYPE html>
 <tr><td>Chi phí mở lớp</td><td>Thuê mặt bằng, in tài liệu</td><td>Miễn phí đăng bài</td></tr>
 <tr><td>Học phí</td><td>Trung tâm ấn định</td><td>Mentor tự đặt</td></tr>
 <tr><td>Ai dạy được</td><td>Giáo viên hợp đồng</td><td>Bất cứ ai có kỹ năng</td></tr>
-<tr><td>Tìm học viên</td><td>Chạy quảng cáo, phát tờ rơi</td><td>Chia sẻ link, streak, Ghim 29k/7 ngày</td></tr>
+<tr><td>Tìm học viên</td><td>Chạy quảng cáo, phát tờ rơi</td><td>Chia sẻ link, streak, Ghim 29k/7 ngày · ở top 2 tuần: <a href="{site}/gia/?utm_source=seo&utm_medium=compare&utm_campaign=trung-tam-ghimdoi">Ghim Đôi 49k/14 ngày</a></td></tr>
 </table>
 <p>Trung tâm phù hợp khi bạn cần phòng học vật lý và giáo trình chuẩn. Learn Online phù hợp khi bạn có kỹ năng và muốn dạy ngay, không vốn.</p>
 <h2>Nền tảng khóa học đóng gói thì sao?</h2>
@@ -204,13 +205,13 @@ PRICE_TMPL = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bảng giá — Đăng miễn phí, Ghim 29k/7 ngày | Learn Online</title>
-<meta name="description" content="Bảng giá Learn Online: đăng lớp miễn phí vĩnh viễn. Ghim Nổi Bật 29.000đ/7 ngày: có học viên đầu tiên trong 7 ngày — kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm.">
+<meta name="description" content="Bảng giá Learn Online: đăng lớp miễn phí vĩnh viễn. Ghim Nổi Bật 29.000đ/7 ngày: có học viên đầu tiên trong 7 ngày — kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm. Ghim Đôi 49.000đ/14 ngày (tiết kiệm 9k).">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{site}/og-cover.png">
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"Ghim Nổi Bật — Learn Online","description":"Có học viên đầu tiên trong 7 ngày: ghim lớp lên kệ Nổi Bật kèm badge đếm ngược. Thanh toán chuyển khoản, duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp.","offers":{{"@type":"Offer","price":"29000","priceCurrency":"VND","availability":"https://schema.org/InStock","url":"{url}"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"Ghim Nổi Bật — Learn Online","description":"Có học viên đầu tiên trong 7 ngày: ghim lớp lên kệ Nổi Bật kèm badge đếm ngược. Thanh toán chuyển khoản, duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp.","offers":[{{"@type":"Offer","price":"29000","priceCurrency":"VND","availability":"https://schema.org/InStock","url":"{url}"}},{{"@type":"Offer","name":"Ghim Đôi 14 ngày","price":"49000","priceCurrency":"VND","availability":"https://schema.org/InStock","url":"{url}"}}]}}
 </script>
 </head>
 <body>
@@ -221,9 +222,20 @@ PRICE_TMPL = """<!DOCTYPE html>
 <tr><th>Gói</th><th>Giá</th><th>Được gì</th></tr>
 <tr><td>Miễn phí</td><td>0đ, vĩnh viễn</td><td>Đăng lớp không giới hạn, tự đặt học phí, hỏi/đăng ký/bình luận, streak + referral, lên kệ theo thời gian</td></tr>
 <tr><td>Ghim Nổi Bật</td><td>29.000đ / 7 ngày</td><td>Có học viên đầu tiên trong 7 ngày: kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm. Duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Bonus đóng đúng lo: Chợ tuần + kịch bản video 60s + mẫu quảng cáo</td></tr>
+<tr><td>Ghim Đôi (tiết kiệm 9k)</td><td>49.000đ / 14 ngày</td><td>Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp — phủ 2 tuần vàng tuyển sinh. Quyền lợi như Ghim Nổi Bật ×2. Đặt qua email admin (khoaphanofficial@gmail.com) cùng mã đơn Ghim.</td></tr>
 </table>
-<p><b>Tính nhanh hoàn vốn:</b> lớp 200.000đ/học viên chỉ cần thêm 1 học viên là hoàn vốn 29k Ghim. Lớp 50.000đ cần 1 học viên. Ghim càng rẻ khi học phí càng cao.</p>
+<p><b>Tính nhanh hoàn vốn:</b> lớp 200.000đ/học viên chỉ cần thêm 1 học viên là hoàn vốn Ghim (29k Ghim / 49k Ghim Đôi 14 ngày). Lớp 50.000đ cần 1 học viên. Lớp 30.000đ cần 1 học viên (Ghim lẻ) / 2 học viên (Ghim Đôi). Ghim càng rẻ khi học phí càng cao.</p>
+<h2>Hỏi nhanh trước khi Ghim</h2>
+<ul>
+<li><b>Đặt Ghim thế nào?</b> Đăng lớp trong app, tick Ghim (29k) hoặc Ghim Đôi (49k), app tạo mã đơn <b>LO-XXXXXX</b> + nội dung CK <b>LEARNONLINE GHIM + mã đơn</b>; gửi mail cho admin (<b>khoaphanofficial@gmail.com</b>) theo hướng dẫn trong app để nhận STK.</li>
+<li><b>Ghim Đôi khác gì 2 lần Ghim lẻ?</b> Cùng 1 lớp, 2 đợt 7 ngày liên tiếp (14 ngày, 49k — tiết kiệm 9k), giữ top tìm kiếm liền 2 tuần tuyển sinh thay vì rơi khỏi kệ giữa chừng.</li>
+<li><b>Không duyệt thì sao?</b> Duyệt trong 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp.</li>
+</ul>
 <p><a href="{site}/?utm_source=seo&utm_medium=pricing&utm_campaign=gia">Mở lớp đầu tiên miễn phí</a></p>
+<script>
+// pass incoming utm_* through to CTA so byCamp keeps bundle source (e.g. slug-ghimdoi)
+(function(){{var q=new URLSearchParams(location.search),c=q.get('utm_campaign');if(!c)return;var s=q.get('utm_source'),m=q.get('utm_medium');document.querySelectorAll('a[href*=\"utm_\"]').forEach(function(a){{var u=new URL(a.href);u.searchParams.set('utm_campaign',c);if(s)u.searchParams.set('utm_source',s);if(m)u.searchParams.set('utm_medium',m);a.href=u.toString()}})}})();
+</script>
 <h2>Khóa học khác</h2>
 <ul>
 {related}
@@ -288,7 +300,7 @@ USECASE_TMPL = """<!DOCTYPE html>
 <li>Để lại cách liên hệ để học viên nhắn tin</li>
 <li>Bấm đăng bài, copy link chia sẻ — mỗi người mở link +2 điểm</li>
 </ol>
-<p>Muốn có học viên đầu tiên trong 7 ngày? <a href="{site}/gia/">Ghim 29k/7 ngày</a>: lên kệ Nổi Bật + badge đếm ngược, duyệt 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp.</p>
+<p>Muốn có học viên đầu tiên trong 7 ngày? <a href="{site}/gia/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day-ghim">Ghim 29k/7 ngày</a>: lên kệ Nổi Bật + badge đếm ngược, duyệt 24h, quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Ở top 2 tuần liền: <a href="{site}/gia/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day-ghimdoi">Ghim Đôi 49k/14 ngày, tiết kiệm 9k</a>.</p>
 <p><a href="{site}/?utm_source=seo&utm_medium=usecase&utm_campaign=nguoi-moi-day">Mở lớp đầu tiên ngay</a></p>
 <h2>Khóa học gợi ý</h2>
 <ul>
@@ -324,7 +336,7 @@ PRESS_TMPL = """<!DOCTYPE html>
 <ul>
 <li>{nskills} nhóm kỹ năng</li>
 <li>{nmentors} mentor</li>
-<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày — có học viên đầu tiên trong 7 ngày (duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp; kèm Chợ tuần + kịch bản video + mẫu quảng cáo)</li>
+<li>Đăng bài miễn phí; Ghim Nổi Bật 29.000đ / 7 ngày — có học viên đầu tiên trong 7 ngày (duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp; kèm Chợ tuần + kịch bản video + mẫu quảng cáo); <a href="{site}/gia/?utm_source=seo&utm_medium=press&utm_campaign=bao-chi-ghimdoi">Ghim Đôi 49.000đ / 14 ngày (tiết kiệm 9k)</a></li>
 </ul>
 <h2>Asset</h2>
 <ul>
@@ -411,8 +423,9 @@ def write_llms(seed):
                      f"{', '.join(m.get('skills', []))}. {m.get('bio', '')}".rstrip())
     lines += ["", "## Chính sách",
               "- Ghim Nổi Bật: 29.000 VND / 7 ngày — có học viên đầu tiên trong 7 ngày (kệ Nổi Bật + badge đếm ngược + đứng đầu tìm kiếm). Duyệt 24h; quá 24h chưa duyệt hoàn đủ trong 24h tiếp. Bonus đóng đúng lo: Chợ tuần + kịch bản video 60s + mẫu quảng cáo.",
+              "- Ghim Đôi: 49.000 VND / 14 ngày (tiết kiệm 9k) — Ghim 2 đợt 7 ngày liên tiếp cho cùng 1 lớp. Đặt qua email admin (khoaphanofficial@gmail.com) cùng mã đơn Ghim.",
               "", "## Trang",
-              f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày.",
+              f"- [Bảng giá]({SITE}/gia/): đăng miễn phí, Ghim 29k/7 ngày · Ghim Đôi 49k/14 ngày.",
               f"- [Báo chí / Press kit]({SITE}/bao-chi/): câu chuyện + số liệu.",
               f"- [Cho người mới dạy]({SITE}/cho-nguoi-moi-day/): 5 bước mở lớp đầu.",
               f"- [Cách tìm lớp]({SITE}/cho-nguoi-hoc/): 3 bước tìm lớp kèm.",
@@ -492,35 +505,81 @@ def main():
     pages, noindex = build()
     if check:
         bad = [p for p in pages if not (ROOT / p).is_file()]
+        # content check: generated page on disk must equal rendered output,
+        # so hand-edits to built files (e.g. gia/index.html) fail loudly
+        # instead of being silently overwritten on next build
+        drift = [p for p, h in pages.items()
+                 if (ROOT / p).is_file()
+                 and (ROOT / p).read_text(encoding="utf-8") != h]
+        # bundle-tag check: every page mentioning Ghim Đôi must carry a
+        # -ghimdoi campaign tag, or byCamp can't split bundle vs single
+        # orders (gia/ exempt: it's the destination, pass-through JS keeps
+        # the inbound tag instead of hardcoding one)
+        untagged = [p for p, h in pages.items()
+                    if p != "gia/index.html"
+                    and "Ghim Đôi" in h and "ghimdoi" not in h]
         cur = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
         missing = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in pages if p not in noindex] if u not in cur]
         stale = [u for u in [f"{SITE}/{p.replace('index.html', '')}" for p in noindex] if u in cur]
+        # sitemap drift: same revert class — generator overwrites it on every
+        # build, so a hand-edit must fail loudly; strip <lastmod> (today's
+        # date) so the compare doesn't false-positive on a daily rebuild
+        norm = lambda t: re.sub(r"<lastmod>[^<]*</lastmod>", "<lastmod/>", t)
+        sm_drift = norm(cur) != norm(write_sitemap(pages, noindex)) if cur else False
         llms = ROOT / "llms.txt"
         llms_txt = llms.read_text(encoding="utf-8") if llms.is_file() else ""
         llms_ok = bool(llms_txt) and all(
             slugify(s["slug"]) in llms_txt
             for s in load_seed()["skills"]) and "Chợ tuần" in llms_txt and "học viên đầu tiên" in llms_txt
+        # llms drift: same revert class as pages — generator overwrites
+        # llms.txt on every build, so a hand-edit must fail loudly here
+        # instead of vanishing silently on the next rebuild
+        llms_drift = bool(llms_txt) and llms_txt != write_llms(load_seed())
+        llms_state = ("missing" if not llms_txt else
+                      "drifted from generator" if llms_drift else
+                      "missing keywords" if not llms_ok else "ok")
         covers_ok = all((ROOT / f"og-{slugify(s['slug'])}.png").is_file()
                         for s in load_seed()["skills"])
-        covers_vi = all((ROOT / f"og-{slugify(s['slug'])}.png").stat().st_size >= 7000
+        # covers_vi: same predicate as build (size + Image.verify), not just
+        # size — a corrupt >7k PNG must fail loudly here; also crash-safe
+        # when a cover is missing (.stat() alone would raise instead of False)
+        covers_vi = all(_og_has_vi(ROOT / f"og-{slugify(s['slug'])}.png")
                         for s in load_seed()["skills"])
-        if bad or missing or stale or not llms_ok or not covers_ok or not covers_vi:
-            print("STALE:", len(bad), "files missing,", len(missing), "urls missing from sitemap,",
+        # pay-stk check: root index.html is hand-maintained (not generated),
+        # but it's the only file holding the live STK — an accidental edit
+        # here kills checkout silently, so --check must fail loudly
+        pay_txt = (ROOT / "index.html").read_text(encoding="utf-8-sig") if (ROOT / "index.html").is_file() else ""
+        pay_ok = "PAY_DEFAULT" in pay_txt and pay_txt.count("10902967868") >= 3
+        if bad or drift or untagged or missing or stale or sm_drift or not llms_ok or llms_drift or not covers_ok or not covers_vi or not pay_ok:
+            print("STALE:", len(bad), "files missing,", len(drift), "files drifted from generator,", len(untagged), "bundle pages untagged,", len(missing), "urls missing from sitemap,",
                   len(stale), "noindex urls leaked in sitemap,",
-                  "llms.txt missing" if not llms_ok else "llms.txt ok,",
+                  "sitemap drifted from generator," if sm_drift else "sitemap structure ok,",
+                  "llms.txt " + llms_state + ",",
                   "og covers missing" if not covers_ok else "og covers ok,",
-                  "og covers ascii" if not covers_vi else "og covers vi ok")
+                  "og covers ascii" if not covers_vi else "og covers vi ok,",
+                  "pay STK live" if pay_ok else "PAY STK MISSING from index.html")
+            if drift:
+                print("DRIFT:", ", ".join(drift[:10]))
+            if untagged:
+                print("UNTAGGED:", ", ".join(untagged[:10]))
             return 1
         print(f"SEO_CHECK_OK ({len(pages)} pages in sync)")
         return 0
+    def write_if_changed(path, text):
+        # idempotent build: untouched file keeps its mtime, so an unchanged
+        # rebuild shows zero diff instead of dirtying the whole tree
+        if path.is_file() and path.read_text(encoding="utf-8") == text:
+            return False
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8")
+        return True
+    wrote = 0
     for p, h in pages.items():
-        dest = ROOT / p
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(h, encoding="utf-8")
-    (ROOT / "sitemap.xml").write_text(write_sitemap(pages, noindex), encoding="utf-8")
-    (ROOT / "llms.txt").write_text(write_llms(load_seed()), encoding="utf-8")
+        wrote += write_if_changed(ROOT / p, h)
+    wrote += write_if_changed(ROOT / "sitemap.xml", write_sitemap(pages, noindex))
+    wrote += write_if_changed(ROOT / "llms.txt", write_llms(load_seed()))
     covers = write_og_covers(load_seed())
-    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt + {len(covers)} og covers)")
+    print(f"SEO_BUILD_OK ({len(pages)} pages + sitemap + llms.txt + {len(covers)} og covers, {wrote} files written)")
 
 
 if __name__ == "__main__":
